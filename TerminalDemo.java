@@ -44,8 +44,8 @@ public class TerminalDemo {
 		while(running){
 
 			terminal.moveCursor(x,y);
-			terminal.applyBackgroundColor(Terminal.Color.WHITE);
-			terminal.applyForegroundColor(Terminal.Color.BLACK);
+			terminal.applyBackgroundColor(Terminal.Color.WHITE); //cursor color
+			terminal.applyForegroundColor(Terminal.Color.BLACK);//cursor color
 			//applySGR(a,b) for multiple modifiers (bold,blink) etc.
 			terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
 			terminal.putCharacter('\u00a4');
@@ -68,8 +68,8 @@ public class TerminalDemo {
 			terminal.putCharacter(' ');
 			terminal.putCharacter(' ');
 			terminal.putCharacter(' ');
-			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
-			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
+			terminal.applyBackgroundColor(Terminal.Color.DEFAULT); //color of highlight on words and squares where cursor moves
+			terminal.applyForegroundColor(Terminal.Color.DEFAULT); //color of writing on screen
 
 			Key key = terminal.readInput();
 
