@@ -1,1 +1,3 @@
-public class
+public class CandyGrid{
+  int[][] candyGrid;
+}
