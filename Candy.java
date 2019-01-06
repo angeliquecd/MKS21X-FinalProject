@@ -1,9 +1,16 @@
 public class Candy{
-  private int color;
+  private String color;
   private boolean selected;
   private boolean toCrush;
 
   public Candy(int col, boolean sel, boolean crush) {
+    String[] arrCol = {"RED", "BLUE", "YELLOW", "GREEN", "ORANGE"};
+    color = arrCol[col];
+    selected = sel;
+    toCrush = crush;
+  }
+
+  public Candy(String col, boolean sel, boolean crush) {
     color = col;
     selected = sel;
     toCrush = crush;
@@ -25,9 +32,9 @@ public class Candy{
     return selected;
   }
 
-public int getColor(){
-  return color;
-}
+  public String getColor(){
+    return color;
+  }
 
 
 
