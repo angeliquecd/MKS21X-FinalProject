@@ -20,5 +20,31 @@ public class CandyGrid{
         }
       }
   }
-
+public ArrayList<Integer> checkMatches(){
+  checkrows();
+  checkcols();
+}
+public ArrayList<Integer> checkRows(){
+  int currentcolor;
+  int candycolor;
+  int inarow;
+  ArrayList<Integer> toreturn = new ArrayList<Integer>();
+  for (int a=0;a<row;a++){
+    currentcolor=0;
+    candycolor=0;
+    inarow=0;
+    for (int b=0;b<col;b++){
+      candycolor=candyGrid[a][b].getColor();
+      if (candycolor!=currentcolor) {
+        currentcolor=candycolor;
+        if (inarow>=3){
+          toreturn.add(b);
+        }
+        inarow=0;}
+      else{
+        inarow++;}
+    }
+  }
+  return toreturn;
+}
 }
