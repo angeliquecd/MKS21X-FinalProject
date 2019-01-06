@@ -31,7 +31,7 @@ public class CandyGrid{
     String output = "";
     for (int a=0; a<row; a++){
       for (int b=0; b<col; b++){
-        output += " O ";
+        output += " " + candyGrid[a][b].getColorInt() + " ";
       }
       output += "\n";
     }
@@ -39,9 +39,9 @@ public class CandyGrid{
   }
 
 
-   public ArrayList<Integer> checkMatches(){
-     checkRows();
-   }
+   // public ArrayList<Integer> checkMatches(){
+   //   checkRows();
+   // }
 
   public ArrayList<Integer> checkRows(){
     int currentcolor;
