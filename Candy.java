@@ -28,7 +28,10 @@ public class Candy{
 public int getColor(){
   return color;
 }
-
+//for testing purposes
+public String toString(){
+  return ""+color;
+}
 
 
 }

@@ -23,11 +23,33 @@ public class CandyGrid{
 public ArrayList<Integer> checkMatches(){
   checkRows();
 }
-public ArrayList<Integer> checkRows(){
+public ArrayList<String> checkCols(){
   int currentcolor;
   int candycolor;
   int inarow;
-  ArrayList<Integer> toreturn = new ArrayList<Integer>();
+  ArrayList<String> toreturn = new ArrayList<String>();
+  for (int a=0;a<row;a++){
+    currentcolor=0;//some value that isn't a color value
+    candycolor=0;
+    inarow=0;//resets for each new column
+    for (int b=0;b<col;b++){
+      candycolor=candyGrid[b][a].getColor();//sets color to one you're working with, moves down column
+      if (candycolor!=currentcolor) {
+        currentcolor=candycolor;//sets up for counting
+        if (inarow>=3){//need to find a way to store indices
+          toreturn.add(""+a+b);}//adds index of end of string as integer with two parts, row and col
+        inarow=0;}//resets row count
+      else{//counts candies of same shape
+        inarow++;}
+    }
+  }
+  return toreturn;}//returns array of ending indices
+
+public ArrayList<String> checkRows(){//same as col but loops through rows
+  int currentcolor;
+  int candycolor;
+  int inarow;
+  ArrayList<String> toreturn = new ArrayList<String>();
   for (int a=0;a<row;a++){
     currentcolor=0;
     candycolor=0;
@@ -37,28 +59,7 @@ public ArrayList<Integer> checkRows(){
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
         if (inarow>=3){
-          toreturn.add(b);}
-        inarow=0;}
-      else{
-        inarow++;}
-    }
-  }
-  return toreturn;}
-public ArrayList</integer> checkCols(){
-  int currentcolor;
-  int candycolor;
-  int inarow;
-  ArrayList<Integer> toreturn = new ArrayList<Integer>();
-  for (int a=0;a<row;a++){
-    currentcolor=0;
-    candycolor=0;
-    inarow=0;
-    for (int b=0;b<col;b++){
-      candycolor=candyGrid[b][a].getColor();
-      if (candycolor!=currentcolor) {
-        currentcolor=candycolor;
-        if (inarow>=3){
-          toreturn.add(b);}
+          toreturn.add(""+a+b);}
         inarow=0;}
       else{
         inarow++;}
