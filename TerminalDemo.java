@@ -41,6 +41,8 @@ public class TerminalDemo {
 		long tStart = System.currentTimeMillis();
 		long lastSecond = 0;
 
+		CandyGrid cg = new CandyGrid();
+
 		while(running){
 
 			terminal.moveCursor(x,y);
@@ -68,8 +70,11 @@ public class TerminalDemo {
 			terminal.putCharacter(' ');
 			terminal.putCharacter(' ');
 			terminal.putCharacter(' ');
+
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT); //color of highlight on words and squares where cursor moves
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT); //color of writing on screen
+
+
 
 			Key key = terminal.readInput();
 
@@ -130,4 +135,7 @@ public class TerminalDemo {
 
 		}
 	}
+
+
+
 }
