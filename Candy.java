@@ -25,7 +25,9 @@ public class Candy{
     return selected;
   }
 
-
+public int getColor(){
+  return color;
+}
 
 
 
