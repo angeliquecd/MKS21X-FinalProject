@@ -10,15 +10,17 @@ public class CandyGrid{
   public static void main(String[] args) {
     CandyGrid cg = new CandyGrid();
     System.out.println(cg.toStringDebug());
-    System.out.println(cg.checkRows());
+    System.out.println("ROWS: " + cg.checkRows());
+    System.out.println(cg.toStringDebug());
+    System.out.println("COLS: " + cg.checkCols());
   }
 
   public CandyGrid(){
       Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-      Random randgen= new Random(6);
-      row=5;
-      col=5;//for now start at ten, will change later for levels
+      Random randgen= new Random(10);
+      row=10;
+      col=10;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
       for (int a=0;a<row;a++){
         for (int b=0;b<col;b++){
@@ -26,6 +28,9 @@ public class CandyGrid{
           candyGrid[a][b]=new Candy(color, false,false);
         }
       }
+      // candyGrid[0][row-1] = new Candy(1, false, false);
+      // candyGrid[1][row-1] = new Candy(1, false, false);
+      // candyGrid[2][row-1] = new Candy(1, false, false);
   }
 
   public String toStringDebug() {
@@ -44,11 +49,11 @@ public class CandyGrid{
    //   checkRows();
    // }
 
-  public ArrayList<Integer> checkRows(){
+  public ArrayList<ArrayList<Integer>> checkRows(){
     int currentcolor;
     int candycolor;
     int inarow;
-    ArrayList<Integer> toreturn = new ArrayList<Integer>();
+    ArrayList<ArrayList<Integer>> toreturn = new ArrayList<ArrayList<Integer>>();
     for (int a=0;a<row;a++){
       currentcolor=0;
       candycolor=0;
@@ -60,7 +65,12 @@ public class CandyGrid{
           currentcolor=candycolor;
           //System.out.println(inarow);
           if (inarow>=3){
-            toreturn.add(b);}
+            ArrayList<Integer> temp = new ArrayList<Integer>();
+            temp.add(a); //adds index of row
+            temp.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+            //temp.add(inarow); //number of how many of the same candies are in a row
+            toreturn.add(temp);
+          }
           inarow=1;}
         else{
           inarow++;}
@@ -69,22 +79,27 @@ public class CandyGrid{
     return toreturn;
   }
 
-  public ArrayList<Integer> checkCols(){
+  public ArrayList<ArrayList<Integer>> checkCols(){
     int currentcolor;
     int candycolor;
     int inarow;
-    ArrayList<Integer> toreturn = new ArrayList<Integer>();
+    ArrayList<ArrayList<Integer>> toreturn = new ArrayList<ArrayList<Integer>>();
     for (int a=0;a<row;a++){
       currentcolor=0;
       candycolor=0;
-      inarow=0;
+      inarow=1;
       for (int b=0;b<col;b++){
         candycolor=candyGrid[b][a].getColorInt();
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
-            toreturn.add(b);}
-          inarow=0;}
+            ArrayList<Integer> temp = new ArrayList<Integer>();
+            temp.add(b-inarow); //adds index of row
+            temp.add(a); //adds index of the last candy in the col of candies with the same color
+            //temp.add(inarow); //number of how many of the same candies are in a row
+            toreturn.add(temp);
+          }
+          inarow=1;}
         else{
           inarow++;}
       }
