@@ -33,7 +33,7 @@ public ArrayList<Integer> checkRows(){
     candycolor=0;
     inarow=0;
     for (int b=0;b<col;b++){
-      candycolor=candyGrid[a][b].getColor();
+      candycolor=candyGrid[a][b].getColorInt();
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
         if (inarow>=3){
@@ -44,7 +44,8 @@ public ArrayList<Integer> checkRows(){
     }
   }
   return toreturn;}
-public ArrayList</integer> checkCols(){
+
+public ArrayList<integer> checkCols(){
   int currentcolor;
   int candycolor;
   int inarow;
