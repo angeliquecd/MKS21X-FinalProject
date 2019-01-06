@@ -10,14 +10,15 @@ public class CandyGrid{
   public static void main(String[] args) {
     CandyGrid cg = new CandyGrid();
     System.out.println(cg.toStringDebug());
+    System.out.println(cg.checkRows());
   }
 
   public CandyGrid(){
       Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-      Random randgen= new Random(seed);
-      row=10;
-      col=10;//for now start at ten, will change later for levels
+      Random randgen= new Random(6);
+      row=5;
+      col=5;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
       for (int a=0;a<row;a++){
         for (int b=0;b<col;b++){
@@ -51,14 +52,16 @@ public class CandyGrid{
     for (int a=0;a<row;a++){
       currentcolor=0;
       candycolor=0;
-      inarow=0;
+      inarow=1;
       for (int b=0;b<col;b++){
         candycolor=candyGrid[a][b].getColorInt();
+        //System.out.println(candyGrid[a][b].getColorInt());
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
+          //System.out.println(inarow);
           if (inarow>=3){
             toreturn.add(b);}
-          inarow=0;}
+          inarow=1;}
         else{
           inarow++;}
       }
