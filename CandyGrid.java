@@ -13,6 +13,8 @@ public class CandyGrid{
     System.out.println("ROWS: " + cg.checkRows());
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols());
+    cg.pop();
+    System.out.println(cg.toStringDebug());
   }
 
   public CandyGrid(){
@@ -54,15 +56,18 @@ public void pop(){
    if (!temp.isEmpty()){
      for (int i=0;i<temp.size();i++){
        index=temp.get(i);
-       y=index.get(0);
-       x=index.get(1);
+       System.out.println(index);
+       x=index.get(0);
+       y=index.get(1);
+       System.out.println("x: "+x+" y: "+y);
        int color=candyGrid[x][y].getColorInt();
-       int nextcolor=candyGrid[x+1][y].getColorInt();
-       while (nextcolor==color){
+       int nextcolor=candyGrid[x][y+1].getColorInt();
+       while (nextcolor==color && y<candyGrid.length-1){
+         System.out.println("in while loop");
+         System.out.println("x: "+x+"y: "+y);
          candyGrid[x][y]=new Candy(9,false,false);
-         x++;
          y++;
-         nextcolor=candyGrid[x+1][y].getColorInt();
+         nextcolor=candyGrid[x][y+1].getColorInt();
        }
      }
    }
