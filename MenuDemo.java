@@ -62,8 +62,12 @@ public class MenuDemo {
         terminal.moveCursor(x, y);
         x++;
         int c = numgen.nextInt(4);
-        if (c==0) {
-        terminal.applyBackgroundColor(Terminal.Color.GREEN);}
+        //System.out.println(c);
+        if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
+        if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
+        if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
+        if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
+        if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
         terminal.putCharacter('O');
       }
       x=11;
