@@ -45,8 +45,32 @@ public class CandyGrid{
   }
 
 
-   // public ArrayList<Integer> checkMatches(){
-   //   checkRows();
+public void pop(){
+   ArrayList<ArrayList<Integer>> temp;
+   ArrayList<Integer> index;
+   int y;
+   int x;
+   temp=checkRows();
+   if (!temp.isEmpty()){
+     for (int i=0;i<temp.size();i++){
+       index=temp.get(i);
+       y=index.get(0);
+       x=index.get(1);
+       int color=candyGrid[x][y].getColorInt();
+       int nextcolor=candyGrid[x+1][y].getColorInt();
+       while (nextcolor==color){
+         candyGrid[x][y]=new Candy(9,false,false);
+         x++;
+         y++;
+         nextcolor=candyGrid[x+1][y].getColorInt();
+       }
+     }
+   }
+   temp=checkCols();
+   if (!temp.isEmpty()){
+
+   }
+   }
    // }
 
   public ArrayList<ArrayList<Integer>> checkRows(){
