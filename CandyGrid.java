@@ -56,27 +56,41 @@ public void pop(){
    if (!temp.isEmpty()){
      for (int i=0;i<temp.size();i++){
        index=temp.get(i);
-       System.out.println(index);
+      // System.out.println(index);
        x=index.get(0);
        y=index.get(1);
-       System.out.println("x: "+x+" y: "+y);
+    //   System.out.println("x: "+x+" y: "+y);
        int color=candyGrid[x][y].getColorInt();
        int nextcolor=candyGrid[x][y+1].getColorInt();
-       while (nextcolor==color && y<candyGrid.length-1){
-         System.out.println("in while loop");
-         System.out.println("x: "+x+"y: "+y);
+       while (nextcolor==color && y<candyGrid.length){
+    //     System.out.println("in while loop");
+      //   System.out.println("x: "+x+"y: "+y);
          candyGrid[x][y]=new Candy(9,false,false);
          y++;
-         nextcolor=candyGrid[x][y+1].getColorInt();
+         nextcolor=candyGrid[x][y].getColorInt();
        }
      }
    }
    temp=checkCols();
    if (!temp.isEmpty()){
-
+     for (int i=0;i<temp.size();i++){
+       index=temp.get(i);
+       //System.out.println(index);
+       x=index.get(0);
+       y=index.get(1);
+     //   System.out.println("x: "+x+" y: "+y);
+       int color=candyGrid[x][y].getColorInt();
+       int nextcolor=candyGrid[x+1][y].getColorInt();
+       while (nextcolor==color && x<candyGrid.length){
+     //     System.out.println("in while loop");
+      //   System.out.println("x: "+x+"y: "+y);
+         candyGrid[x][y]=new Candy(8,false,false);
+         x++;
+         nextcolor=candyGrid[x][y].getColorInt();
+       }
    }
    }
-   // }
+    }
 
   public ArrayList<ArrayList<Integer>> checkRows(){
     int currentcolor;
