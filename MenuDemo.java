@@ -61,13 +61,14 @@ public class MenuDemo {
       for (int b = 0; b < 10; b++) {
         terminal.moveCursor(x, y);
         x++;
-        int c = numgen.nextInt(4);
+        int c = numgen.nextInt(5);
         //System.out.println(c);
         if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
         if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
         if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
         if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
         if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
+        if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
         terminal.putCharacter('O');
       }
       x=11;
@@ -131,11 +132,18 @@ public class MenuDemo {
         putString(1,3,terminal, "Game here...",Terminal.Color.WHITE,Terminal.Color.RED);
         putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
 
-      }else{
+      }
+      if(mode==1){
 
         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
         putString(1,3,terminal, "Not game, just a pause!",Terminal.Color.RED,Terminal.Color.WHITE);
+        putString(1,7,terminal, "Press G to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
         terminal.applySGR(Terminal.SGR.RESET_ALL);
+
+        if (key!=null && key.getCharacter()== 'g') {
+          mode=0;
+          terminal.clearScreen();
+        }
 
       }
 
