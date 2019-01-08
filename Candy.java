@@ -6,7 +6,8 @@ public class Candy{
 
   public Candy(int col, boolean sel, boolean crush) {
     String[] arrCol = {"RED", "BLUE", "YELLOW", "GREEN", "ORANGE"};
-    color = arrCol[col];
+  //  color = arrCol[col];
+  color="test";
     colorInt = col;
     selected = sel;
     toCrush = crush;
