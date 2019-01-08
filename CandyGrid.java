@@ -13,7 +13,7 @@ public class CandyGrid{
     System.out.println("ROWS: " + cg.checkRows());
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols());
-    cg.testPop();
+    cg.testPopCols();
     System.out.println(cg.toStringDebug());
   }
 
@@ -123,7 +123,22 @@ public void pop(){
   }
 
   public void testPopCols() {
-
+    ArrayList<ArrayList<Integer>> temp;
+    ArrayList<Integer> index;
+    int x,y,inarow;
+    temp=checkCols();
+    if (!temp.isEmpty()){
+      for (int i=0;i<temp.size();i++){
+        index=temp.get(i);
+        inarow=index.get(2);
+        x=index.get(0) + inarow-1;
+        y=index.get(1);
+        for (int a = x; a >= 0; a--) {
+          if (a-inarow < 0) candyGrid[a][y] = null;
+          else {candyGrid[a][y] = candyGrid[a-inarow][y];}
+        }
+      }
+    }
   }
 
   public ArrayList<ArrayList<Integer>> checkRows(){
@@ -161,19 +176,19 @@ public void pop(){
     int candycolor;
     int inarow;
     ArrayList<ArrayList<Integer>> toreturn = new ArrayList<ArrayList<Integer>>();
-    for (int a=0;a<row;a++){
+    for (int b=0;b<col;b++){
       currentcolor=0;
       candycolor=0;
       inarow=1;
-      for (int b=0;b<col;b++){
-        candycolor=candyGrid[b][a].getColorInt();
+      for (int a=0;a<row;a++){
+        candycolor=candyGrid[a][b].getColorInt();
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
             ArrayList<Integer> temp = new ArrayList<Integer>();
-            temp.add(b-inarow); //adds index of row
-            temp.add(a); //adds index of the last candy in the col of candies with the same color
-            //temp.add(inarow); //number of how many of the same candies are in a row
+            temp.add(a-inarow); //adds index of row
+            temp.add(b); //adds index of the last candy in the col of candies with the same color
+            temp.add(inarow); //number of how many of the same candies are in a row
             toreturn.add(temp);
           }
           inarow=1;}
@@ -183,6 +198,8 @@ public void pop(){
     }
     return toreturn;}
 
-    private void fillEmptyGrid() {}
+    private void fillEmptyGrid() {
+      
+    }
 
 }
