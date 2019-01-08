@@ -20,9 +20,9 @@ public class CandyGrid{
   }
 
   public CandyGrid(){
-      Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
+       seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-      Random randgen= new Random(10);
+     randgen= new Random(10);
       row=10;
       col=10;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
