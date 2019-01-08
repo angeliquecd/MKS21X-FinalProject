@@ -13,7 +13,7 @@ public class CandyGrid{
     System.out.println("ROWS: " + cg.checkRows());
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols());
-    cg.testPopCols();
+    cg.testPopRows();
     System.out.println(cg.toStringDebug());
   }
 
@@ -155,7 +155,6 @@ public void pop(){
         //System.out.println(candyGrid[a][b].getColorInt());
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
-          //System.out.println(inarow);
           if (inarow>=3){
             ArrayList<Integer> temp = new ArrayList<Integer>();
             temp.add(a); //adds index of row
@@ -165,7 +164,15 @@ public void pop(){
           }
           inarow=1;}
         else{
-          inarow++;}
+          inarow++;
+          if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+            ArrayList<Integer> temp = new ArrayList<Integer>();
+            temp.add(a); //adds index of row
+            temp.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
+            temp.add(inarow); //number of how many of the same candies are in a row
+            toreturn.add(temp);
+          }
+        }
       }
     }
     return toreturn;
