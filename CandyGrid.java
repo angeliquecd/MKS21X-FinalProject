@@ -13,7 +13,7 @@ public class CandyGrid{
     System.out.println("ROWS: " + cg.checkRows());
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols());
-   cg.pop();
+    cg.testPop();
     System.out.println(cg.toStringDebug());
   }
 
@@ -39,7 +39,8 @@ public class CandyGrid{
     String output = "";
     for (int a=0; a<row; a++){
       for (int b=0; b<col; b++){
-        output += " " + candyGrid[a][b].getColorInt() + " ";
+        if (candyGrid[a][b]==null) output += "   ";
+        else{output += " " + candyGrid[a][b].getColorInt() + " ";}
       }
       output += "\n";
     }
@@ -92,9 +93,38 @@ public void pop(){
          x++;
          nextcolor=candyGrid[x][y].getColorInt();
        }
+     }
    }
-   }
+  }
+
+  public void testPopRows() {
+    ArrayList<ArrayList<Integer>> temp;
+    ArrayList<Integer> index;
+    int x,y,inarow;
+    temp=checkRows();
+    if (!temp.isEmpty()){
+      for (int i=0;i<temp.size();i++){
+        index=temp.get(i);
+        x=index.get(0);
+        y=index.get(1);
+        inarow=index.get(2);
+        for (int b = y; b < (y+inarow); b++){
+          for (int a = x; a >= 0; a--) {
+            if (a==0) candyGrid[a][b] = null;
+            else {
+              candyGrid[a][b] = candyGrid[a-1][b];
+            }
+            // System.out.println("X: " + a + " Y: " + b);
+            // System.out.println(this.toStringDebug());
+          }
+        }
+      }
     }
+  }
+
+  public void testPopCols() {
+
+  }
 
   public ArrayList<ArrayList<Integer>> checkRows(){
     int currentcolor;
@@ -153,5 +183,6 @@ public void pop(){
     }
     return toreturn;}
 
+    private void fillEmptyGrid() {}
 
 }
