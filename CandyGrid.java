@@ -199,7 +199,15 @@ public void pop(){
     return toreturn;}
 
     private void fillEmptyGrid() {
-      
+      int newcolor;
+      for (int x = 0; x < row; x++) {
+        for (int y = 0; y < col; y++) {
+          newcolor = randgen.nextInt(4);
+          if (candyGrid[x][y]==null) {
+            candyGrid[x][y] = new Candy(newcolor, false, false);
+          }
+        }
+      }
     }
 
 }
