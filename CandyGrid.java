@@ -13,7 +13,7 @@ public class CandyGrid{
     System.out.println("ROWS: " + cg.checkRows());
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols());
-    cg.pop();
+    cg.testPopRows();
     System.out.println(cg.toStringDebug());
   }
 
@@ -27,7 +27,7 @@ public class CandyGrid{
       for (int a=0;a<row;a++){
         for (int b=0;b<col;b++){
           int color= randgen.nextInt(5);
-          candyGrid[a][b]=new Candy(color, false,false);
+          candyGrid[a][b]=new Candy(color, false,false);//ad part to create board without three in a row
         }
       }
       // candyGrid[0][row-1] = new Candy(1, false, false);
@@ -39,7 +39,8 @@ public class CandyGrid{
     String output = "";
     for (int a=0; a<row; a++){
       for (int b=0; b<col; b++){
-        output += " " + candyGrid[a][b].getColorInt() + " ";
+        if (candyGrid[a][b]==null) output += "   ";
+        else{output += " " + candyGrid[a][b].getColorInt() + " ";}
       }
       output += "\n";
     }
@@ -48,36 +49,83 @@ public class CandyGrid{
 
 
 public void pop(){
-   ArrayList<ArrayList<Integer>> temp;
-   ArrayList<Integer> index;
-   int y;
-   int x;
-   temp=checkRows();
-   if (!temp.isEmpty()){
-     for (int i=0;i<temp.size();i++){
-       index=temp.get(i);
-       System.out.println(index);
-       x=index.get(0);
-       y=index.get(1);
-       System.out.println("x: "+x+" y: "+y);
-       int color=candyGrid[x][y].getColorInt();
-       int nextcolor=candyGrid[x][y+1].getColorInt();
-       while (nextcolor==color && y<candyGrid.length-1){
-         System.out.println("in while loop");
-         System.out.println("x: "+x+"y: "+y);
-         candyGrid[x][y]=new Candy(9,false,false);
-         y++;
-         nextcolor=candyGrid[x][y+1].getColorInt();
-       }
-     }
-   }
-   temp=checkCols();
-   if (!temp.isEmpty()){
 
-   }
-   }
-   // }
+  }
 
+  public void testPopRows() {
+    ArrayList<Integer> temp;
+  //  ArrayList<Integer> index;
+    int x,y,inarow;
+    temp=checkRows2();
+    if (!temp.isEmpty()){
+        x=temp.get(0);
+        y=temp.get(1);
+        inarow=temp.get(2);
+        for (int b = y; b < (y+inarow); b++){
+          for (int a = x; a >= 0; a--) {
+            if (a==0) candyGrid[a][b] = null;
+            else {
+              candyGrid[a][b] = candyGrid[a-1][b];
+            }
+            // System.out.println("X: " + a + " Y: " + b);
+            // System.out.println(this.toStringDebug());
+          }
+        }
+      }
+    }
+
+  public void testPopCols() {
+    ArrayList<ArrayList<Integer>> temp;
+    ArrayList<Integer> index;
+    int x,y,inarow;
+    temp=checkCols();
+    if (!temp.isEmpty()){
+      for (int i=0;i<temp.size();i++){
+        index=temp.get(i);
+        inarow=index.get(2);
+        x=index.get(0) + inarow-1;
+        y=index.get(1);
+        for (int a = x; a >= 0; a--) {
+          if (a-inarow < 0) candyGrid[a][y] = null;
+          else {candyGrid[a][y] = candyGrid[a-inarow][y];}
+        }
+      }
+    }
+  }
+public ArrayList<Integer>checkRows2(){//returns first case of matching that it finds
+  int currentcolor;
+  int candycolor;
+  int inarow;
+  ArrayList<Integer> toreturn = new ArrayList<Integer>();
+  for (int a=0;a<row;a++){
+    currentcolor=0;
+    candycolor=0;
+    inarow=1;
+    for (int b=0;b<col;b++){
+      candycolor=candyGrid[a][b].getColorInt();
+      //System.out.println(candyGrid[a][b].getColorInt());
+      if (candycolor!=currentcolor) {
+        currentcolor=candycolor;
+        if (inarow>=3){
+          toreturn.add(a); //adds index of row
+          toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+          toreturn.add(inarow); //number of how many of the same candies are in a row
+          return toreturn;
+        }
+        inarow=1;}
+      else{
+        inarow++;
+        if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+          toreturn.add(a); //adds index of row
+          toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
+          toreturn.add(inarow); //number of how many of the same candies are in a row
+          return toreturn;
+        }
+      }
+    }
+  }
+  return toreturn;
+}
   public ArrayList<ArrayList<Integer>> checkRows(){
     int currentcolor;
     int candycolor;
@@ -92,17 +140,24 @@ public void pop(){
         //System.out.println(candyGrid[a][b].getColorInt());
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
-          //System.out.println(inarow);
           if (inarow>=3){
             ArrayList<Integer> temp = new ArrayList<Integer>();
             temp.add(a); //adds index of row
             temp.add(b-inarow); //adds index of the last candy in the row of candies with the same color
-            //temp.add(inarow); //number of how many of the same candies are in a row
+            temp.add(inarow); //number of how many of the same candies are in a row
             toreturn.add(temp);
           }
           inarow=1;}
         else{
-          inarow++;}
+          inarow++;
+          if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+            ArrayList<Integer> temp = new ArrayList<Integer>();
+            temp.add(a); //adds index of row
+            temp.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
+            temp.add(inarow); //number of how many of the same candies are in a row
+            toreturn.add(temp);
+          }
+        }
       }
     }
     return toreturn;
@@ -113,19 +168,19 @@ public void pop(){
     int candycolor;
     int inarow;
     ArrayList<ArrayList<Integer>> toreturn = new ArrayList<ArrayList<Integer>>();
-    for (int a=0;a<row;a++){
+    for (int b=0;b<col;b++){
       currentcolor=0;
       candycolor=0;
       inarow=1;
-      for (int b=0;b<col;b++){
-        candycolor=candyGrid[b][a].getColorInt();
+      for (int a=0;a<row;a++){
+        candycolor=candyGrid[a][b].getColorInt();
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
             ArrayList<Integer> temp = new ArrayList<Integer>();
-            temp.add(b-inarow); //adds index of row
-            temp.add(a); //adds index of the last candy in the col of candies with the same color
-            //temp.add(inarow); //number of how many of the same candies are in a row
+            temp.add(a-inarow); //adds index of row
+            temp.add(b); //adds index of the last candy in the col of candies with the same color
+            temp.add(inarow); //number of how many of the same candies are in a row
             toreturn.add(temp);
           }
           inarow=1;}
@@ -135,5 +190,16 @@ public void pop(){
     }
     return toreturn;}
 
+    private void fillEmptyGrid() {
+      int newcolor;
+      for (int x = 0; x < row; x++) {
+        for (int y = 0; y < col; y++) {
+          newcolor = randgen.nextInt(4);
+          if (candyGrid[x][y]==null) {
+            candyGrid[x][y] = new Candy(newcolor, false, false);
+          }
+        }
+      }
+    }
 
 }
