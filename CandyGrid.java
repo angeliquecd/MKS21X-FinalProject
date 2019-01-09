@@ -56,16 +56,16 @@ public class CandyGrid{
     boolean runs =true;
     boolean run=true;
     while(runs||run){
-      System.out.println("\nROWS: " + checkRows());
+      //System.out.println("\nROWS: " + checkRows());
       runs=popRows();
-      System.out.println("TEST after rows\n" + this.toStringDebug());
+      //System.out.println("TEST after rows\n" + this.toStringDebug());
       fillEmptyGrid();
-      System.out.println("AFTER FILL: \n" + toStringDebug());
-      System.out.println("\nCOL: " + checkCols());
+      //System.out.println("AFTER FILL: \n" + toStringDebug());
+      //System.out.println("\nCOL: " + checkCols());
       run=popCols();
-      System.out.println("TEST after cols\n" + this.toStringDebug());
+      //System.out.println("TEST after cols\n" + this.toStringDebug());
       fillEmptyGrid();
-      System.out.println("AFTER FILL: \n" + toStringDebug());
+      //System.out.println("AFTER FILL: \n" + toStringDebug());
 
     }
   }
