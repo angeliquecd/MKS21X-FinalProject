@@ -14,13 +14,18 @@ public class CandyGrid{
     System.out.println(cg.toStringDebug());
     System.out.println("COLS: " + cg.checkCols2());
   //  cg.testPopRows();
-    System.out.println(cg.toStringDebug());
+    //System.out.println(cg.toStringDebug());
     cg.pop();
     System.out.println(cg.toStringDebug());
+    System.out.println(cg.getSeed());
+  }
+
+  public int getSeed() {
+    return seed;
   }
 
   public CandyGrid(){
-       seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
+      Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
      randgen= new Random(10);
       row=10;
@@ -50,15 +55,15 @@ public class CandyGrid{
   }
 
 
-public void pop(){
-boolean runs =true;
-boolean run=true;
-  while(runs||run){
-    runs=testPopRows();
-    fillEmptyGrid();
-    run=testPopCols();
-    fillEmptyGrid();
-  }
+  public void pop(){
+    boolean runs =true;
+    boolean run=true;
+    while(runs||run){
+      runs=testPopRows();
+      fillEmptyGrid();
+      run=testPopCols();
+      fillEmptyGrid();
+    }
   }
 
   public boolean testPopRows() {
@@ -72,7 +77,10 @@ boolean run=true;
         inarow=temp.get(2);
         for (int b = y; b < (y+inarow); b++){
           for (int a = x; a >= 0; a--) {
-            if (a==0) candyGrid[a][b] = null;
+            if (a==0) {
+              if (b==-1) System.out.println("H " + a + " " + b );
+              candyGrid[a][b] = null;
+            }
             else {
               candyGrid[a][b] = candyGrid[a-1][b];
             }
@@ -119,7 +127,7 @@ public ArrayList<Integer>checkRows2(){//returns first case of matching that it f
         currentcolor=candycolor;
         if (inarow>=3){
           toreturn.add(a); //adds index of row
-          toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+          toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
           toreturn.add(inarow); //number of how many of the same candies are in a row
           return toreturn;
         }
@@ -155,6 +163,7 @@ public ArrayList<Integer>checkRows2(){//returns first case of matching that it f
             toreturn.add(a-inarow); //adds index of row
             toreturn.add(b); //adds index of the last candy in the col of candies with the same color
             toreturn.add(inarow); //number of how many of the same candies are in a row
+            return toreturn;
           }
           inarow=1;}
         else{
