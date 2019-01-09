@@ -24,6 +24,19 @@ public class CandyGrid{
     return seed;
   }
 
+  public int getRow() {
+    return row;
+  }
+
+  public int getCol() {
+    return col;
+  }
+
+  public Candy[][] getGrid() {
+    return candyGrid;
+  }
+
+
   public CandyGrid(){
       Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
