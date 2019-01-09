@@ -10,10 +10,10 @@ public class CandyGrid{
   public static void main(String[] args) {
     CandyGrid cg = new CandyGrid();
     System.out.println(cg.toStringDebug());
-    System.out.println("ROWS: " + cg.checkRows2());
-    System.out.println(cg.toStringDebug());
-    System.out.println("COLS: " + cg.checkCols2());
-  //  cg.testPopRows();
+    System.out.println("ROWS: " + cg.checkRows());
+    //System.out.println(cg.toStringDebug());
+    System.out.println("COLS: " + cg.checkCols());
+    //cg.testPopRows();
     //System.out.println(cg.toStringDebug());
     cg.pop();
     System.out.println(cg.toStringDebug());
@@ -27,7 +27,7 @@ public class CandyGrid{
   public CandyGrid(){
       Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-     randgen= new Random(10);
+      randgen= new Random(10);
       row=10;
       col=10;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
@@ -37,9 +37,6 @@ public class CandyGrid{
           candyGrid[a][b]=new Candy(color, false,false);//ad part to create board without three in a row
         }
       }
-      // candyGrid[0][row-1] = new Candy(1, false, false);
-      // candyGrid[1][row-1] = new Candy(1, false, false);
-      // candyGrid[2][row-1] = new Candy(1, false, false);
   }
 
   public String toStringDebug() {
@@ -55,22 +52,22 @@ public class CandyGrid{
   }
 
 
-  public void pop(){
+  public void pop(){ //combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
     boolean runs =true;
     boolean run=true;
     while(runs||run){
-      runs=testPopRows();
+      runs=popRows();
+      System.out.println();
       fillEmptyGrid();
-      run=testPopCols();
+      run=popCols();
       fillEmptyGrid();
     }
   }
 
-  public boolean testPopRows() {
+  public boolean popRows() { //removes rows of the same candy and shifts all candies down
     ArrayList<Integer> temp;
-  //  ArrayList<Integer> index;
     int x,y,inarow;
-    temp=checkRows2();
+    temp=checkRows();
     if (!temp.isEmpty()){
         x=temp.get(0);
         y=temp.get(1);
@@ -78,7 +75,6 @@ public class CandyGrid{
         for (int b = y; b < (y+inarow); b++){
           for (int a = x; a >= 0; a--) {
             if (a==0) {
-              if (b==-1) System.out.println("H " + a + " " + b );
               candyGrid[a][b] = null;
             }
             else {
@@ -90,13 +86,13 @@ public class CandyGrid{
         }
       return true;
       }
-      return false;
+      return false; //returns false if there are no more candies to remove
     }
 
-  public boolean testPopCols() {
+  public boolean popCols() {//removes columns of the same candy and shifts all candies down
     ArrayList<Integer> temp;
     int x,y,inarow;
-    temp=checkCols2();
+    temp=checkCols();
     if (!temp.isEmpty()){
       for (int i=0;i<temp.size();i++){
         inarow=temp.get(2);
@@ -109,9 +105,10 @@ public class CandyGrid{
       }
       return true;
     }
-    return false;
+    return false;//returns false if there are no more candies to remove
   }
-public ArrayList<Integer>checkRows2(){//returns first case of matching that it finds
+
+public ArrayList<Integer>checkRows(){//returns first case of matching that it finds
   int currentcolor;
   int candycolor;
   int inarow;
@@ -146,7 +143,7 @@ public ArrayList<Integer>checkRows2(){//returns first case of matching that it f
   return toreturn;
 }
 
-  public ArrayList<Integer> checkCols2(){
+  public ArrayList<Integer> checkCols(){
     int currentcolor;
     int candycolor;
     int inarow;
@@ -173,7 +170,7 @@ public ArrayList<Integer>checkRows2(){//returns first case of matching that it f
     return toreturn;
   }
 
-    private void fillEmptyGrid() {
+    private void fillEmptyGrid() { //helper method to fill empty spots in candyGrid
       int newcolor;
       for (int x = 0; x < row; x++) {
         for (int y = 0; y < col; y++) {
