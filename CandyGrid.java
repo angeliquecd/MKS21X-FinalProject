@@ -37,12 +37,12 @@ public class CandyGrid{
       for (int a=0;a<row;a++){
         colorbefore=100;
         for (int b=0;b<col;b++){
-          int color= randgen.nextInt(5);
+          int color= randgen.nextInt(6);
           if (a>0)colorabove=candyGrid[a-1][b].getColorInt();
           if (color==colorbefore||colorabove==color){
             inarow++;
           if (inarow>=2){
-            color=(color+randgen.nextInt(3)+1)%5;//should actually just give random number that isn't the previous one
+            color=(color+randgen.nextInt(4)+1)%6;//should actually just give random number that isn't the previous one
             inarow=0;
           }}
           else inarow=1;
@@ -185,7 +185,7 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
       int newcolor;
       for (int x = 0; x < row; x++) {
         for (int y = 0; y < col; y++) {
-          newcolor = randgen.nextInt(4);
+          newcolor = randgen.nextInt(6);
           if (candyGrid[x][y]==null) {
             candyGrid[x][y] = new Candy(newcolor, false, false);
           }
