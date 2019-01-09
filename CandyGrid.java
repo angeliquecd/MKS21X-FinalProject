@@ -76,10 +76,6 @@ public class CandyGrid{
     }
     return output;
   }
-public int getRow(){
-  r
-}
-
   public void pop(){ //combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
     boolean runs =true;
     boolean run=true;
