@@ -122,14 +122,13 @@ public class MenuDemo {
       terminal.applySGR(Terminal.SGR.ENTER_BOLD);
       putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
       terminal.applySGR(Terminal.SGR.RESET_ALL);
-
-
+      CandyGrid tester= new CandyGrid();
       if(mode==0){
         lastTime = currentTime;
         currentTime = System.currentTimeMillis();
         timer += (currentTime -lastTime);//add the amount of time since the last frame.
         //DO GAME STUFF HERE
-        putString(1,3,terminal, "Game here...",Terminal.Color.WHITE,Terminal.Color.RED);
+        putString(10,3,terminal, tester.toStringDebug());
         putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
 
       }
