@@ -37,6 +37,19 @@ public class MenuDemo {
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
+  public static void printpuzzle(CandyGrid a){
+    int c;
+    for (int i =0;i<a.getRow;i++){
+      for (int b=0;b<a.getCol;b++){
+        c=a.getGrid()[i][b].getColorInt();
+    if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
+    if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
+    if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
+    if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
+    if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
+    if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
+    
+  }}}
   public static void main(String[] args) {
 
     Terminal terminal = TerminalFacade.createTextTerminal();
@@ -122,14 +135,13 @@ public class MenuDemo {
       terminal.applySGR(Terminal.SGR.ENTER_BOLD);
       putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
       terminal.applySGR(Terminal.SGR.RESET_ALL);
-
-
+      CandyGrid tester= new CandyGrid();
       if(mode==0){
         lastTime = currentTime;
         currentTime = System.currentTimeMillis();
         timer += (currentTime -lastTime);//add the amount of time since the last frame.
         //DO GAME STUFF HERE
-        putString(1,3,terminal, "Game here...",Terminal.Color.WHITE,Terminal.Color.RED);
+        putString(10,3,terminal, tester.toStringDebug());
         putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
 
       }
