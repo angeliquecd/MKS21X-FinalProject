@@ -20,7 +20,7 @@ public class CandyGrid{
   }
 
   public CandyGrid(){
-       seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
+       Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
      randgen= new Random(10);
       row=10;
