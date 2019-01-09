@@ -1,5 +1,3 @@
-
-
 //API : http://mabe02.github.io/lanterna/apidocs/2.1/
 import com.googlecode.lanterna.terminal.Terminal.SGR;
 import com.googlecode.lanterna.TerminalFacade;
@@ -24,6 +22,20 @@ public class TerminalDemo {
 			t.putCharacter(s.charAt(i));
 		}
 	}
+
+	public static void putString(int r, int c,Terminal t,
+        String s, Terminal.Color forg, Terminal.Color back ){
+    t.moveCursor(r,c);
+    t.applyBackgroundColor(forg);
+    t.applyForegroundColor(Terminal.Color.BLACK);
+
+    for(int i = 0; i < s.length();i++){
+      t.putCharacter(s.charAt(i));
+    }
+    t.applyBackgroundColor(Terminal.Color.DEFAULT);
+    t.applyForegroundColor(Terminal.Color.DEFAULT);
+  }
+
 	public static void main(String[] args) {
 
 
