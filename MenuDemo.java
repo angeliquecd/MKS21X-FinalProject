@@ -37,19 +37,28 @@ public class MenuDemo {
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
-  public static void printpuzzle(CandyGrid a){
+
+  public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
+    int x1 = x;
     int c;
-    for (int i =0;i<a.getRow;i++){
-      for (int b=0;b<a.getCol;b++){
+    for (int i =0;i<a.getRow();i++){
+      for (int b=0;b<a.getCol();b++){
         c=a.getGrid()[i][b].getColorInt();
-    if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
-    if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
-    if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
-    if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
-    if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
-    if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
-    
-  }}}
+        if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+        if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+        if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+        if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+        if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+        if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+        t.moveCursor(x,y);
+        t.putCharacter('O');
+        x++;
+        }
+      }
+      x=x1;
+      y++;
+    }
+
   public static void main(String[] args) {
 
     Terminal terminal = TerminalFacade.createTextTerminal();
@@ -69,24 +78,24 @@ public class MenuDemo {
 
     Random numgen = new Random();
 
-    terminal.moveCursor(x, y);
-    for (int a = 0; a < 10; a++) {
-      for (int b = 0; b < 10; b++) {
-        terminal.moveCursor(x, y);
-        x++;
-        int c = numgen.nextInt(5);
-        //System.out.println(c);
-        if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
-        if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
-        if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
-        if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
-        if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
-        if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
-        terminal.putCharacter('O');
-      }
-      x=11;
-      y++;
-    }
+    //terminal.moveCursor(x, y);
+    // for (int a = 0; a < 10; a++) {
+    //   for (int b = 0; b < 10; b++) {
+    //     terminal.moveCursor(x, y);
+    //     x++;
+    //     int c = numgen.nextInt(5);
+    //     //System.out.println(c);
+    //     if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
+    //     if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
+    //     if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
+    //     if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
+    //     if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
+    //     if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
+    //     terminal.putCharacter('O');
+    //   }
+    //   x=11;
+    //   y++;
+    // }
 
     while(running){
 
@@ -135,13 +144,15 @@ public class MenuDemo {
       terminal.applySGR(Terminal.SGR.ENTER_BOLD);
       putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
       terminal.applySGR(Terminal.SGR.RESET_ALL);
-      CandyGrid tester= new CandyGrid();
+       CandyGrid tester= new CandyGrid();
       if(mode==0){
         lastTime = currentTime;
         currentTime = System.currentTimeMillis();
         timer += (currentTime -lastTime);//add the amount of time since the last frame.
         //DO GAME STUFF HERE
-        putString(10,3,terminal, tester.toStringDebug());
+      //  putString(10,3,terminal, tester.toStringDebug());
+        printpuzzle(tester, 11, 10, terminal);
+
         putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
 
       }
