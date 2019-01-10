@@ -37,21 +37,6 @@ public class MenuDemo {
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
-<<<<<<< HEAD
-  public static void printpuzzle(CandyGrid a){
-    int c;
-    for (int i =0;i<a.getRow;i++){
-      for (int b=0;b<a.getCol;b++){
-        c=a.getGrid()[i][b].getColorInt();
-    if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
-    if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
-    if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
-    if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
-    if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
-    if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
-    
-  }}}
-=======
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
     int x1 = x;
@@ -74,7 +59,6 @@ public class MenuDemo {
       y++;
     }
 
->>>>>>> CandyGridDevelopment
   public static void main(String[] args) {
 
     Terminal terminal = TerminalFacade.createTextTerminal();
