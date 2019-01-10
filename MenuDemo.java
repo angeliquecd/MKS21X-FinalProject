@@ -72,9 +72,8 @@ public class MenuDemo {
     long currentTime = lastTime;
     long timer = 0;
 
-    int x = 11;
+    int x = 10;
     int y = 10;
-    terminal.moveCursor(x,y);
     Random numgen = new Random();
 
     //terminal.moveCursor(x, y);
@@ -146,30 +145,39 @@ public class MenuDemo {
       CandyGrid tester= new CandyGrid();
 
       if(mode==0){//game play with unselected candy
-      //  lastTime = currentTime;
-    //    currentTime = System.currentTimeMillis();
-    //    timer += (currentTime -lastTime);//add the amount of time since the last frame.
-  //    putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
-      //Game stuff
-
-      if (key!=null){
-
-      if (key.getKind()==Key.Kind.ArrowLeft){
-        x--;
-        terminal.moveCursor(x,y);
-      }
-      if (key.getKind()==Key.Kind.ArrowRight){
-      }
-      if (key.getKind()==Key.Kind.ArrowUp){
-
-      }
-      if (key.getKind()==Key.Kind.ArrowDown){
-
-      }
-      if (key.getKind()==Key.Kind.Enter){
-        mode=1;
-
-      }}
+        //lastTime = currentTime;
+        //currentTime = System.currentTimeMillis();
+        //timer += (currentTime -lastTime);//add the amount of time since the last frame.
+        //putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
+        //Game stuff
+        if (key!=null){
+          if (key.getKind()==Key.Kind.ArrowLeft){
+            if (x>10) {
+              x--;
+              terminal.moveCursor(x,y);
+            }
+          }
+          if (key.getKind()==Key.Kind.ArrowRight){
+            if (x<19) {
+              x++;
+              terminal.moveCursor(x,y);
+            }
+          }
+          if (key.getKind()==Key.Kind.ArrowUp){
+            if (y>10) {
+              y--;
+              terminal.moveCursor(x,y);
+            }
+          }
+          if (key.getKind()==Key.Kind.ArrowDown){
+            if (y<19) {
+              y++;
+              terminal.moveCursor(x,y);
+            }
+          }
+          if (key.getKind()==Key.Kind.Enter){
+          }
+        }
       }
       if (mode==1){//once a candy has been selected
         if (key!=null){
@@ -205,7 +213,8 @@ public class MenuDemo {
     public static void setup(Terminal terminal){
 
       CandyGrid tester= new CandyGrid();
-          printpuzzle(tester, 11, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal);
+          terminal.moveCursor(10,10);
 
     }
 }
