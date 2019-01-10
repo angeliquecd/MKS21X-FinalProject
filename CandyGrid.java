@@ -50,16 +50,16 @@ public class CandyGrid{
       for (int a=0;a<row;a++){
         colorbefore=100;
         for (int b=0;b<col;b++){
-          int color= randgen.nextInt(6);
+          int color= randgen.nextInt(6);//following is to keep the puzzle from having three in a row to begin with
           if (a>0)colorabove=candyGrid[a-1][b].getColorInt();
-          if (color==colorbefore||colorabove==color){
+          if (color==colorbefore||colorabove==color){//checks if above or below are the same
             inarow++;
-          if (inarow>=2){
-            color=(color+randgen.nextInt(4)+1)%6;//should actually just give random number that isn't the previous one
+          if (inarow>=2){//keeps it from reaching three in a row
+            color=(color+randgen.nextInt(4)+1)%6;// gives random number that isn't the previous one
             inarow=0;
           }}
           else inarow=1;
-          candyGrid[a][b]=new Candy(color, false,false);//ad part to create board without three in a row
+          candyGrid[a][b]=new Candy(color, false,false);
           colorbefore=color;
         }
       }
@@ -76,8 +76,6 @@ public class CandyGrid{
     }
     return output;
   }
-
-
   public void pop(){ //combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
     boolean runs =true;
     boolean run=true;
