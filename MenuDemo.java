@@ -54,9 +54,8 @@ public class MenuDemo {
         t.putCharacter('O');
         x++;
         }
-      }
       x=x1;
-      y++;
+      y++;}
     }
 
   public static void main(String[] args) {
@@ -144,24 +143,21 @@ public class MenuDemo {
       terminal.applySGR(Terminal.SGR.ENTER_BOLD);
       putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
       terminal.applySGR(Terminal.SGR.RESET_ALL);
-<<<<<<< HEAD
+
       CandyGrid tester= new CandyGrid();
-=======
-       CandyGrid tester= new CandyGrid();
->>>>>>> CandyGridDevelopment
+
+
       if(mode==0){
         lastTime = currentTime;
         currentTime = System.currentTimeMillis();
         timer += (currentTime -lastTime);//add the amount of time since the last frame.
-        //DO GAME STUFF HERE
-<<<<<<< HEAD
-        putString(10,3,terminal, tester.toStringDebug());
-=======
-      //  putString(10,3,terminal, tester.toStringDebug());
-        printpuzzle(tester, 11, 10, terminal);
 
->>>>>>> CandyGridDevelopment
-        putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
+        //putString(10,3,terminal, tester.toStringDebug());
+
+      //  putString(10,3,terminal, tester.toStringDebug());
+        printpuzzle(tester, 5, 5, terminal);
+
+        putString(3,3,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
 
       }
       if(mode==1){
