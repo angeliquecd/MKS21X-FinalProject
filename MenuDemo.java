@@ -74,7 +74,7 @@ public class MenuDemo {
 
     int x = 11;
     int y = 10;
-
+    terminal.moveCursor(x,y);
     Random numgen = new Random();
 
     //terminal.moveCursor(x, y);
@@ -103,7 +103,7 @@ public class MenuDemo {
 			//terminal.applyForegroundColor(Terminal.Color.BLACK);//cursor color
 			//applySGR(a,b) for multiple modifiers (bold,blink) etc.
 			terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
-			terminal.putCharacter('\u00a4');
+//			terminal.putCharacter('\u00a4');
 			//terminal.putCharacter(' ');
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
@@ -132,45 +132,62 @@ public class MenuDemo {
 
         //for all modes
         if (key.getCharacter() == ' ') {
-          mode++;
-          mode%=3;//3 modes
+          if (mode==0|| mode==1) mode=2;
+          else mode=0;
           terminal.clearScreen();
           lastTime = System.currentTimeMillis();
           currentTime = System.currentTimeMillis();
         }
       }
 
-      terminal.applySGR(Terminal.SGR.ENTER_BOLD);
-      putString(1,1,terminal, "This is mode "+mode,Terminal.Color.WHITE,Terminal.Color.RED);
+
       terminal.applySGR(Terminal.SGR.RESET_ALL);
 
       CandyGrid tester= new CandyGrid();
 
       if(mode==0){//game play with unselected candy
-        lastTime = currentTime;
-        currentTime = System.currentTimeMillis();
-        timer += (currentTime -lastTime);//add the amount of time since the last frame.
-      putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
+      //  lastTime = currentTime;
+    //    currentTime = System.currentTimeMillis();
+    //    timer += (currentTime -lastTime);//add the amount of time since the last frame.
+  //    putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
       //Game stuff
-      if (key.getKind()==key.Kind.ArrowLeft){
+
+      if (key!=null){
+
+      if (key.getKind()==Key.Kind.ArrowLeft){
+        x--;
+        terminal.moveCursor(x,y);
+      }
+      if (key.getKind()==Key.Kind.ArrowRight){
+      }
+      if (key.getKind()==Key.Kind.ArrowUp){
 
       }
-      if (key.getKind()==key.Kind.ArrowLeft){
+      if (key.getKind()==Key.Kind.ArrowDown){
 
       }
-      if (key.getKind()==key.Kind.ArrowLeft){
+      if (key.getKind()==Key.Kind.Enter){
+        mode=1;
 
-      }
-      if (key.getKind()==key.Kind.ArrowLeft){
-
-      }
+      }}
       }
       if (mode==1){//once a candy has been selected
+        if (key!=null){
+        if (key.getKind()==Key.Kind.ArrowLeft){
 
+        }
+        if (key.getKind()==Key.Kind.ArrowRight){
+
+        }
+        if (key.getKind()==Key.Kind.ArrowUp){
+
+        }
+        if (key.getKind()==Key.Kind.ArrowDown){
+
+        }}
       }
 
       if(mode==2){//pause screen
-
         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
         putString(1,3,terminal, "Not game, just a pause!",Terminal.Color.RED,Terminal.Color.WHITE);
         putString(1,7,terminal, "Press G to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
@@ -186,7 +203,9 @@ public class MenuDemo {
     }
 }
     public static void setup(Terminal terminal){
+
       CandyGrid tester= new CandyGrid();
           printpuzzle(tester, 11, 10, terminal);
+
     }
 }
