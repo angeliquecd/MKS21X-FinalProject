@@ -21,8 +21,7 @@ public class MenuDemo {
   public static void putString(int r, int c,Terminal t, String s){
     t.moveCursor(r,c);
     for(int i = 0; i < s.length();i++){
-      t.putCharacter(s.charAt(i));
-    }
+      t.putCharacter(s.charAt(i));}
   }
 
   public static void putString(int r, int c,Terminal t,
@@ -30,10 +29,8 @@ public class MenuDemo {
     t.moveCursor(r,c);
     t.applyBackgroundColor(forg);
     t.applyForegroundColor(Terminal.Color.BLACK);
-
     for(int i = 0; i < s.length();i++){
-      t.putCharacter(s.charAt(i));
-    }
+      t.putCharacter(s.charAt(i));}
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
@@ -52,8 +49,7 @@ public class MenuDemo {
         if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
         t.putCharacter('O');
-        x++;
-        }
+        x++;}
       x=x1;
       y++;}
     }
@@ -109,25 +105,18 @@ public class MenuDemo {
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
 			terminal.applySGR(Terminal.SGR.RESET_ALL);
 
-
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT); //color of highlight on words and squares where cursor moves
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT); //color of writing on screen
-
-
-
 
       Key key = terminal.readInput();
       if (key != null)
       {
-
         //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
-
         //only for the game mode.
         if(mode == 0){
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
-            running = false;
-          }
+            running = false;}
         }
 
         //for all modes
@@ -146,14 +135,12 @@ public class MenuDemo {
 
       CandyGrid tester= new CandyGrid();
 
-
       if(mode==0){
         lastTime = currentTime;
         currentTime = System.currentTimeMillis();
         timer += (currentTime -lastTime);//add the amount of time since the last frame.
 
         //putString(10,3,terminal, tester.toStringDebug());
-
       //  putString(10,3,terminal, tester.toStringDebug());
         printpuzzle(tester, 5, 5, terminal);
 

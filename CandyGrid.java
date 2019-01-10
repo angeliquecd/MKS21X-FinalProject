@@ -76,6 +76,21 @@ public class CandyGrid{
     }
     return output;
   }
+
+  public void swipeCandies(int a, int b, String direction, int dir) { //direction says if swiping is vertical or horizontal, dir says left/right or up/down
+    if (direction.equals("VERTICAL")) {
+      Candy temp = candyGrid[a][b];
+      candyGrid[a][b] = candyGrid[a-dir][b]; //if dir = 1, temp will switch with candy above it, if dir = -1, temp will switch with candy below it
+      candyGrid[a-dir][b] = temp;
+    }
+    if (direction.equals("HORIZONTAL")) {
+      Candy temp = candyGrid[a][b];
+      candyGrid[a][b] = candyGrid[a][b-dir];//if dir = 1, temp will switch with candy to its left
+      candyGrid[a][b-dir] = temp;
+    }
+  }
+
+
   public void pop(){ //combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
     boolean runs =true;
     boolean run=true;
