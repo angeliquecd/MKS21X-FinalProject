@@ -19,3 +19,6 @@ We fixed the pop and check methods. We changed them so that they would only remo
 
 Day 5 (1/9/19)
 We finished the method that builds a puzzle by making it so that the puzzle can only be built such that there are no matches to start with. We started looking more at the terminal side and started writing a method to print the game as little baby circles.
+
+Day 6 (1/10/19)
+We finished printpuzzle to display the candyGrid in the terminal. We started working on the different pages and testing out how to use arrow keys. We also worked on the swipe method to switch candies before popping them.
