@@ -6,6 +6,7 @@ public class CandyGrid{
   private Random randgen;
   private int row;
   private int col;
+  private int points;
 
   public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
     CandyGrid cg = new CandyGrid();
@@ -15,7 +16,20 @@ public class CandyGrid{
     System.out.println("COLS: " + cg.checkCols());
     //cg.testPopRows();
     //System.out.println(cg.toStringDebug());
+    System.out.println(cg.getPoints());
+
+    cg.swipeCandies(1, 2, "VERTICAL", 1);
+    System.out.println(cg.toStringDebug());
+
     cg.pop();
+    System.out.println(cg.getPoints());
+
+    System.out.println(cg.toStringDebug());
+    cg.swipeCandies(2, 8, "HORIZONTAL", 1);
+    System.out.println(cg.toStringDebug());
+    cg.pop();
+    System.out.println(cg.getPoints());
+
     System.out.println(cg.toStringDebug());
     System.out.println(cg.getSeed());
   }
@@ -46,6 +60,7 @@ public class CandyGrid{
           colorbefore=color;
         }
       }
+      //candyGrid[0][0].select();
   }
 
 
@@ -65,6 +80,11 @@ public class CandyGrid{
   public Candy[][] getGrid() {
     return candyGrid;
   }
+
+  public int getPoints() {
+    return points;
+  }
+
 //––––––––––––––––––––––––––––//
 
 
@@ -132,6 +152,7 @@ public class CandyGrid{
             else {candyGrid[a][b] = candyGrid[a-1][b];}
           }
         }
+        points+=inarow*20;
         return true;
       }
       return false; //returns false if there are no more candies to remove
@@ -149,8 +170,10 @@ public class CandyGrid{
         y=temp.get(1);
         for (int a = x; a >= 0; a--) {
           if (a-inarow < 0) candyGrid[a][y] = null;
-          else {candyGrid[a][y] = candyGrid[a-inarow][y];}
+          else {candyGrid[a][y] = candyGrid[a-inarow][y];
+          }
         }
+      points+=inarow*20;
       return true;
     }
     return false;//returns false if there are no more candies to remove

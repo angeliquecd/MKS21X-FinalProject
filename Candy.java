@@ -19,7 +19,7 @@ public class Candy{
   }
 
   public void select() {
-    selected = true;
+    selected = !selected;
   }
 
   public void crush() {
