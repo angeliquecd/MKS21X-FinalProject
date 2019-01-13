@@ -7,7 +7,7 @@ public class CandyGrid{
   private int row;
   private int col;
 
-  public static void main(String[] args) {
+  public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
     CandyGrid cg = new CandyGrid();
     System.out.println(cg.toStringDebug());
     System.out.println("ROWS: " + cg.checkRows());
@@ -20,27 +20,10 @@ public class CandyGrid{
     System.out.println(cg.getSeed());
   }
 
-  public int getSeed() {
-    return seed;
-  }
-
-  public int getRow() {
-    return row;
-  }
-
-  public int getCol() {
-    return col;
-  }
-
-  public Candy[][] getGrid() {
-    return candyGrid;
-  }
-
-
   public CandyGrid(){
-      Random seedgen= new Random();  //will alter later so that user can input a seed instead of one being generated
+      Random seedgen=new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-      randgen= new Random(10);
+      randgen=new Random(10); //will change later to be a random seed
       row=10;
       col=10;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
@@ -59,18 +42,33 @@ public class CandyGrid{
             inarow=0;
           }}
           else inarow=1;
-          candyGrid[a][b]=new Candy(color, false,false);
+          candyGrid[a][b]=new Candy(color,false,false);
           colorbefore=color;
         }
       }
   }
-<<<<<<< HEAD
-public ArrayList<Integer> checkMatches(){
-  checkRows();
-}
-public ArrayList<String> checkCols(){
-=======
 
+
+//–––– Standard get methods ––––//
+  public int getSeed() {
+    return seed;
+  }
+
+  public int getRow() {
+    return row;
+  }
+
+  public int getCol() {
+    return col;
+  }
+
+  public Candy[][] getGrid() {
+    return candyGrid;
+  }
+//––––––––––––––––––––––––––––//
+
+
+//prints a grid containing all the colorInts of the candies, for debugging/testing purposes
   public String toStringDebug() {
     String output = "";
     for (int a=0; a<row; a++){
@@ -83,6 +81,8 @@ public ArrayList<String> checkCols(){
     return output;
   }
 
+
+//swipeCandies switches a selected candy with the candy next to it in a given direction
   public void swipeCandies(int a, int b, String direction, int dir) { //direction says if swiping is vertical or horizontal, dir says left/right or up/down
     if (direction.equals("VERTICAL")) {
       Candy temp = candyGrid[a][b];
@@ -97,7 +97,8 @@ public ArrayList<String> checkCols(){
   }
 
 
-  public void pop(){ //combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
+//pop() combines other methods into one —> while there are 3 or more of the same candy in a row, crush and replace them
+  public void pop(){
     boolean runs =true;
     boolean run=true;
     while(runs||run){
@@ -111,11 +112,12 @@ public ArrayList<String> checkCols(){
       //System.out.println("TEST after cols\n" + this.toStringDebug());
       fillEmptyGrid();
       //System.out.println("AFTER FILL: \n" + toStringDebug());
-
     }
   }
 
-  public boolean popRows() { //removes rows of the same candy and shifts all candies down
+
+//popRows removes candies of 3 or more in a row and shifts all candies above them down
+  public boolean popRows() {
     ArrayList<Integer> temp;
     int x,y,inarow;
     temp=checkRows();
@@ -125,7 +127,7 @@ public ArrayList<String> checkCols(){
         inarow=temp.get(2);
         for (int b = y; b < (y+inarow); b++){
           for (int a = x; a >= 0; a--) {
-            if (a==0) candyGrid[a][b] = null;
+            if (a==0) candyGrid[a][b] = null; //leaves empty spaces to fill later
             else {candyGrid[a][b] = candyGrid[a-1][b];}
           }
         }
@@ -134,7 +136,9 @@ public ArrayList<String> checkCols(){
       return false; //returns false if there are no more candies to remove
     }
 
-  public boolean popCols() {//removes columns of the same candy and shifts all candies down
+
+//popCols() removes columns of the same candy and shifts all candies down
+  public boolean popCols() {
     ArrayList<Integer> temp;
     int x,y,inarow;
     temp=checkCols();
@@ -152,48 +156,11 @@ public ArrayList<String> checkCols(){
   }
 
 public ArrayList<Integer>checkRows(){//returns first case of matching that it finds
->>>>>>> d53f5fe387427f956c59194e3540c265aa28047f
   int currentcolor;
   int candycolor;
   int inarow;
   ArrayList<String> toreturn = new ArrayList<String>();
   for (int a=0;a<row;a++){
-<<<<<<< HEAD
-    currentcolor=0;//some value that isn't a color value
-    candycolor=0;
-    inarow=0;//resets for each new column
-    for (int b=0;b<col;b++){
-      candycolor=candyGrid[b][a].getColor();//sets color to one you're working with, moves down column
-      if (candycolor!=currentcolor) {
-        currentcolor=candycolor;//sets up for counting
-        if (inarow>=3){//need to find a way to store indices
-          toreturn.add(""+a+b);}//adds index of end of string as integer with two parts, row and col
-        inarow=0;}//resets row count
-      else{//counts candies of same shape
-        inarow++;}
-    }
-  }
-  return toreturn;}//returns array of ending indices
-
-public ArrayList<String> checkRows(){//same as col but loops through rows
-  int currentcolor;
-  int candycolor;
-  int inarow;
-  ArrayList<String> toreturn = new ArrayList<String>();
-  for (int a=0;a<row;a++){
-    currentcolor=0;
-    candycolor=0;
-    inarow=0;
-    for (int b=0;b<col;b++){
-      candycolor=candyGrid[a][b].getColor();
-      if (candycolor!=currentcolor) {
-        currentcolor=candycolor;
-        if (inarow>=3){
-          toreturn.add(""+a+b);}
-        inarow=0;}
-      else{
-        inarow++;}
-=======
     currentcolor=-1;
     candycolor=-1;
     inarow=1;
@@ -216,13 +183,46 @@ public ArrayList<String> checkRows(){//same as col but loops through rows
           toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
           toreturn.add(inarow); //number of how many of the same candies are in a row
           return toreturn;
+}}}}}
+
+//checkRows() returns first case of matching horizontal candies that it finds in the grid
+  public ArrayList<Integer>checkRows(){
+    int currentcolor;
+    int candycolor;
+    int inarow;
+    ArrayList<Integer> toreturn = new ArrayList<Integer>();
+    for (int a=0;a<row;a++){
+      currentcolor=-1;
+      candycolor=-1;
+      inarow=1;
+      for (int b=0;b<col;b++){
+        candycolor=candyGrid[a][b].getColorInt();
+        //System.out.println(candyGrid[a][b].getColorInt());
+        if (candycolor!=currentcolor) {
+          currentcolor=candycolor;
+          if (inarow>=3){
+            toreturn.add(a); //adds index of row
+            toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+            toreturn.add(inarow); //number of how many of the same candies are in a row
+            return toreturn;
+          }
+          inarow=1;}
+        else{
+          inarow++;
+          if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+            toreturn.add(a); //adds index of row
+            toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
+            toreturn.add(inarow); //number of how many of the same candies are in a row
+            return toreturn;
+          }
         }
       }
     }
+    return toreturn;
   }
-  return toreturn;
-}
 
+
+  //checkCols() returns first case of matching vertical candies that it finds in the grid
   public ArrayList<Integer> checkCols(){
     int currentcolor;
     int candycolor;
@@ -246,21 +246,22 @@ public ArrayList<String> checkRows(){//same as col but loops through rows
         else{
           inarow++;}
       }
->>>>>>> d53f5fe387427f956c59194e3540c265aa28047f
     }
     return toreturn;
   }
 
-    private void fillEmptyGrid() { //helper method to fill empty spots in candyGrid
-      int newcolor;
-      for (int x = 0; x < row; x++) {
-        for (int y = 0; y < col; y++) {
-          newcolor = randgen.nextInt(6);
-          if (candyGrid[x][y]==null) {
-            candyGrid[x][y] = new Candy(newcolor, false, false);
-          }
+//helper method to fill empty spots in candyGrid
+  private void fillEmptyGrid() {
+    int newcolor;
+    for (int x = 0; x < row; x++) {
+      for (int y = 0; y < col; y++) {
+        newcolor = randgen.nextInt(6);
+        if (candyGrid[x][y]==null) {
+          candyGrid[x][y] = new Candy(newcolor, false, false);
         }
       }
     }
+  }
+
 
 }
