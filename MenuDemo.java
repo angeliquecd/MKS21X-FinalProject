@@ -17,12 +17,10 @@ import java.util.*;
 
 
 public class MenuDemo {
-
   public static void putString(int r, int c,Terminal t, String s){
     t.moveCursor(r,c);
     for(int i = 0; i < s.length();i++){
-      t.putCharacter(s.charAt(i));
-    }
+      t.putCharacter(s.charAt(i));}
   }
 
   public static void putString(int r, int c,Terminal t,
@@ -30,10 +28,8 @@ public class MenuDemo {
     t.moveCursor(r,c);
     t.applyBackgroundColor(forg);
     t.applyForegroundColor(Terminal.Color.BLACK);
-
     for(int i = 0; i < s.length();i++){
-      t.putCharacter(s.charAt(i));
-    }
+      t.putCharacter(s.charAt(i));}
     t.applyBackgroundColor(Terminal.Color.DEFAULT);
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
@@ -52,14 +48,12 @@ public class MenuDemo {
         if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
         t.putCharacter('O');
-        x++;
-        }
+        x++;}
       x=x1;
       y++;}
     }
 
   public static void main(String[] args) {
-
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
 
@@ -72,28 +66,10 @@ public class MenuDemo {
     long currentTime = lastTime;
     long timer = 0;
 
-    int x = 10;
-    int y = 10;
+     int x = 10;
+     int y = 10;
     Random numgen = new Random();
 
-    //terminal.moveCursor(x, y);
-    // for (int a = 0; a < 10; a++) {
-    //   for (int b = 0; b < 10; b++) {
-    //     terminal.moveCursor(x, y);
-    //     x++;
-    //     int c = numgen.nextInt(5);
-    //     //System.out.println(c);
-    //     if (c==0) terminal.applyForegroundColor(Terminal.Color.RED);
-    //     if (c==1) terminal.applyForegroundColor(Terminal.Color.BLUE);
-    //     if (c==2) terminal.applyForegroundColor(Terminal.Color.YELLOW);
-    //     if (c==3) terminal.applyForegroundColor(Terminal.Color.GREEN);
-    //     if (c==4) terminal.applyForegroundColor(Terminal.Color.WHITE);
-    //     if (c==5) terminal.applyForegroundColor(Terminal.Color.MAGENTA);
-    //     terminal.putCharacter('O');
-    //   }
-    //   x=11;
-    //   y++;
-    // }
     setup(terminal);
     while(running){
 
@@ -118,19 +94,13 @@ public class MenuDemo {
       Key key = terminal.readInput();
       if (key != null)
       {
-
         //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
-
         //only for the game mode.
-        if(mode == 0){
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
-            running = false;
-          }
-        }
+            running = false;}
 
-        //for all modes
-        if (key.getCharacter() == ' ') {
+        if (key.getCharacter() == ' ') {//to switch to pause
           if (mode==0|| mode==1) mode=2;
           else mode=0;
           terminal.clearScreen();
@@ -142,7 +112,7 @@ public class MenuDemo {
 
       terminal.applySGR(Terminal.SGR.RESET_ALL);
 
-      CandyGrid tester= new CandyGrid();
+      CandyGrid tester= new CandyGrid();//creates new puzzle
 
       if(mode==0){//game play with unselected candy
         //lastTime = currentTime;
@@ -176,22 +146,30 @@ public class MenuDemo {
             }
           }
           if (key.getKind()==Key.Kind.Enter){
+            mode=1;
           }
         }
       }
       if (mode==1){//once a candy has been selected
         if (key!=null){
+          int beforex, beforey;
         if (key.getKind()==Key.Kind.ArrowLeft){
-
+          beforex=x;
+          beforey=y;
+        //  putString(0,1,terminal,""+x+y);
+          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          printpuzzle(tester, 10, 10, terminal);
+          terminal.moveCursor(beforex,beforey);
+          mode=0;
         }
         if (key.getKind()==Key.Kind.ArrowRight){
-
+          tester.swipeCandies(x-10,y-10,"HORIZONTAL",-1);
         }
         if (key.getKind()==Key.Kind.ArrowUp){
-
+          tester.swipeCandies(x-10,y-10,"VERTICAL",1);
         }
         if (key.getKind()==Key.Kind.ArrowDown){
-
+          tester.swipeCandies(x-10,y-10,"VERTICAL",-1);
         }}
       }
 
