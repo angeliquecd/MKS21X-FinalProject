@@ -27,4 +27,7 @@ Day 6 (1/10/19)
 We finished printpuzzle to display the candyGrid in the terminal (need to find a way to continuously update it during the game). We started working on the different pages and testing out how to use arrow keys (also having a boundary for where the cursor can move). We also worked on the swipe method to switch candies before popping them.
 
 Day 7 (1/12/19)
-We worked on connecting the termninal commands to the candy grid by linking the swipe method to the new mode in the terminal. A bug we are encountering is connecting the x and y values to the proper grid coordinates. Sometimes candies that aren't selected move anyways. We also changed the layout a bit to be prettier.
+We worked on connecting the terminal commands to the candy grid by linking the swipe method to the new mode in the terminal. A bug we are encountering is connecting the x and y values to the proper grid coordinates. Sometimes candies that aren't selected move anyways. We also changed the layout a bit to be prettier.
+
+Day 8 (1/13/19)
+We continued working on connecting the terminal commands to the candy grid and fixing swiping and popping the candies. We also included the feature to keep track of points and end the game when an objective is reached.
