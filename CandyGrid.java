@@ -15,6 +15,14 @@ public class CandyGrid{
     System.out.println("COLS: " + cg.checkCols());
     //cg.testPopRows();
     //System.out.println(cg.toStringDebug());
+
+    cg.swipeCandies(1, 2, "VERTICAL", 1);
+    System.out.println(cg.toStringDebug());
+
+    cg.pop();
+    System.out.println(cg.toStringDebug());
+    cg.swipeCandies(2, 8, "HORIZONTAL", 1);
+    System.out.println(cg.toStringDebug());
     cg.pop();
     System.out.println(cg.toStringDebug());
     System.out.println(cg.getSeed());
