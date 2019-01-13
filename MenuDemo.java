@@ -165,43 +165,36 @@ public class MenuDemo {
         if (key.getKind()==Key.Kind.ArrowRight){
           beforex=x;
           beforey=y;
-          tester.swipeCandies(x-10,y-10,"HORIZONTAL",-1);
-        //  putString(0,1,terminal,""+x+y);
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
-          mode=0;
-        }
+          mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
           beforey=y;
-          tester.swipeCandies(x-10,y-10,"VERTICAL",1);
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
-          mode=0;
-        }
+          mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
-          tester.swipeCandies(x-10,y-10,"VERTICAL",-1);
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
-          mode=0;
-        }}
+          mode=0;}}
       }
 
       if(mode==2){//pause screen
         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-        putString(1,3,terminal, "Not game, just a pause!",Terminal.Color.RED,Terminal.Color.WHITE);
-        putString(1,7,terminal, "Press G to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
+        putString(1,3,terminal, "You are paused!",Terminal.Color.RED,Terminal.Color.WHITE);
+        putString(1,7,terminal, "Press the space bar to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
         terminal.applySGR(Terminal.SGR.RESET_ALL);
 
-        if (key!=null && key.getCharacter()== 'g') {
-          mode=0;
-          terminal.clearScreen();
-        }
+        //if (key!=null && key.getCharacter()== 'g') {
+          //mode=0;
+          //terminal.clearScreen();
+      //  }
 
       }
 
@@ -211,6 +204,9 @@ public class MenuDemo {
 
       CandyGrid tester= new CandyGrid();
           printpuzzle(tester, 10, 10, terminal);
+          putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          putString(0,1,terminal,"To quit, press escape.");
+          putString(0,2,terminal,"To pause game, press the space bar.");
           terminal.moveCursor(10,10);
 
     }
