@@ -48,7 +48,8 @@ public class MenuDemo {
         if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
         if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
-        t.putCharacter('O');
+        if(a.getGrid()[i][b].getSelect())t.putCharacter('\u2610');
+        else t.putCharacter('O');
         x++;
       }
       x=x1;
@@ -56,11 +57,27 @@ public class MenuDemo {
     }
   }
 
-  public static void moveHighlight(int x, int y, Terminal t){
-    t.applyBackgroundColor(Terminal.Color.DEFAULT);
-    t.moveCursor(x,y);
-    t.applyBackgroundColor(Terminal.Color.CYAN);
-    //t.putCharacter(' ');
+  public static void printcandy(CandyGrid a, int x, int x2, int y, int y2, Terminal t) {
+    int c = a.getGrid()[x-10][y-10].getColorInt();
+    a.getGrid()[x-10][y-10].select();
+    if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+    if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+    if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+    if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+    if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+    if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+    t.putCharacter('O');
+    x+=x2;
+    y+=y2;
+    c = a.getGrid()[x-10][y-10].getColorInt();
+    a.getGrid()[x-10][y-10].select();
+    if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+    if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+    if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+    if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+    if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+    if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+    t.putCharacter('\u2610');
   }
 
   public static void main(String[] args) {
@@ -136,7 +153,11 @@ public class MenuDemo {
           if (key.getKind()==Key.Kind.ArrowLeft){
             if (x>10) {
               x--;
-              moveHighlight(x, y, terminal);
+              terminal.moveCursor(x,y);
+              System.out.println(x);
+              System.out.println(y);
+              printcandy(tester, x, y, -1, 0, terminal);
+              //moveHighlight(x, y, terminal);
             }
           }
           if (key.getKind()==Key.Kind.ArrowRight){
@@ -168,8 +189,10 @@ public class MenuDemo {
         if (key.getKind()==Key.Kind.ArrowLeft){
           beforex=x;
           beforey=y;
-        //  putString(0,1,terminal,""+x+y);
+          //putString(0,1,terminal,""+x+y);
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          printpuzzle(tester, 10, 10, terminal);
+          tester.pop();
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
           mode=0;
@@ -179,6 +202,8 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           printpuzzle(tester, 10, 10, terminal);
+          tester.pop();
+          printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
@@ -186,12 +211,16 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           printpuzzle(tester, 10, 10, terminal);
+          tester.pop();
+          printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
+          printpuzzle(tester, 10, 10, terminal);
+          tester.pop();
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
           mode=0;}}

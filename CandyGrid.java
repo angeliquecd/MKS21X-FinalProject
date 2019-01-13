@@ -54,6 +54,7 @@ public class CandyGrid{
           colorbefore=color;
         }
       }
+      candyGrid[0][0].select();
   }
 
 
