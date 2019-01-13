@@ -36,6 +36,7 @@ public class MenuDemo {
   }
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
+    putString(0,3,t,"Points: "+a.getPoints());
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -57,28 +58,28 @@ public class MenuDemo {
     }
   }
 
-  public static void printcandy(CandyGrid a, int x, int x2, int y, int y2, Terminal t) {
-    int c = a.getGrid()[x-10][y-10].getColorInt();
-    a.getGrid()[x-10][y-10].select();
-    if (c==0) t.applyForegroundColor(Terminal.Color.RED);
-    if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
-    if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
-    if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
-    if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
-    if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-    t.putCharacter('O');
-    x+=x2;
-    y+=y2;
-    c = a.getGrid()[x-10][y-10].getColorInt();
-    a.getGrid()[x-10][y-10].select();
-    if (c==0) t.applyForegroundColor(Terminal.Color.RED);
-    if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
-    if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
-    if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
-    if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
-    if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-    t.putCharacter('\u2610');
-  }
+  // public static void printcandy(CandyGrid a, int x, int x2, int y, int y2, Terminal t) {
+  //   int c = a.getGrid()[x-10][y-10].getColorInt();
+  //   a.getGrid()[x-10][y-10].select();
+  //   if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+  //   if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+  //   if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+  //   if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+  //   if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+  //   if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+  //   t.putCharacter('O');
+  //   x+=x2;
+  //   y+=y2;
+  //   c = a.getGrid()[x-10][y-10].getColorInt();
+  //   a.getGrid()[x-10][y-10].select();
+  //   if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+  //   if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+  //   if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+  //   if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+  //   if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+  //   if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+  //   t.putCharacter('\u2610');
+  // }
 
   public static void main(String[] args) {
     Terminal terminal = TerminalFacade.createTextTerminal();
@@ -98,8 +99,8 @@ public class MenuDemo {
      int x = 10;
      int y = 10;
     Random numgen = new Random();
-
-    setup(terminal);
+    CandyGrid tester= new CandyGrid();//creates new puzzle
+    setup(terminal, tester);
     while(running){
 
     //  terminal.moveCursor(x,y);
@@ -141,7 +142,7 @@ public class MenuDemo {
 
       terminal.applySGR(Terminal.SGR.RESET_ALL);
 
-      CandyGrid tester= new CandyGrid();//creates new puzzle
+
 
       if(mode==0){//game play with unselected candy
         //lastTime = currentTime;
@@ -154,10 +155,7 @@ public class MenuDemo {
             if (x>10) {
               x--;
               terminal.moveCursor(x,y);
-              System.out.println(x);
-              System.out.println(y);
-              printcandy(tester, x, y, -1, 0, terminal);
-              //moveHighlight(x, y, terminal);
+              //printcandy(tester, x, y, -1, 0, terminal);
             }
           }
           if (key.getKind()==Key.Kind.ArrowRight){
@@ -241,10 +239,10 @@ public class MenuDemo {
 
     }
 }
-    public static void setup(Terminal terminal){
+    public static void setup(Terminal terminal, CandyGrid test){
 
-      CandyGrid tester= new CandyGrid();
-          printpuzzle(tester, 10, 10, terminal);
+      //CandyGrid tester= new CandyGrid();
+          printpuzzle(test, 10, 10, terminal);
           putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
           putString(0,1,terminal,"To quit, press escape.");
           putString(0,2,terminal,"To pause game, press the space bar.");
