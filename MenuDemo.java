@@ -35,6 +35,17 @@ public class MenuDemo {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+  public static void setup(Terminal terminal, CandyGrid test){
+    //CandyGrid tester= new CandyGrid();
+        printpuzzle(test, 10, 10, terminal);
+        putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+        putString(0,1,terminal,"To quit, press escape.");
+        putString(0,2,terminal,"To pause game, press the space bar.");
+        putString(0,3,terminal,"Objective: Get 1000 points");
+        terminal.moveCursor(10,10);
+
+  }
+
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
     putString(0,4,t,"Points: "+a.getPoints());
     int x1 = x;
@@ -253,20 +264,10 @@ public class MenuDemo {
         if (key!= null && key.getKind() == Key.Kind.Escape) {
           terminal.clearScreen();
           terminal.exitPrivateMode();
-          running = false;}
+          running = false;
+        }
       }
 
     }
-}
-    public static void setup(Terminal terminal, CandyGrid test){
-
-      //CandyGrid tester= new CandyGrid();
-          printpuzzle(test, 10, 10, terminal);
-          putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
-          putString(0,1,terminal,"To quit, press escape.");
-          putString(0,2,terminal,"To pause game, press the space bar.");
-          putString(0,3,terminal,"Objective: Get 1000 points");
-          terminal.moveCursor(10,10);
-
-    }
+  }
 }
