@@ -12,6 +12,7 @@ import com.googlecode.lanterna.input.InputDecoder;
 import com.googlecode.lanterna.input.InputProvider;
 import com.googlecode.lanterna.input.Key;
 import com.googlecode.lanterna.input.KeyMappingProfile;
+import com.googlecode.lanterna.screen.Screen;
 import java.io.*;
 import java.util.*;
 
@@ -48,10 +49,19 @@ public class MenuDemo {
         if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
         t.putCharacter('O');
-        x++;}
+        x++;
+      }
       x=x1;
-      y++;}
+      y++;
     }
+  }
+
+  public static void moveHighlight(int x, int y, Terminal t){
+    t.applyBackgroundColor(Terminal.Color.DEFAULT);
+    t.moveCursor(x,y);
+    t.applyBackgroundColor(Terminal.Color.CYAN);
+    //t.putCharacter(' ');
+  }
 
   public static void main(String[] args) {
     Terminal terminal = TerminalFacade.createTextTerminal();
@@ -59,6 +69,8 @@ public class MenuDemo {
 
     TerminalSize size = terminal.getTerminalSize();
     terminal.setCursorVisible(true);
+
+    Screen scr = new Screen(terminal, size);
 
     boolean running = true;
     int mode = 0;
@@ -124,7 +136,7 @@ public class MenuDemo {
           if (key.getKind()==Key.Kind.ArrowLeft){
             if (x>10) {
               x--;
-              terminal.moveCursor(x,y);
+              moveHighlight(x, y, terminal);
             }
           }
           if (key.getKind()==Key.Kind.ArrowRight){
