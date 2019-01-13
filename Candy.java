@@ -34,15 +34,10 @@ public class Candy{
     return selected;
   }
 
-<<<<<<< HEAD
-public int getColor(){
-  return color;
-}
 //for testing purposes
 public String toString(){
   return ""+color;
 }
-=======
   public String getColor(){
     return color;
   }
@@ -51,7 +46,6 @@ public String toString(){
     return colorInt;
   }
 
->>>>>>> d53f5fe387427f956c59194e3540c265aa28047f
 
 
 }

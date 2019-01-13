@@ -91,6 +91,7 @@ public class CandyGrid{
     }
     if (direction.equals("HORIZONTAL")) {
       Candy temp = candyGrid[a][b];
+    //  candyGrid[a][b]=new Candy(0,false,false);
       candyGrid[a][b] = candyGrid[a][b-dir];//if dir = 1, temp will switch with candy to its left
       candyGrid[a][b-dir] = temp;
     }
@@ -159,7 +160,7 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
   int currentcolor;
   int candycolor;
   int inarow;
-  ArrayList<String> toreturn = new ArrayList<String>();
+  ArrayList<Integer> toreturn = new ArrayList<Integer>();
   for (int a=0;a<row;a++){
     currentcolor=-1;
     candycolor=-1;
@@ -181,12 +182,12 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
         if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
           toreturn.add(a); //adds index of row
           toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
-          toreturn.add(inarow); //number of how many of the same candies are in a row
+          toreturn.add(inarow);}}}} //number of how many of the same candies are in a row
           return toreturn;
-}}}}}
+}
 
 //checkRows() returns first case of matching horizontal candies that it finds in the grid
-  public ArrayList<Integer>checkRows(){
+  public ArrayList<Integer> checkRows2(){
     int currentcolor;
     int candycolor;
     int inarow;
