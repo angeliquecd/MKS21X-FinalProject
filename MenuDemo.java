@@ -163,13 +163,32 @@ public class MenuDemo {
           mode=0;
         }
         if (key.getKind()==Key.Kind.ArrowRight){
+          beforex=x;
+          beforey=y;
           tester.swipeCandies(x-10,y-10,"HORIZONTAL",-1);
+        //  putString(0,1,terminal,""+x+y);
+          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          printpuzzle(tester, 10, 10, terminal);
+          terminal.moveCursor(beforex,beforey);
+          mode=0;
         }
         if (key.getKind()==Key.Kind.ArrowUp){
+          beforex=x;
+          beforey=y;
           tester.swipeCandies(x-10,y-10,"VERTICAL",1);
+          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          printpuzzle(tester, 10, 10, terminal);
+          terminal.moveCursor(beforex,beforey);
+          mode=0;
         }
         if (key.getKind()==Key.Kind.ArrowDown){
+          beforex=x;
+          beforey=y;
           tester.swipeCandies(x-10,y-10,"VERTICAL",-1);
+          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          printpuzzle(tester, 10, 10, terminal);
+          terminal.moveCursor(beforex,beforey);
+          mode=0;
         }}
       }
 
