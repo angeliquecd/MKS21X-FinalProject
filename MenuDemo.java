@@ -36,7 +36,7 @@ public class MenuDemo {
   }
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
-    putString(0,3,t,"Points: "+a.getPoints());
+    putString(0,4,t,"Points: "+a.getPoints());
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -102,7 +102,6 @@ public class MenuDemo {
     CandyGrid tester= new CandyGrid();//creates new puzzle
     setup(terminal, tester);
     while(running){
-
     //  terminal.moveCursor(x,y);
 			//terminal.applyBackgroundColor(Terminal.Color.WHITE); //cursor color
 			//terminal.applyForegroundColor(Terminal.Color.BLACK);//cursor color
@@ -150,6 +149,7 @@ public class MenuDemo {
         //timer += (currentTime -lastTime);//add the amount of time since the last frame.
         //putString(3,5,terminal, "Time: "+timer,Terminal.Color.WHITE,Terminal.Color.RED);
         //Game stuff
+        terminal.setCursorVisible(true);
         if (key!=null){
           if (key.getKind()==Key.Kind.ArrowLeft){
             if (x>10) {
@@ -182,6 +182,7 @@ public class MenuDemo {
         }
       }
       if (mode==1){//once a candy has been selected
+        terminal.setCursorVisible(true);
         if (key!=null){
           int beforex, beforey;
         if (key.getKind()==Key.Kind.ArrowLeft){
@@ -222,9 +223,15 @@ public class MenuDemo {
           printpuzzle(tester, 10, 10, terminal);
           terminal.moveCursor(beforex,beforey);
           mode=0;}}
+          if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
+            mode = 3;
+            terminal.clearScreen();
+          }
+
       }
 
       if(mode==2){//pause screen
+        terminal.setCursorVisible(false);
         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
         putString(1,3,terminal, "You are paused!",Terminal.Color.RED,Terminal.Color.WHITE);
         putString(1,7,terminal, "Press the space bar to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
@@ -237,6 +244,18 @@ public class MenuDemo {
 
       }
 
+      if(mode==3) { //win screen
+        terminal.setCursorVisible(false);
+        //terminal.clearScreen();
+        terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+        putString(1, 3, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.RED,Terminal.Color.WHITE);
+        terminal.applySGR(Terminal.SGR.RESET_ALL);
+        if (key!= null && key.getKind() == Key.Kind.Escape) {
+          terminal.clearScreen();
+          terminal.exitPrivateMode();
+          running = false;}
+      }
+
     }
 }
     public static void setup(Terminal terminal, CandyGrid test){
@@ -246,6 +265,7 @@ public class MenuDemo {
           putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
           putString(0,1,terminal,"To quit, press escape.");
           putString(0,2,terminal,"To pause game, press the space bar.");
+          putString(0,3,terminal,"Objective: Get 1000 points");
           terminal.moveCursor(10,10);
 
     }
