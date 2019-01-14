@@ -100,7 +100,16 @@ public class CandyGrid{
     }
     return output;
   }
-
+public boolean equals(CandyGrid a){
+  if (a.getRow()!=row) return false;
+  if (a.getCol()!=col) return false;
+  for (int c=0; c<row;c++){
+    for (int b=0;b<col;b++){
+      if (candyGrid[c][b].getColorInt()!=a.getGrid()[c][b].getColorInt()) return false;
+    }
+  }
+  return true;
+}
 
 //swipeCandies switches a selected candy with the candy next to it in a given direction
   public void swipeCandies(int a, int b, String direction, int dir) { //direction says if swiping is vertical or horizontal, dir says left/right or up/down

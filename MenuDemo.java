@@ -69,29 +69,6 @@ public class MenuDemo {
     }
   }
 
-  // public static void printcandy(CandyGrid a, int x, int x2, int y, int y2, Terminal t) {
-  //   int c = a.getGrid()[x-10][y-10].getColorInt();
-  //   a.getGrid()[x-10][y-10].select();
-  //   if (c==0) t.applyForegroundColor(Terminal.Color.RED);
-  //   if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
-  //   if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
-  //   if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
-  //   if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
-  //   if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-  //   t.putCharacter('O');
-  //   x+=x2;
-  //   y+=y2;
-  //   c = a.getGrid()[x-10][y-10].getColorInt();
-  //   a.getGrid()[x-10][y-10].select();
-  //   if (c==0) t.applyForegroundColor(Terminal.Color.RED);
-  //   if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
-  //   if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
-  //   if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
-  //   if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
-  //   if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-  //   t.putCharacter('\u2610');
-  // }
-
   public static void main(String[] args) {
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
@@ -134,7 +111,6 @@ public class MenuDemo {
       Key key = terminal.readInput();
       if (key != null)
       {
-        //YOU CAN PUT DIFFERENT SETS OF BUTTONS FOR DIFFERENT MODES!!!
         //only for the game mode.
           if (key.getKind() == Key.Kind.Escape) {
             terminal.exitPrivateMode();
@@ -142,7 +118,10 @@ public class MenuDemo {
 
         if (key.getCharacter() == ' ') {//to switch to pause
           if (mode==0|| mode==1) mode=2;
-          else mode=0;
+          else {
+            setup(terminal,tester);
+            mode=1;
+          }
           terminal.clearScreen();
           lastTime = System.currentTimeMillis();
           currentTime = System.currentTimeMillis();
@@ -196,42 +175,69 @@ public class MenuDemo {
         terminal.setCursorVisible(true);
         if (key!=null){
           int beforex, beforey;
+        //  CandyGrid before;
+          CandyGrid evenbefore;
+        int pointy;
         if (key.getKind()==Key.Kind.ArrowLeft){
           beforex=x;
           beforey=y;
+          evenbefore=tester;
+          pointy=tester.getPoints();
           //putString(0,1,terminal,""+x+y);
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+          //before=tester
           tester.pop();
+          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
+          terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;
         }
         if (key.getKind()==Key.Kind.ArrowRight){
           beforex=x;
           beforey=y;
+          evenbefore=tester;
+          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+          //before=tester;
           tester.pop();
+          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
+          terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
           beforey=y;
+          evenbefore=tester;
+          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+        //  before=tester;
           tester.pop();
+          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
+          terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
+        pointy=tester.getPoints();
+          evenbefore=tester;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+        //  before=tester;
           tester.pop();
+          if (pointy==tester.getPoints()) tester=evenbefore;
           printpuzzle(tester, 10, 10, terminal);
+          terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}}
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
