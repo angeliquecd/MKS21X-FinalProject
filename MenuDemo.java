@@ -169,58 +169,56 @@ public class MenuDemo {
         terminal.setCursorVisible(true);
         if (key!=null){
           int beforex, beforey;
-        //  CandyGrid before;
-          CandyGrid evenbefore;
-        int pointy;
-        if (key.getKind()==Key.Kind.ArrowLeft){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowRight){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowUp){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"VERTICAL",1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowDown){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        }//if key!=null
+          if (key.getKind()==Key.Kind.ArrowLeft){
+            beforex=x;
+            beforey=y;
+            tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+            terminal.setCursorVisible(false);
+            printpuzzle(tester, 10, 10, terminal, moves);
+            tester.pop();
+            printpuzzle(tester, 10, 10, terminal, moves);
+            terminal.setCursorVisible(true);
+            terminal.moveCursor(beforex,beforey);
+            moves--;
+            mode=0;}
+          if (key.getKind()==Key.Kind.ArrowRight){
+            beforex=x;
+            beforey=y;
+            tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
+            terminal.setCursorVisible(false);
+            printpuzzle(tester, 10, 10, terminal, moves);
+            tester.pop();
+            printpuzzle(tester, 10, 10, terminal, moves);
+            terminal.setCursorVisible(true);
+            terminal.moveCursor(beforex,beforey);
+            moves--;
+            mode=0;}
+          if (key.getKind()==Key.Kind.ArrowUp){
+            beforex=x;
+            beforey=y;
+            tester.swipeCandies(y-10,x-10,"VERTICAL",1);
+            terminal.setCursorVisible(false);
+            printpuzzle(tester, 10, 10, terminal, moves);
+            tester.pop();
+            printpuzzle(tester, 10, 10, terminal, moves);
+            terminal.setCursorVisible(true);
+            terminal.moveCursor(beforex,beforey);
+            moves--;
+            mode=0;}
+          if (key.getKind()==Key.Kind.ArrowDown){
+            beforex=x;
+            beforey=y;
+            tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
+            terminal.setCursorVisible(false);
+            printpuzzle(tester, 10, 10, terminal, moves);
+            tester.pop();
+            printpuzzle(tester, 10, 10, terminal, moves);
+            terminal.setCursorVisible(true);
+            terminal.moveCursor(beforex,beforey);
+            moves--;
+            mode=0;
+          }
+        }
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
             mode = 3;
             terminal.clearScreen();
@@ -228,35 +226,30 @@ public class MenuDemo {
 
           if (moves==0) {
             terminal.clearScreen();
-
+            mode=2;
           }
+      }
 
+      if(mode==2){//lose screen
+        terminal.setCursorVisible(false);
+        terminal.clearScreen();
+        terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+        putString(10,10,terminal, "You lost",Terminal.Color.RED,Terminal.Color.WHITE);
+        terminal.applySGR(Terminal.SGR.RESET_ALL);
+      }
 
-      }//if mode==1
-
-    //  if(mode==2){//pause screen
-      //  terminal.setCursorVisible(false);
-      //  terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-        //putString(1,3,terminal, "Welcome to Candy Crush!",Terminal.Color.RED,Terminal.Color.WHITE);
-        //putString(1,7,terminal, "Press the space bar to begin.", Terminal.Color.BLUE,Terminal.Color.WHITE);
-        //erminal.applySGR(Terminal.SGR.RESET_ALL);
-
-        //if (key!=null && key.getCharacter()== 'g') {
-          //mode=0;
-          //terminal.clearScreen();
-      //  }
 
        if(mode==3) { //win screen
          terminal.setCursorVisible(false);
          terminal.clearScreen();
-        terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-         putString(10, 10, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.RED,Terminal.Color.WHITE);
-       terminal.applySGR(Terminal.SGR.RESET_ALL);
+         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+         putString(10, 10, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+         terminal.applySGR(Terminal.SGR.RESET_ALL);
       //   if (key!= null && Key.getKind() == Key.Kind.Escape) {
       //     terminal.clearScreen();
       //     terminal.exitPrivateMode();
       //     running = false;}
-    }
+      }
       }//if mode 3
 
     }//while loop
