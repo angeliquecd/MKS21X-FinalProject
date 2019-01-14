@@ -115,9 +115,9 @@ public class MenuDemo {
         if (key.getCharacter() == ' ') {//to switch to pause
           if (mode==0|| mode==1) mode=2;
           else mode=0;
-          terminal.clearScreen();
-          lastTime = System.currentTimeMillis();
-          currentTime = System.currentTimeMillis();
+          //terminal.clearScreen();
+          //lastTime = System.currentTimeMillis();
+          //currentTime = System.currentTimeMillis();
         }
       }
 
@@ -170,7 +170,9 @@ public class MenuDemo {
           beforey=y;
         //  putString(0,1,terminal,""+x+y);
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+            terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;
         }
@@ -178,31 +180,37 @@ public class MenuDemo {
           beforex=x;
           beforey=y;
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+            terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+            terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
+          terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
+            terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           mode=0;}}
       }
 
       if(mode==2){//pause screen
+          terminal.setCursorVisible(false);
         terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
         putString(1,3,terminal, "You are paused!",Terminal.Color.RED,Terminal.Color.WHITE);
         putString(1,7,terminal, "Press the space bar to return to game", Terminal.Color.BLUE,Terminal.Color.WHITE);
         terminal.applySGR(Terminal.SGR.RESET_ALL);
-
         //if (key!=null && key.getCharacter()== 'g') {
           //mode=0;
           //terminal.clearScreen();
