@@ -91,6 +91,7 @@ public class MenuDemo {
     long lastTime =  System.currentTimeMillis();
     long currentTime = lastTime;
     long timer = 0;
+    int moves = 0;
 
      int x = 10;
      int y = 10;
@@ -173,63 +174,49 @@ public class MenuDemo {
         if (key.getKind()==Key.Kind.ArrowLeft){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
-          //putString(0,1,terminal,""+x+y);
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
           terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
-          //before=tester
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves++;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowRight){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
-          //before=tester;
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves++;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
-        //  before=tester;
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
           printpuzzle(tester, 10, 10, terminal);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves++;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
-        pointy=tester.getPoints();
-          evenbefore=tester;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
           terminal.setCursorVisible(false);
           printpuzzle(tester, 10, 10, terminal);
-        //  before=tester;
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;
-          printpuzzle(tester, 10, 10, terminal);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves++;
           mode=0;}
         }//if key!=null
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
