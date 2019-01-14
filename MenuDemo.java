@@ -35,9 +35,9 @@ public class MenuDemo {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
-  public static void setup(Terminal terminal, CandyGrid test){
+  public static void setup(Terminal terminal, CandyGrid test, int move){
     //CandyGrid tester= new CandyGrid();
-        printpuzzle(test, 10, 10, terminal);
+        printpuzzle(test, 10, 10, terminal, move);
         putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
         putString(0,1,terminal,"To quit, press escape.");
     //    putString(0,2,terminal,"To pause game, press the space bar.");
@@ -54,8 +54,9 @@ public class MenuDemo {
         terminal.moveCursor(10,10);
   }
 
-  public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
+  public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
     putString(0,4,t,"Points: "+a.getPoints());
+    putString(0,5,t,"You have " + move + " moves left");
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -91,6 +92,7 @@ public class MenuDemo {
     long lastTime =  System.currentTimeMillis();
     long currentTime = lastTime;
     long timer = 0;
+    int moves = 10;
 
      int x = 10;
      int y = 10;
@@ -128,7 +130,7 @@ public class MenuDemo {
           mode=0;
           running=false;
           terminal.clearScreen();
-          setup(terminal,tester);
+          setup(terminal,tester, moves);
           running=true;}
 
 
@@ -173,68 +175,62 @@ public class MenuDemo {
         if (key.getKind()==Key.Kind.ArrowLeft){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
-          //putString(0,1,terminal,""+x+y);
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
-          //before=tester
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowRight){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
-          //before=tester;
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
           beforey=y;
-          evenbefore=tester;
-          pointy=tester.getPoints();
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
-        //  before=tester;
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;//if no pop is done, it switches it back
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
           beforey=y;
-        pointy=tester.getPoints();
-          evenbefore=tester;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
-        //  before=tester;
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          if (pointy==tester.getPoints()) tester=evenbefore;
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
+          moves--;
           mode=0;}
         }//if key!=null
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
             mode = 3;
-            terminal.clearScreen();}
+            terminal.clearScreen();
+          }
+
+          if (moves==0) {
+            terminal.clearScreen();
+
+          }
+
 
       }//if mode==1
 
