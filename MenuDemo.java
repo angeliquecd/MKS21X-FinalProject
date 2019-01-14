@@ -54,8 +54,9 @@ public class MenuDemo {
         terminal.moveCursor(10,10);
   }
 
-  public static void printpuzzle(CandyGrid a, int x , int y, Terminal t){
+  public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
     putString(0,4,t,"Points: "+a.getPoints());
+    putString(0,4,terminal,"You have " + move + " moves left");
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -176,9 +177,9 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           moves++;
@@ -188,9 +189,9 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           moves++;
@@ -200,9 +201,9 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           moves++;
@@ -212,8 +213,9 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal);
+          printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
+          printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
           moves++;
@@ -221,7 +223,14 @@ public class MenuDemo {
         }//if key!=null
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
             mode = 3;
-            terminal.clearScreen();}
+            terminal.clearScreen();
+          }
+
+          if (moves>10) {
+            terminal.clearScreen();
+
+          }
+
 
       }//if mode==1
 
