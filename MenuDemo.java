@@ -250,16 +250,16 @@ public class MenuDemo {
           //terminal.clearScreen();
       //  }
 
-    //  if(mode==3) { //win screen
-      //  terminal.setCursorVisible(false);
-        //terminal.clearScreen();
-      //  terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-        //putString(1, 3, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.RED,Terminal.Color.WHITE);
-        //terminal.applySGR(Terminal.SGR.RESET_ALL);
-        //if (key!= null && Key.getKind() == Key.Kind.Escape) {
-          //terminal.clearScreen();
-          //terminal.exitPrivateMode();
-          //running = false;}
+      // if(mode==3) { //win screen
+      //   terminal.setCursorVisible(false);
+      //   terminal.clearScreen();
+      //   terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+      //   putString(1, 3, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.RED,Terminal.Color.WHITE);
+      //   terminal.applySGR(Terminal.SGR.RESET_ALL);
+      //   if (key!= null && Key.getKind() == Key.Kind.Escape) {
+      //     terminal.clearScreen();
+      //     terminal.exitPrivateMode();
+      //     running = false;}
       }//if mode 3
 
     }//while loop
