@@ -1,9 +1,9 @@
 # MKS21X-FinalProject
 
 Instructions:
-To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it, and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed).
-To pause, the user can hit the space bar.
-To end the game, the user can hit escape.
+To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it, and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed). Players must reach the designated number of points within the number of moves provided to win.
+To start, the user can hit the space bar.
+To end the game, the user can hit the escape key.
 
 Development Log:
 
