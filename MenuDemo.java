@@ -35,9 +35,9 @@ public class MenuDemo {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
-  public static void setup(Terminal terminal, CandyGrid test){
+  public static void setup(Terminal terminal, CandyGrid test, int move){
     //CandyGrid tester= new CandyGrid();
-        printpuzzle(test, 10, 10, terminal);
+        printpuzzle(test, 10, 10, terminal, move);
         putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
         putString(0,1,terminal,"To quit, press escape.");
     //    putString(0,2,terminal,"To pause game, press the space bar.");
@@ -56,7 +56,7 @@ public class MenuDemo {
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
     putString(0,4,t,"Points: "+a.getPoints());
-    putString(0,4,terminal,"You have " + move + " moves left");
+    putString(0,5,t,"You have " + move + " moves left");
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -92,7 +92,7 @@ public class MenuDemo {
     long lastTime =  System.currentTimeMillis();
     long currentTime = lastTime;
     long timer = 0;
-    int moves = 0;
+    int moves = 10;
 
      int x = 10;
      int y = 10;
@@ -130,7 +130,7 @@ public class MenuDemo {
           mode=0;
           running=false;
           terminal.clearScreen();
-          setup(terminal,tester);
+          setup(terminal,tester, moves);
           running=true;}
 
 
@@ -182,7 +182,7 @@ public class MenuDemo {
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
-          moves++;
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowRight){
           beforex=x;
@@ -194,7 +194,7 @@ public class MenuDemo {
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
-          moves++;
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowUp){
           beforex=x;
@@ -206,7 +206,7 @@ public class MenuDemo {
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
-          moves++;
+          moves--;
           mode=0;}
         if (key.getKind()==Key.Kind.ArrowDown){
           beforex=x;
@@ -218,7 +218,7 @@ public class MenuDemo {
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
           terminal.moveCursor(beforex,beforey);
-          moves++;
+          moves--;
           mode=0;}
         }//if key!=null
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
@@ -226,7 +226,7 @@ public class MenuDemo {
             terminal.clearScreen();
           }
 
-          if (moves>10) {
+          if (moves==0) {
             terminal.clearScreen();
 
           }
