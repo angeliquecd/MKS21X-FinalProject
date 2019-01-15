@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class MenuDemo {
+public class CandyCrush {
   public static void putString(int r, int c,Terminal t, String s){
     t.moveCursor(r,c);
     for(int i = 0; i < s.length();i++){
@@ -189,7 +189,7 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
+          printpuzzle(tester, 10, 10, terminal, moves);;
           tester.pop();
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
@@ -201,7 +201,7 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
+            printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
@@ -213,7 +213,7 @@ public class MenuDemo {
           beforey=y;
           tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
           terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
+            printpuzzle(tester, 10, 10, terminal, moves);
           tester.pop();
           printpuzzle(tester, 10, 10, terminal, moves);
           terminal.setCursorVisible(true);
