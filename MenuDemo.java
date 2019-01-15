@@ -19,9 +19,9 @@ import java.util.*;
 
 public class CandyCrush {
   public static void putString(int r, int c,Terminal t, String s){
-    t.moveCursor(r,c);
-    for(int i = 0; i < s.length();i++){
-      t.putCharacter(s.charAt(i));}
+      t.moveCursor(r,c);
+      for(int i = 0; i < s.length();i++){
+        t.putCharacter(s.charAt(i));}
   }
 
   public static void putString(int r, int c,Terminal t,
@@ -36,27 +36,23 @@ public class CandyCrush {
   }
 
   public static void setup(Terminal terminal, CandyGrid test, int move){
-    //CandyGrid tester= new CandyGrid();
-        printpuzzle(test, 10, 10, terminal, move);
-        putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
-        putString(0,1,terminal,"To quit, press escape.");
-    //    putString(0,2,terminal,"To pause game, press the space bar.");
-        putString(0,3,terminal,"Objective: Get 1000 points");
-        terminal.moveCursor(10,10);
+    printpuzzle(test, 10, 10, terminal, move);
+    putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+    putString(0,1,terminal,"To quit, press escape.");
+    putString(0,3,terminal,"Objective: Get 1000 points");
+    terminal.moveCursor(10,10);
   }
+
   public static void setup2(Terminal terminal){
-    //CandyGrid tester= new CandyGrid();
-      //  printpuzzle(test, 10, 10, terminal);
-        putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
-        putString(0,1,terminal,"To quit, press escape.");
-        putString(0,2,terminal,"To start the game, press the space bar.");
-      //  putString(0,3,terminal,"Objective: Get 1000 points");
-        terminal.moveCursor(10,10);
+    putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+    putString(0,1,terminal,"To quit, press escape.");
+    putString(0,2,terminal,"To start the game, press the space bar.");
+    terminal.moveCursor(10,10);
   }
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
     putString(0,4,t,"Points: "+a.getPoints());
-    putString(0,5,t,"You have " + move + " moves left");
+    putString(0,5,t,"You have " + move + " moves left ");
     int x1 = x;
     int c;
     for (int i =0;i<a.getRow();i++){
@@ -69,8 +65,7 @@ public class CandyCrush {
         if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
         if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
-        if(a.getGrid()[i][b].getSelect())t.putCharacter('\u2610');
-        else t.putCharacter('O');
+        t.putCharacter('O');
         x++;
       }
       x=x1;
@@ -94,171 +89,165 @@ public class CandyCrush {
     long timer = 0;
     int moves = 10;
 
-     int x = 10;
-     int y = 10;
+    int x = 10;
+    int y = 10;
     Random numgen = new Random();
     CandyGrid tester= new CandyGrid();//creates new puzzle
     setup2(terminal);
     while(running){
-    //  terminal.moveCursor(x,y);
-			//terminal.applyBackgroundColor(Terminal.Color.WHITE); //cursor color
-			//terminal.applyForegroundColor(Terminal.Color.BLACK);//cursor color
-			//applySGR(a,b) for multiple modifiers (bold,blink) etc.
+
 			terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
-//			terminal.putCharacter('\u00a4');
-			//terminal.putCharacter(' ');
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT);
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT);
 			terminal.applySGR(Terminal.SGR.RESET_ALL);
-
-
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT); //color of highlight on words and squares where cursor moves
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT); //color of writing on screen
 
 
-
-
       Key key = terminal.readInput();
-      if (key != null)
-      {
+      if (key != null) {
         //only for the game mode.
-          if (key.getKind() == Key.Kind.Escape) {
-            terminal.exitPrivateMode();
-            running = false;}
+        if (key.getKind() == Key.Kind.Escape) {
+          terminal.exitPrivateMode();
+          running = false;
+        }
 
-        if (key.getCharacter() == ' ') {//to switch to pause
+        if (key.getCharacter() == ' ') {//to switch to game play
           mode=0;
           running=false;
           terminal.clearScreen();
+          terminal.setCursorVisible(false);
           setup(terminal,tester, moves);
-          running=true;}
-
-
-      terminal.applySGR(Terminal.SGR.RESET_ALL);
-
-
-
-      if(mode==0){//game play with unselected candy
-        //Game stuff
-        terminal.setCursorVisible(true);
-        if (key!=null){
-          if (key.getKind()==Key.Kind.ArrowLeft){
-            if (x>10) {
-              x--;
-              terminal.moveCursor(x,y);}            }
-          if (key.getKind()==Key.Kind.ArrowRight){
-            if (x<19) {
-              x++;
-              terminal.moveCursor(x,y);}
-          }
-          if (key.getKind()==Key.Kind.ArrowUp){
-            if (y>10) {
-              y--;
-              terminal.moveCursor(x,y);}
-          }
-          if (key.getKind()==Key.Kind.ArrowDown){
-            if (y<19) {
-              y++;
-              terminal.moveCursor(x,y);}
-          }
-          if (key.getKind()==Key.Kind.Enter){
-            mode=1;}
+          running=true;
         }
-      }
-      if (mode==1){//once a candy has been selected
-        terminal.setCursorVisible(true);
-        if (key!=null){
-          int beforex, beforey;
-        //  CandyGrid before;
-          CandyGrid evenbefore;
-        int pointy;
-        if (key.getKind()==Key.Kind.ArrowLeft){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
+
+        terminal.applySGR(Terminal.SGR.RESET_ALL);
+
+        if(mode==0){//game play with unselected candy
           terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowRight){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
-          terminal.setCursorVisible(false);
-          printpuzzle(tester, 10, 10, terminal, moves);;
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
+          if (key!=null){
+            if (key.getKind()==Key.Kind.ArrowLeft){
+              if (x>10) {
+                x--;
+                terminal.moveCursor(x,y);
+              }
+            }
+            if (key.getKind()==Key.Kind.ArrowRight){
+              if (x<19) {
+                x++;
+                terminal.moveCursor(x,y);
+              }
+            }
+            if (key.getKind()==Key.Kind.ArrowUp){
+              if (y>10) {
+                y--;
+                terminal.moveCursor(x,y);
+              }
+            }
+            if (key.getKind()==Key.Kind.ArrowDown){
+              if (y<19) {
+                y++;
+                terminal.moveCursor(x,y);
+              }
+            }
+            if (key.getKind()==Key.Kind.Enter) mode=1;
+          }
+        }
+
+        if (mode==1){//once a candy has been selected
           terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowUp){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"VERTICAL",1);
-          terminal.setCursorVisible(false);
-            printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        if (key.getKind()==Key.Kind.ArrowDown){
-          beforex=x;
-          beforey=y;
-          tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
-          terminal.setCursorVisible(false);
-            printpuzzle(tester, 10, 10, terminal, moves);
-          tester.pop();
-          printpuzzle(tester, 10, 10, terminal, moves);
-          terminal.setCursorVisible(true);
-          terminal.moveCursor(beforex,beforey);
-          moves--;
-          mode=0;}
-        }//if key!=null
+          if (key!=null){
+            int beforex, beforey;
+            if (key.getKind()==Key.Kind.ArrowLeft){
+              beforex=x;
+              beforey=y;
+              tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
+              terminal.setCursorVisible(false);
+              printpuzzle(tester, 10, 10, terminal, moves);
+              tester.pop();
+              moves--;
+              printpuzzle(tester, 10, 10, terminal, moves);
+              terminal.setCursorVisible(true);
+              terminal.moveCursor(beforex,beforey);
+              mode=0;
+            }
+            if (key.getKind()==Key.Kind.ArrowRight){
+              beforex=x;
+              beforey=y;
+              tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
+              terminal.setCursorVisible(false);
+              printpuzzle(tester, 10, 10, terminal, moves);
+              tester.pop();
+              moves--;
+              printpuzzle(tester, 10, 10, terminal, moves);
+              terminal.setCursorVisible(true);
+              terminal.moveCursor(beforex,beforey);
+              mode=0;
+            }
+            if (key.getKind()==Key.Kind.ArrowUp){
+              beforex=x;
+              beforey=y;
+              tester.swipeCandies(y-10,x-10,"VERTICAL",1);
+              terminal.setCursorVisible(false);
+              printpuzzle(tester, 10, 10, terminal, moves);
+              tester.pop();
+              moves--;
+              printpuzzle(tester, 10, 10, terminal, moves);
+              terminal.setCursorVisible(true);
+              terminal.moveCursor(beforex,beforey);
+              mode=0;
+            }
+            if (key.getKind()==Key.Kind.ArrowDown){
+              beforex=x;
+              beforey=y;
+              tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
+              terminal.setCursorVisible(false);
+              printpuzzle(tester, 10, 10, terminal, moves);
+              tester.pop();
+              moves--;
+              printpuzzle(tester, 10, 10, terminal, moves);
+              terminal.setCursorVisible(true);
+              terminal.moveCursor(beforex,beforey);
+              mode=0;
+            }
+          }
           if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
             mode = 3;
             terminal.clearScreen();
           }
-
-          if (moves==0) {
+          if (moves<=0 && tester.getPoints()<1000) {
             terminal.clearScreen();
-
+            mode=2;
           }
+        }
+
+        if(mode==2){//lose screen
+          terminal.setCursorVisible(false);
+          terminal.clearScreen();
+          terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+          putString(10,10,terminal, "You lost",Terminal.Color.RED,Terminal.Color.WHITE);
+          terminal.applySGR(Terminal.SGR.RESET_ALL);
+          if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
+            terminal.clearScreen();
+            terminal.exitPrivateMode();
+            running = false;
+          }
+        }
 
 
-      }//if mode==1
-
-    //  if(mode==2){//pause screen
-      //  terminal.setCursorVisible(false);
-      //  terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-        //putString(1,3,terminal, "Welcome to Candy Crush!",Terminal.Color.RED,Terminal.Color.WHITE);
-        //putString(1,7,terminal, "Press the space bar to begin.", Terminal.Color.BLUE,Terminal.Color.WHITE);
-        //erminal.applySGR(Terminal.SGR.RESET_ALL);
-
-        //if (key!=null && key.getCharacter()== 'g') {
-          //mode=0;
-          //terminal.clearScreen();
-      //  }
-
-       if(mode==3) { //win screen
-         terminal.setCursorVisible(false);
-         terminal.clearScreen();
-        terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-         putString(10, 10, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.RED,Terminal.Color.WHITE);
-       terminal.applySGR(Terminal.SGR.RESET_ALL);
-      //   if (key!= null && Key.getKind() == Key.Kind.Escape) {
-      //     terminal.clearScreen();
-      //     terminal.exitPrivateMode();
-      //     running = false;}
-    }
-      }//if mode 3
-
+        if(mode==3) { //win screen
+          terminal.setCursorVisible(false);
+          terminal.clearScreen();
+          terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
+          putString(10, 10, terminal, "CONGRATULATIONS, YOU WON!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          terminal.applySGR(Terminal.SGR.RESET_ALL);
+          if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
+            terminal.clearScreen();
+            terminal.exitPrivateMode();
+            running = false;
+          }
+        }//if mode 3
+      }// if key!=null
     }//while loop
   }//main method
 }//clas
