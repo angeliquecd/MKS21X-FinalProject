@@ -31,3 +31,6 @@ We worked on connecting the terminal commands to the candy grid by linking the s
 
 Day 8 (1/13/19)
 We continued working on connecting the terminal commands to the candy grid and fixing swiping and popping the candies. We also included the feature to keep track of points and end the game when an objective is reached.
+
+Day 9 (1/14/19)
+Made minor changes to the instructions and fixed the game so that win and lose screens work.
