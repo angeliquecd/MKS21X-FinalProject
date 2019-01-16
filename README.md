@@ -36,4 +36,7 @@ Day 9 (1/14/19)
 Made minor changes to the instructions and fixed the game so that win and lose screens work.
 
 Day 10 (1/15/19)
-Figured out how to delay the reprinting and filling of the puzzle after crushing candies so that the screen looks like it is more animated. Also started working on finding a way to highlight the candies that are about to be crushed (if they are 3 or more of the same candy in a row). 
+Figured out how to delay the reprinting and filling of the puzzle after crushing candies so that the screen looks like it is more animated. Also started working on finding a way to highlight the candies that are about to be crushed (if they are 3 or more of the same candy in a row).
+
+Day 11 (1/16/19)
+We worked on creating multiple levels of difficulty based on the size of the CandyGrid, the number of moves, and the objective number of points. We made a menu screen that allows you to choose which level of difficulty you want. We also continued working on highlighting candies. 
