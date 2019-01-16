@@ -246,9 +246,11 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
           }
           inarow=1;}
         else{
-          inarow++;}
-      }
-    }
+          inarow++;
+          if (a==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+            toreturn.add(a-inarow); //adds index of row
+            toreturn.add(b); //adds index of the last candy in the row of candies with the same color
+            toreturn.add(inarow);}}}}
     return toreturn;
   }
 
