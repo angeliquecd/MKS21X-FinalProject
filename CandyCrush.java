@@ -58,15 +58,17 @@ public class CandyCrush {
     int c;
     for (int i =0;i<a.getRow();i++){
       for (int b=0;b<a.getCol();b++){
-        c=a.getGrid()[i][b].getColorInt();
-        if (c==0) t.applyForegroundColor(Terminal.Color.RED);
-        if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
-        if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
-        if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
-        if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
-        if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
         t.moveCursor(x,y);
-        t.putCharacter('O');
+        if (a.getGrid()[i][b]==null) t.putCharacter(' ');
+        else {
+          c=a.getGrid()[i][b].getColorInt();
+          if (c==0) t.applyForegroundColor(Terminal.Color.RED);
+          if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
+          if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
+          if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
+          if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
+          if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+          t.putCharacter('O');}
         x++;
       }
       x=x1;
@@ -74,7 +76,33 @@ public class CandyCrush {
     }
   }
 
-  public static void main(String[] args) {
+  public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move){
+    boolean runs =true;
+    boolean run=true;
+    t.setCursorVisible(false);
+    while(runs||run){
+      //System.out.println("\nROWS: " + checkRows());
+      printpuzzle(test, x1, y1, t, move);
+      Thread.sleep(1000);
+      runs=test.popRows();
+      //Time.wait(1);
+      printpuzzle(test, x1, y1, t, move);
+      //System.out.println("TEST after rows\n" + this.toStringDebug());
+      test.fillEmptyGrid();
+      printpuzzle(test, x1, y1, t, move);
+      //System.out.println("AFTER FILL: \n" + toStringDebug());
+      //System.out.println("\nCOL: " + checkCols());
+      run=test.popCols();
+      printpuzzle(test, x1, y1, t, move);
+      //System.out.println("TEST after cols\n" + this.toStringDebug());
+      test.fillEmptyGrid();
+      printpuzzle(test, x1, y1, t, move);
+      //System.out.println("AFTER FILL: \n" + toStringDebug());
+    }
+    t.setCursorVisible(true);
+  }
+
+  public static void main(String[] args) { //throws InterruptedException
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
 
@@ -164,8 +192,8 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
               terminal.setCursorVisible(false);
-              printpuzzle(tester, 10, 10, terminal, moves);
-              tester.pop();
+              //printpuzzle(tester, 10, 10, terminal, moves);
+              pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -177,8 +205,8 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
               terminal.setCursorVisible(false);
-              printpuzzle(tester, 10, 10, terminal, moves);
-              tester.pop();
+              //printpuzzle(tester, 10, 10, terminal, moves);
+              pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -190,8 +218,8 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",1);
               terminal.setCursorVisible(false);
-              printpuzzle(tester, 10, 10, terminal, moves);
-              tester.pop();
+              //printpuzzle(tester, 10, 10, terminal, moves);
+              pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -203,8 +231,8 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
               terminal.setCursorVisible(false);
-              printpuzzle(tester, 10, 10, terminal, moves);
-              tester.pop();
+              //printpuzzle(tester, 10, 10, terminal, moves);
+              pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);

@@ -188,6 +188,7 @@ public boolean equals(CandyGrid a){
     return false;//returns false if there are no more candies to remove
   }
 
+  //checkRows() returns first case of matching horizontal candies that it finds in the grid
 public ArrayList<Integer>checkRows(){//returns first case of matching that it finds
   int currentcolor;
   int candycolor;
@@ -219,10 +220,9 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
           toreturn.add(a); //adds index of row
           toreturn.add(b-inarow+1); //adds index of the last candy in the row of candies with the same color
           toreturn.add(inarow);}}}} //number of how many of the same candies are in a row
-          return toreturn;
+  return toreturn;
 }
 
-//checkRows() returns first case of matching horizontal candies that it finds in the grid
 
   //checkCols() returns first case of matching vertical candies that it finds in the grid
   public ArrayList<Integer> checkCols(){
@@ -253,7 +253,7 @@ public ArrayList<Integer>checkRows(){//returns first case of matching that it fi
   }
 
 //helper method to fill empty spots in candyGrid
-  private void fillEmptyGrid() {
+  public void fillEmptyGrid() {
     int newcolor;
     for (int x = 0; x < row; x++) {
       for (int y = 0; y < col; y++) {
