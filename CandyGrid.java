@@ -9,7 +9,7 @@ public class CandyGrid{
   private int points;
 
   public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
-    CandyGrid cg = new CandyGrid();
+    CandyGrid cg = new CandyGrid(5);
     System.out.println(cg.toStringDebug());
     System.out.println("ROWS: " + cg.checkRows());
     //System.out.println(cg.toStringDebug());
@@ -34,12 +34,12 @@ public class CandyGrid{
     System.out.println(cg.getSeed());
   }
 
-  public CandyGrid(){
+  public CandyGrid(int z){
       Random seedgen=new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
       randgen=new Random(10); //will change later to be a random seed
-      row=15;
-      col=15;//for now start at ten, will change later for levels
+      row=z;
+      col=z;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
       int colorbefore=100;
       int colorabove=100;

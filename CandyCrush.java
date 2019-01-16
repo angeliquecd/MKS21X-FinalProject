@@ -36,7 +36,7 @@ public class CandyCrush {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
-  public static void setup(Terminal terminal, CandyGrid test, int move){
+  public static void setup2(Terminal terminal, CandyGrid test, int move){
     printpuzzle(test, 10, 10, terminal, move);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape.");
@@ -44,11 +44,13 @@ public class CandyCrush {
     terminal.moveCursor(10,10);
   }
 
-  public static void setup2(Terminal terminal){
+  public static void setup1(Terminal terminal){
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape.");
-    putString(0,2,terminal,"To start the game, press the space bar.");
+  //  putString(0,3,terminal,"To start the game, press the space bar.");
+    putString(0,2, terminal, "Choose a difficulty to start: 1,2 or 3");
     terminal.moveCursor(10,10);
+
   }
 
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
@@ -133,7 +135,7 @@ public class CandyCrush {
     Screen scr = new Screen(terminal, size);
 
     boolean running = true;
-    int mode = 2;
+    int mode = 4;
     long lastTime =  System.currentTimeMillis();
     long currentTime = lastTime;
     long timer = 0;
@@ -142,8 +144,8 @@ public class CandyCrush {
     int x = 10;
     int y = 10;
     Random numgen = new Random();
-    CandyGrid tester= new CandyGrid();//creates new puzzle
-    setup2(terminal);
+    CandyGrid tester= new CandyGrid(10);//creates new puzzle
+
     while(running){
 
 			terminal.applySGR(Terminal.SGR.ENTER_UNDERLINE);
@@ -152,7 +154,6 @@ public class CandyCrush {
 			terminal.applySGR(Terminal.SGR.RESET_ALL);
 			terminal.applyBackgroundColor(Terminal.Color.DEFAULT); //color of highlight on words and squares where cursor moves
 			terminal.applyForegroundColor(Terminal.Color.DEFAULT); //color of writing on screen
-
 
       Key key = terminal.readInput();
       if (key != null) {
@@ -167,12 +168,27 @@ public class CandyCrush {
           running=false;
           terminal.clearScreen();
           terminal.setCursorVisible(false);
-          setup(terminal,tester, moves);
+          setup2(terminal,tester, moves);
           running=true;
         }
 
         terminal.applySGR(Terminal.SGR.RESET_ALL);
+        if (mode==4){
+          terminal.setCursorVisible(false);
+          setup1(terminal);
+          if (key!=null){
+            if (key.getCharacter()=='1'){
+                 tester= new CandyGrid(10);//creates new puzzle
+            }
+            if (key.getCharacter()=='2'){
+                 tester= new CandyGrid(15);//creates new puzzle
+            }
+            if (key.getCharacter()=='3'){
+               tester=new CandyGrid(20);
+            }
+          }
 
+        }
         if(mode==0){//game play with unselected candy
           terminal.setCursorVisible(true);
           if (key!=null){
@@ -180,11 +196,15 @@ public class CandyCrush {
               if (x>10) {
                 x--;
                 terminal.moveCursor(x,y);
+                putString(0,6,terminal, "x:"+x+"y: "+y);
+                terminal.moveCursor(x,y);
               }
             }
             if (key.getKind()==Key.Kind.ArrowRight){
               if (x<9+tester.getCol()) {
                 x++;
+                terminal.moveCursor(x,y);
+                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
@@ -192,11 +212,15 @@ public class CandyCrush {
               if (y>10) {
                 y--;
                 terminal.moveCursor(x,y);
+                putString(0,6,terminal, "x:"+x+"y: "+y);
+                terminal.moveCursor(x,y);
               }
             }
             if (key.getKind()==Key.Kind.ArrowDown){
               if (y<9+tester.getRow()) {
                 y++;
+                terminal.moveCursor(x,y);
+                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
