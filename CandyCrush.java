@@ -139,6 +139,7 @@ public class CandyCrush {
     long currentTime = lastTime;
     long timer = 0;
     int moves = 10;
+    int objective;
 
     int x = 10;
     int y = 10;
@@ -180,6 +181,7 @@ public class CandyCrush {
               terminal.clearScreen();
               tester= new CandyGrid(10);//creates new puzzle
               moves = 10;
+              objective=1000;
               setup2(terminal, tester, moves);
               mode="GAME";
             }
@@ -187,15 +189,17 @@ public class CandyCrush {
               terminal.clearScreen();
               tester= new CandyGrid(15);//creates new puzzle
               moves = 8;
+              objective=800;
               setup2(terminal, tester, moves);
-              mode=0;
+              mode="GAME";
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
               tester=new CandyGrid(20);
               moves = 6;
+              objective=800;
               setup2(terminal, tester, moves);
-              mode=0;
+              mode="GAME";
             }
           }
         }
@@ -301,11 +305,11 @@ public class CandyCrush {
               mode="GAME";
             }
           }
-          if (tester.getPoints()>=1000) { //once you reach 1000 points, you win the game
+          if (tester.getPoints()>=objective) { //once you reach 1000 points, you win the game
             mode="WIN";
             terminal.clearScreen();
           }
-          if (moves<=0 && tester.getPoints()<1000) {
+          if (moves<=0 && tester.getPoints()<objective) {
             terminal.clearScreen();
             mode="LOSE";
           }
