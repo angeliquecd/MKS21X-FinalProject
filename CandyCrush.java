@@ -44,11 +44,11 @@ public class CandyCrush {
     terminal.moveCursor(10,10);
   }
 
-  public static void setup2(Terminal terminal, CandyGrid test, int move){
+  public static void setup2(Terminal terminal, CandyGrid test, int move, int obj){
     printpuzzle(test, 10, 10, terminal, move);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape. To go back, press backspace");
-    putString(0,3,terminal,"Objective: Get 1000 points");
+    putString(0,3,terminal,"Objective: Get "+obj+" points");
     terminal.moveCursor(10,10);
   }
 
@@ -139,7 +139,7 @@ public class CandyCrush {
     long currentTime = lastTime;
     long timer = 0;
     int moves = 10;
-    int objective;
+    int objective=1000;
 
     int x = 10;
     int y = 10;
@@ -182,7 +182,7 @@ public class CandyCrush {
               tester= new CandyGrid(10);//creates new puzzle
               moves = 10;
               objective=1000;
-              setup2(terminal, tester, moves);
+              setup2(terminal, tester, moves, objective);
               mode="GAME";
             }
             if (key.getCharacter()=='2'){
@@ -190,7 +190,7 @@ public class CandyCrush {
               tester= new CandyGrid(15);//creates new puzzle
               moves = 8;
               objective=800;
-              setup2(terminal, tester, moves);
+              setup2(terminal, tester, moves, objective);
               mode="GAME";
             }
             if (key.getCharacter()=='3'){
@@ -198,7 +198,7 @@ public class CandyCrush {
               tester=new CandyGrid(20);
               moves = 6;
               objective=800;
-              setup2(terminal, tester, moves);
+              setup2(terminal, tester, moves, objective);
               mode="GAME";
             }
           }
@@ -244,7 +244,7 @@ public class CandyCrush {
                 terminal.moveCursor(x,y);
               }
             }
-            if (key.getKind()==Key.Kind.Enter) mode=1;
+            if (key.getKind()==Key.Kind.Enter) mode="SELECTED";
           }
         }
 
@@ -289,7 +289,7 @@ public class CandyCrush {
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
-              mode=0;
+              mode="GAME";
             }
             if (key.getKind()==Key.Kind.ArrowDown){
               beforex=x;
