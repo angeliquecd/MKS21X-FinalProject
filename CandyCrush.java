@@ -183,7 +183,7 @@ public class CandyCrush {
               }
             }
             if (key.getKind()==Key.Kind.ArrowRight){
-              if (x<19) {
+              if (x<9+tester.getCol()) {
                 x++;
                 terminal.moveCursor(x,y);
               }
@@ -195,7 +195,7 @@ public class CandyCrush {
               }
             }
             if (key.getKind()==Key.Kind.ArrowDown){
-              if (y<19) {
+              if (y<9+tester.getRow()) {
                 y++;
                 terminal.moveCursor(x,y);
               }
