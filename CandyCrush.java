@@ -37,9 +37,9 @@ public class CandyCrush {
   }
 
   public static void setup1(Terminal terminal){
+    terminal.setCursorVisible(false);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape.");
-  //  putString(0,3,terminal,"To start the game, press the space bar.");
     putString(0,2, terminal, "Choose a difficulty to start: 1,2 or 3");
     terminal.moveCursor(10,10);
   }
@@ -104,7 +104,6 @@ public class CandyCrush {
   public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move) throws InterruptedException{
     boolean runs =true;
     boolean run=true;
-    t.setCursorVisible(false);
     while(runs||run){
       printpuzzle(test, x1, y1, t, move);
       Thread.sleep(500); //delay
@@ -121,7 +120,6 @@ public class CandyCrush {
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
     }
-    t.setCursorVisible(true);
   }
 
   public static void main(String[] args) throws InterruptedException {
@@ -129,21 +127,22 @@ public class CandyCrush {
     terminal.enterPrivateMode();
 
     TerminalSize size = terminal.getTerminalSize();
-    terminal.setCursorVisible(true);
+    terminal.setCursorVisible(false);
 
     Screen scr = new Screen(terminal, size);
 
     boolean running = true;
-    String mode = "SETUP";
-    long lastTime =  System.currentTimeMillis();
-    long currentTime = lastTime;
-    long timer = 0;
-    int moves = 10;
-    int objective=1000;
+    String mode = "SETUP"; //determines the mode
 
-    int x = 10;
-    int y = 10;
-    Random numgen = new Random();
+    //long lastTime =  System.currentTimeMillis();
+    //long currentTime = lastTime;
+    //long timer = 0;
+    //Random numgen = new Random();
+
+    int moves = 10; //number of moves
+    int objective=1000; //points objective
+    int x = 10; int y = 10;//starting point for where to print the grid
+
     CandyGrid tester= new CandyGrid(10);//creates new puzzle
 
     setup1(terminal);
@@ -165,17 +164,8 @@ public class CandyCrush {
           running = false;
         }
 
-        // if (key.getCharacter() == ' ') {//to switch to game play
-        //   mode=4;
-        //   running=false;
-        //   terminal.clearScreen();
-        //   terminal.setCursorVisible(false);
-        //   setup2(terminal,tester, moves);
-        //   running=true;
-        // }
-        //terminal.applySGR(Terminal.SGR.RESET_ALL);
-
         if (mode.equals("SETUP")){ //setup screen
+          terminal.setCursorVisible(false);
           if (key!=null){
             if (key.getCharacter()=='1'){
               terminal.clearScreen();
