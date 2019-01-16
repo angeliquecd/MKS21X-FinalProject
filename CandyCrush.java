@@ -61,7 +61,7 @@ public class CandyCrush {
         t.moveCursor(x,y);
         if (a.getGrid()[i][b]==null) t.putCharacter(' ');
         else {
-          c=a.getGrid()[i][b].getColorInt();
+          c=a.getGrid()[i][b].getColorInt(); //determines what color it should print each candy
           if (c==0) t.applyForegroundColor(Terminal.Color.RED);
           if (c==1) t.applyForegroundColor(Terminal.Color.BLUE);
           if (c==2) t.applyForegroundColor(Terminal.Color.YELLOW);
@@ -76,33 +76,54 @@ public class CandyCrush {
     }
   }
 
-  public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move){
+  public static void highlight(CandyGrid test, Terminal t){
+    ArrayList<Integer> rows, cols;
+    rows = test.checkRows();
+    cols = test.checkCols();
+    int x = 10;
+    int y = 10;
+    if(rows.size()>0) {
+      for(int a = 0; a < rows.get(2); a++) {
+        t.moveCursor(x+rows.get(1), y+rows.get(0));
+        t.applyBackgroundColor(Terminal.Color.CYAN);
+        x++;
+      }
+    }
+    x=10;
+    y=10;
+    if(cols.size()>0) {
+      for(int b = 0; b < cols.get(2); b++) {
+        t.moveCursor(x+rows.get(1), y+rows.get(0));
+        t.applyBackgroundColor(Terminal.Color.CYAN);
+        y++;
+      }
+    }
+  }
+
+  public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move) throws InterruptedException{
     boolean runs =true;
     boolean run=true;
     t.setCursorVisible(false);
     while(runs||run){
-      //System.out.println("\nROWS: " + checkRows());
       printpuzzle(test, x1, y1, t, move);
-      Thread.sleep(1000);
-      runs=test.popRows();
-      //Time.wait(1);
+      Thread.sleep(500); //delay
+      //highlight(test, t);
+      runs=test.popRows(); //crushes rows
       printpuzzle(test, x1, y1, t, move);
-      //System.out.println("TEST after rows\n" + this.toStringDebug());
+      Thread.sleep(500); //delay
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
-      //System.out.println("AFTER FILL: \n" + toStringDebug());
-      //System.out.println("\nCOL: " + checkCols());
-      run=test.popCols();
+      Thread.sleep(500); //delay
+      run=test.popCols(); //crushes columns
       printpuzzle(test, x1, y1, t, move);
-      //System.out.println("TEST after cols\n" + this.toStringDebug());
+      Thread.sleep(500); //delay
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
-      //System.out.println("AFTER FILL: \n" + toStringDebug());
     }
     t.setCursorVisible(true);
   }
 
-  public static void main(String[] args) { //throws InterruptedException
+  public static void main(String[] args) throws InterruptedException {
     Terminal terminal = TerminalFacade.createTextTerminal();
     terminal.enterPrivateMode();
 
