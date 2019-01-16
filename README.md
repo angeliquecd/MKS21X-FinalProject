@@ -34,3 +34,6 @@ We continued working on connecting the terminal commands to the candy grid and f
 
 Day 9 (1/14/19)
 Made minor changes to the instructions and fixed the game so that win and lose screens work.
+
+Day 10 (1/15/19)
+Figured out how to delay the reprinting and filling of the puzzle after crushing candies so that the screen looks like it is more animated. Also started working on finding a way to highlight the candies that are about to be crushed (if they are 3 or more of the same candy in a row). 
