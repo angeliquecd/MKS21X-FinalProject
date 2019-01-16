@@ -38,8 +38,8 @@ public class CandyGrid{
       Random seedgen=new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
       randgen=new Random(10); //will change later to be a random seed
-      row=10;
-      col=10;//for now start at ten, will change later for levels
+      row=15;
+      col=15;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
       int colorbefore=100;
       int colorabove=100;
