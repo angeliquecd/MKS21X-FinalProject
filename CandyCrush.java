@@ -20,6 +20,7 @@ import java.util.*;
 public class CandyCrush {
 
   public static void putString(int r, int c,Terminal t, String s){
+      t.applyBackgroundColor(Terminal.Color.DEFAULT);
       t.moveCursor(r,c);
       for(int i = 0; i < s.length();i++){
         t.putCharacter(s.charAt(i));}
@@ -60,6 +61,7 @@ public class CandyCrush {
     for (int i =0;i<a.getRow();i++){
       for (int b=0;b<a.getCol();b++){
         t.moveCursor(x,y);
+        t.applyBackgroundColor(Terminal.Color.DEFAULT);
         if (a.getGrid()[i][b]==null) t.putCharacter(' ');
         else {
           c=a.getGrid()[i][b].getColorInt(); //determines what color it should print each candy
@@ -77,25 +79,31 @@ public class CandyCrush {
     }
   }
 
-  public static void highlight(CandyGrid test, Terminal t){
-    ArrayList<Integer> rows, cols;
+  public static void highlightRow(CandyGrid test, Terminal t){
+    ArrayList<Integer> rows;
     rows = test.checkRows();
-    cols = test.checkCols();
     int x = 10;
     int y = 10;
     if(rows.size()>0) {
       for(int a = 0; a < rows.get(2); a++) {
         t.moveCursor(x+rows.get(1), y+rows.get(0));
         t.applyBackgroundColor(Terminal.Color.CYAN);
+        t.putCharacter('O');
         x++;
       }
     }
-    x=10;
-    y=10;
+  }
+
+  public static void highlightCol(CandyGrid test, Terminal t) {
+    ArrayList<Integer> cols;
+    cols = test.checkCols();
+    int x = 10;
+    int y = 10;
     if(cols.size()>0) {
-      for(int b = 0; b < cols.get(2); b++) {
-        t.moveCursor(x+rows.get(1), y+rows.get(0));
+      for(int a = 0; a < cols.get(2); a++) {
+        t.moveCursor(x+cols.get(1), y+cols.get(0));
         t.applyBackgroundColor(Terminal.Color.CYAN);
+        t.putCharacter('O');
         y++;
       }
     }
@@ -106,13 +114,14 @@ public class CandyCrush {
     boolean run=true;
     while(runs||run){
       printpuzzle(test, x1, y1, t, move);
+      highlightRow(test, t);
       Thread.sleep(500); //delay
-      //highlight(test, t);
       runs=test.popRows(); //crushes rows
       printpuzzle(test, x1, y1, t, move);
       Thread.sleep(500); //delay
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
+      highlightCol(test, t);
       Thread.sleep(500); //delay
       run=test.popCols(); //crushes columns
       printpuzzle(test, x1, y1, t, move);
@@ -177,17 +186,17 @@ public class CandyCrush {
             }
             if (key.getCharacter()=='2'){
               terminal.clearScreen();
-              tester= new CandyGrid(15);//creates new puzzle
+              tester= new CandyGrid(12);//creates new puzzle
               moves = 8;
-              objective=800;
+              objective=1000;
               setup2(terminal, tester, moves, objective);
               mode="GAME";
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
-              tester=new CandyGrid(20);
+              tester=new CandyGrid(15);
               moves = 6;
-              objective=800;
+              objective=1000;
               setup2(terminal, tester, moves, objective);
               mode="GAME";
             }
