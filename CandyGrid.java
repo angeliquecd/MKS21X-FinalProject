@@ -37,7 +37,7 @@ public class CandyGrid{
   public CandyGrid(int z){
       Random seedgen=new Random();  //will alter later so that user can input a seed instead of one being generated
       seed=seedgen.nextInt();
-      randgen=new Random(10); //will change later to be a random seed
+      randgen=new Random(); //will change later to be a random seed
       row=z;
       col=z;//for now start at ten, will change later for levels
       candyGrid=new Candy[row][col];
@@ -54,12 +54,13 @@ public class CandyGrid{
           if (inarow>=2){//keeps it from reaching three in a row
             color=(color+randgen.nextInt(4)+1)%6;// gives random number that isn't the previous one
             inarow=0;
-          }}
-          else inarow=1;
-          candyGrid[a][b]=new Candy(color,false,false);
-          colorbefore=color;
+          }
         }
+        else inarow=1;
+        candyGrid[a][b]=new Candy(color,false,false);
+        colorbefore=color;
       }
+    }
       //candyGrid[0][0].select();
   }
 

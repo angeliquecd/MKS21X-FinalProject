@@ -182,7 +182,9 @@ public class CandyCrush {
               moves = 10;
               objective=1000;
               setup2(terminal, tester, moves, objective);
+              pop2(tester, 10, 10, terminal, moves);
               mode="GAME";
+              terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='2'){
               terminal.clearScreen();
@@ -190,7 +192,9 @@ public class CandyCrush {
               moves = 8;
               objective=1000;
               setup2(terminal, tester, moves, objective);
+              pop2(tester, 10, 10, terminal, moves);
               mode="GAME";
+              terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
@@ -198,7 +202,9 @@ public class CandyCrush {
               moves = 6;
               objective=1000;
               setup2(terminal, tester, moves, objective);
+              pop2(tester, 10, 10, terminal, moves);
               mode="GAME";
+              terminal.moveCursor(10, 10);
             }
           }
         }
@@ -318,7 +324,7 @@ public class CandyCrush {
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(10,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
+          putString(5,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
@@ -337,7 +343,7 @@ public class CandyCrush {
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(10, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          putString(5, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
