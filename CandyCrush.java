@@ -38,7 +38,7 @@ public class CandyCrush {
   }
 
 //Initial setup for main menu screen
-  public static void setup1(Terminal terminal){
+  public static void setupMenu(Terminal terminal){
     terminal.setCursorVisible(false);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape.");
@@ -47,7 +47,7 @@ public class CandyCrush {
   }
 
 //Setup after a level has been chosen
-  public static void setup2(Terminal terminal, CandyGrid test, int move, int obj){
+  public static void setupGame(Terminal terminal, CandyGrid test, int move, int obj){
     printpuzzle(test, 10, 10, terminal, move);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape. To go back, press backspace");
@@ -115,7 +115,7 @@ public class CandyCrush {
   }
 
 //Similar to pop() in CandyGrid.java but with delays and printing puzzle updates in the terminal
-  public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move) throws InterruptedException{
+  public static void popDelay(CandyGrid test, int x1, int y1, Terminal t, int move) throws InterruptedException{
     boolean runs =true;
     boolean run=true;
     while(runs||run){
@@ -154,7 +154,7 @@ public class CandyCrush {
 
     CandyGrid tester= new CandyGrid(10);//creates new puzzle
 
-    setup1(terminal);
+    setupMenu(terminal);
 
     while(running){
 
@@ -181,8 +181,8 @@ public class CandyCrush {
               tester= new CandyGrid(10);//creates new puzzle
               moves = 10;
               objective=1000;
-              setup2(terminal, tester, moves, objective);
-              pop2(tester, 10, 10, terminal, moves);
+              setupGame(terminal, tester, moves, objective);
+              popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
               terminal.moveCursor(10, 10);
             }
@@ -191,8 +191,8 @@ public class CandyCrush {
               tester= new CandyGrid(12);//creates new puzzle
               moves = 8;
               objective=1000;
-              setup2(terminal, tester, moves, objective);
-              pop2(tester, 10, 10, terminal, moves);
+              setupGame(terminal, tester, moves, objective);
+              popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
               terminal.moveCursor(10, 10);
             }
@@ -201,8 +201,8 @@ public class CandyCrush {
               tester=new CandyGrid(15);
               moves = 6;
               objective=1000;
-              setup2(terminal, tester, moves, objective);
-              pop2(tester, 10, 10, terminal, moves);
+              setupGame(terminal, tester, moves, objective);
+              popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
               terminal.moveCursor(10, 10);
             }
@@ -215,7 +215,7 @@ public class CandyCrush {
             if(key.getKind()==Key.Kind.Backspace) {
               mode="SETUP";
               terminal.clearScreen();
-              setup1(terminal);
+              setupMenu(terminal);
             }
             if (key.getKind()==Key.Kind.ArrowLeft){
               if (x>10) {
@@ -258,7 +258,7 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
               terminal.setCursorVisible(false);
-              pop2(tester, 10, 10, terminal, moves);
+              popDelay(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -270,7 +270,7 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
               terminal.setCursorVisible(false);
-              pop2(tester, 10, 10, terminal, moves);
+              popDelay(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -282,7 +282,7 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",1);
               terminal.setCursorVisible(false);
-              pop2(tester, 10, 10, terminal, moves);
+              popDelay(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -294,7 +294,7 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
               terminal.setCursorVisible(false);
-              pop2(tester, 10, 10, terminal, moves);
+              popDelay(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
@@ -326,7 +326,7 @@ public class CandyCrush {
           if(key.getKind()==Key.Kind.Backspace) { //to go back to menu screen
             mode="SETUP";
             terminal.clearScreen();
-            setup1(terminal);
+            setupMenu(terminal);
           }
         }
 
@@ -345,7 +345,7 @@ public class CandyCrush {
           if(key.getKind()==Key.Kind.Backspace) {
             mode="SETUP";
             terminal.clearScreen();
-            setup1(terminal);
+            setupMenu(terminal);
           }
         } //Win Screen mode
       } //if key!=null
