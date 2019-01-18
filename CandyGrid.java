@@ -114,13 +114,14 @@ public class CandyGrid{
         x=temp.get(0);
         y=temp.get(1);
         inarow=temp.get(2);
+        if (inarow>3) {
+          int col = candyGrid[x][y].getColorInt();
+          candyGrid[x][y] = new Candy(col, false, true);
+          y++;
+        }
         for (int b = y; b < (y+inarow); b++){
           for (int a = x; a >= 0; a--) {
-            if(inarow>3&&a==x){
-              int col = candyGrid[a][b].getColorInt();
-              candyGrid[a][b] = new Candy(col, false, true);
-            }
-            else if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
+            if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
             else {candyGrid[a][b] = candyGrid[a-1][b];}
           }
         }
