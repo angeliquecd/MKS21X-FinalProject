@@ -37,6 +37,7 @@ public class CandyCrush {
     t.applyForegroundColor(Terminal.Color.DEFAULT);
   }
 
+//Initial setup for main menu screen
   public static void setup1(Terminal terminal){
     terminal.setCursorVisible(false);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
@@ -45,6 +46,7 @@ public class CandyCrush {
     terminal.moveCursor(10,10);
   }
 
+//Setup after a level has been chosen
   public static void setup2(Terminal terminal, CandyGrid test, int move, int obj){
     printpuzzle(test, 10, 10, terminal, move);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
@@ -53,6 +55,7 @@ public class CandyCrush {
     terminal.moveCursor(10,10);
   }
 
+//Prints out puzzle with correctly colored candies, points objective, and number of moves, will be continually updated throughout game
   public static void printpuzzle(CandyGrid a, int x , int y, Terminal t, int move){
     putString(0,4,t,"Points: "+a.getPoints());
     putString(0,5,t,"You have " + move + " moves left ");
@@ -79,12 +82,13 @@ public class CandyCrush {
     }
   }
 
+//Highlights horizontally matching candies that are about to be crushed
   public static void highlightRow(CandyGrid test, Terminal t){
     ArrayList<Integer> rows;
     rows = test.checkRows();
     int x = 10;
     int y = 10;
-    if(rows.size()>0) {
+    if(rows.size()>0) { //loops from the first index of row of matching candies to end
       for(int a = 0; a < rows.get(2); a++) {
         t.moveCursor(x+rows.get(1), y+rows.get(0));
         t.applyBackgroundColor(Terminal.Color.CYAN);
@@ -94,6 +98,7 @@ public class CandyCrush {
     }
   }
 
+//Highlights vertically matching candies that are about to be crushed
   public static void highlightCol(CandyGrid test, Terminal t) {
     ArrayList<Integer> cols;
     cols = test.checkCols();
@@ -109,13 +114,14 @@ public class CandyCrush {
     }
   }
 
+//Similar to pop() in CandyGrid.java but with delays and printing puzzle updates in the terminal
   public static void pop2(CandyGrid test, int x1, int y1, Terminal t, int move) throws InterruptedException{
     boolean runs =true;
     boolean run=true;
     while(runs||run){
       printpuzzle(test, x1, y1, t, move);
       highlightRow(test, t);
-      Thread.sleep(500); //delay
+      Thread.sleep(500); //delays so that you can see what is happening in the grid
       runs=test.popRows(); //crushes rows
       printpuzzle(test, x1, y1, t, move);
       Thread.sleep(500); //delay
@@ -142,12 +148,6 @@ public class CandyCrush {
 
     boolean running = true;
     String mode = "SETUP"; //determines the mode
-
-    //long lastTime =  System.currentTimeMillis();
-    //long currentTime = lastTime;
-    //long timer = 0;
-    //Random numgen = new Random();
-
     int moves = 10; //number of moves
     int objective=1000; //points objective
     int x = 10; int y = 10;//starting point for where to print the grid
@@ -167,7 +167,7 @@ public class CandyCrush {
 
       Key key = terminal.readInput();
       if (key != null) {
-        //only for the game mode.
+
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
           running = false;
@@ -176,7 +176,7 @@ public class CandyCrush {
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
           if (key!=null){
-            if (key.getCharacter()=='1'){
+            if (key.getCharacter()=='1'){ //triggers setup for different levels
               terminal.clearScreen();
               tester= new CandyGrid(10);//creates new puzzle
               moves = 10;
@@ -209,7 +209,7 @@ public class CandyCrush {
           }
         }
 
-        if(mode.equals("GAME")){//game play with unselected candy
+        if(mode.equals("GAME")){ //game play with unselected candy
           terminal.setCursorVisible(true);
           if (key!=null){
             if(key.getKind()==Key.Kind.Backspace) {
@@ -221,7 +221,6 @@ public class CandyCrush {
               if (x>10) {
                 x--;
                 terminal.moveCursor(x,y);
-                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
@@ -229,7 +228,6 @@ public class CandyCrush {
               if (x<9+tester.getCol()) {
                 x++;
                 terminal.moveCursor(x,y);
-                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
@@ -237,7 +235,6 @@ public class CandyCrush {
               if (y>10) {
                 y--;
                 terminal.moveCursor(x,y);
-                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
@@ -245,7 +242,6 @@ public class CandyCrush {
               if (y<9+tester.getRow()) {
                 y++;
                 terminal.moveCursor(x,y);
-                putString(0,6,terminal, "x:"+x+"y: "+y);
                 terminal.moveCursor(x,y);
               }
             }
@@ -253,16 +249,15 @@ public class CandyCrush {
           }
         }
 
-        if (mode.equals("SELECTED")){//once a candy has been selected
+        if (mode.equals("SELECTED")){ //game play once a candy has been selected
           terminal.setCursorVisible(true);
           if (key!=null){
             int beforex, beforey;
-            if (key.getKind()==Key.Kind.ArrowLeft){
+            if (key.getKind()==Key.Kind.ArrowLeft){ //candies are switched in the specified direction, then matching candies are crushed
               beforex=x;
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
               terminal.setCursorVisible(false);
-              //printpuzzle(tester, 10, 10, terminal, moves);
               pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
@@ -275,7 +270,6 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
               terminal.setCursorVisible(false);
-              //printpuzzle(tester, 10, 10, terminal, moves);
               pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
@@ -288,7 +282,6 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",1);
               terminal.setCursorVisible(false);
-              //printpuzzle(tester, 10, 10, terminal, moves);
               pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
@@ -301,7 +294,6 @@ public class CandyCrush {
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
               terminal.setCursorVisible(false);
-              //printpuzzle(tester, 10, 10, terminal, moves);
               pop2(tester, 10, 10, terminal, moves);
               moves--;
               printpuzzle(tester, 10, 10, terminal, moves);
@@ -314,13 +306,13 @@ public class CandyCrush {
             mode="WIN";
             terminal.clearScreen();
           }
-          if (moves<=0 && tester.getPoints()<objective) {
+          if (moves<=0 && tester.getPoints()<objective) { //if you run out of moves, you lose
             terminal.clearScreen();
             mode="LOSE";
           }
         }
 
-        if(mode.equals("LOSE")){//lose screen
+        if(mode.equals("LOSE")){ //lose screen
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
@@ -331,7 +323,7 @@ public class CandyCrush {
             terminal.exitPrivateMode();
             running = false;
           }
-          if(key.getKind()==Key.Kind.Backspace) {
+          if(key.getKind()==Key.Kind.Backspace) { //to go back to menu screen
             mode="SETUP";
             terminal.clearScreen();
             setup1(terminal);
@@ -355,8 +347,8 @@ public class CandyCrush {
             terminal.clearScreen();
             setup1(terminal);
           }
-        }//if mode 3
-      }// if key!=null
-    }//while loop
-  }//main method
-}//clas
+        } //Win Screen mode
+      } //if key!=null
+    } //while loop
+  } //main method
+} //class
