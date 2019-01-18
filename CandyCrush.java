@@ -184,7 +184,7 @@ public class CandyCrush {
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              terminal.moveCursor(10, 10);
+              //terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='2'){
               terminal.clearScreen();
@@ -194,7 +194,7 @@ public class CandyCrush {
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              terminal.moveCursor(10, 10);
+              //terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
@@ -204,8 +204,9 @@ public class CandyCrush {
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              terminal.moveCursor(10, 10);
+              //terminal.moveCursor(10, 10);
             }
+            terminal.moveCursor(10, 10);
           }
         }
 
