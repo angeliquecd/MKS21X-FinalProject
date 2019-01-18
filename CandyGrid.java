@@ -31,7 +31,7 @@ public class CandyGrid{
 
 //Constructor - creates a new 2D grid of randomly colored candies//
   public CandyGrid(int z){
-      randgen=new Random(); //will change later to be a random seed
+      randgen=new Random(10); //will change later to be a random seed
       row=z; col=z; //decides the size of the grid
       candyGrid=new Candy[row][col];
       int colorbefore=100;
@@ -167,17 +167,26 @@ public ArrayList<Integer>checkRows(){
     currentcolor=-1;
     candycolor=-1;
     inarow=1;
+    boolean special = false;
     for (int b=0;b<col;b++){
       candycolor=candyGrid[a][b].getColorInt();
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
+        special = candyGrid[a][b].getSpecial();
         if (inarow>=3){
-          toreturn.add(a); //adds index of row
-          toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
-          toreturn.add(inarow); //number of how many of the same candies are in a row
-          return toreturn;
+          if (special) {
+            toreturn.add(0);
+            toreturn.add(b-inarow);
+            toreturn.add(col-1);
+          }
+          else{
+            toreturn.add(a); //adds index of row
+            toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+            toreturn.add(inarow); //number of how many of the same candies are in a row
+            return toreturn;}
         }
         inarow=1;
+        special=false;
       }
       else{
         inarow++;
