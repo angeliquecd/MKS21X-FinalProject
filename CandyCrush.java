@@ -74,6 +74,7 @@ public class CandyCrush {
           if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
           if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
           if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
+          if (a.getGrid()[i][b].getSpecial())
           t.putCharacter('O');}
         x++;
       }
