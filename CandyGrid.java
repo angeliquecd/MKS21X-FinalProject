@@ -50,7 +50,7 @@ public class CandyGrid{
           }
         }
         else inarow=1;
-        candyGrid[a][b]=new Candy(color,false,false);
+        candyGrid[a][b]=new Candy(color,false);
         colorbefore=color;
       }
     }
@@ -216,7 +216,7 @@ public ArrayList<Integer>checkRows(){
       for (int y = 0; y < col; y++) {
         newcolor = randgen.nextInt(6);//random color 0-5
         if (candyGrid[x][y]==null) {
-          candyGrid[x][y] = new Candy(newcolor, false, false);}
+          candyGrid[x][y] = new Candy(newcolor, false);}
       }
     }
   }

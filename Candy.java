@@ -3,10 +3,9 @@ public class Candy{
   private boolean selected;
   private boolean toCrush;
 
-  public Candy(int col, boolean sel, boolean crush) {
+  public Candy(int col, boolean sel) {
     colorInt = col;
     selected = sel;
-    toCrush = crush;
   }
 
   public void select() {
