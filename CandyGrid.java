@@ -114,7 +114,7 @@ public class CandyGrid{
         x=temp.get(0);
         y=temp.get(1);
         inarow=temp.get(2);
-        if (inarow>3) {
+        if (inarow>=3) {
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
           y++;

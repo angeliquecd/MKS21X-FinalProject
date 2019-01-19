@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class CandyCrush {
+public class CandyCrush{
 
   public static void putString(int r, int c,Terminal t, String s){
       t.applyBackgroundColor(Terminal.Color.DEFAULT);
@@ -133,7 +133,7 @@ public class CandyCrush {
       Thread.sleep(500); //delay
       run=test.popCols(); //crushes columns
       printpuzzle(test, x1, y1, t, move);
-      Thread.sleep(500); //delay
+      //3Thread.sleep(500); //delay
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
     }
@@ -172,8 +172,7 @@ public class CandyCrush {
 
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
-          running = false;
-        }
+          running = false;}
 
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
@@ -263,7 +262,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+              //printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -275,7 +274,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -287,7 +286,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -299,7 +298,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+          //    printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
