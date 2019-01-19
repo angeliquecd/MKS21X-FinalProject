@@ -21,9 +21,7 @@ Day 4 - (1/8/19)
 We fixed the pop and check methods. We changed them so that they would only remove one set of candies at a time - so that when used in the game, the methods would be able to work continuously as the game was running. We also started working on the different pages in the game (menu, gameplay, etc).
 
 Day 5 (1/9/19)
-<<<<<<< HEAD
-We finished the method that builds a puzzle by making it so that the puzzle can only be built such that there are no matches to start with. We started looking more at the terminal side and started writing a method to print the game as little baby circles.s
-=======
+
 We finished the method that builds a puzzle by making it so that the puzzle can only be built such that there are no matches to start with. We started looking more at the terminal side and started writing a method to print the game as little baby circles.
 
 Day 6 (1/10/19)
@@ -45,5 +43,4 @@ Day 11 (1/16/19)
 We worked on creating multiple levels of difficulty based on the size of the CandyGrid, the number of moves, and the objective number of points. We made a menu screen that allows you to choose which level of difficulty you want. We also continued working on highlighting candies.
 
 Day 12 (1/17/19)
-We finished working on the methods that highlight candies. Also made minor changes to the different levels of difficulty. 
->>>>>>> f85abdf24381b24f87cd7c08e0a64a6128a54a45
+We finished working on the methods that highlight candies. Also made minor changes to the different levels of difficulty.
