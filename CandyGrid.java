@@ -46,8 +46,7 @@ public class CandyGrid{
             inarow++;
           if (inarow>=2){//keeps it from reaching three in a row
             color=(color+randgen.nextInt(4)+1)%6;// gives random color that isn't the previous one
-            inarow=0;
-          }
+            inarow=0;}
         }
         else inarow=1;
         candyGrid[a][b]=new Candy(color,false);
@@ -114,12 +113,11 @@ public class CandyGrid{
         x=temp.get(0);
         y=temp.get(1);
         inarow=temp.get(2);
-        if (inarow>=3) {
+        if (inarow>3) {
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
-          y++;
-        }
-        for (int b = y; b < (y+inarow); b++){
+          y++;}
+        for (int b = y; b < (y+inarow-1); b++){
           for (int a = x; a >= 0; a--) {
             if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
             else {candyGrid[a][b] = candyGrid[a-1][b];}
@@ -130,7 +128,9 @@ public class CandyGrid{
       }
       return false; //returns false if there are no more candies to remove
     }
-
+//public void deleterow(){
+  //for ()
+//}
 
 //Removes matching vertical candies that have been found by checkCols and shifts down the candies above
   public boolean popCols() {
@@ -170,15 +170,14 @@ public ArrayList<Integer>checkRows(){
     boolean special = false;
     for (int b=0;b<col;b++){
       candycolor=candyGrid[a][b].getColorInt();
+      if (!special && b>0) special = candyGrid[a][b-1].getSpecial();
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
-        special = candyGrid[a][b].getSpecial();
         if (inarow>=3){
           if (special) {
+            toreturn.add(a);
             toreturn.add(0);
-            toreturn.add(b-inarow);
-            toreturn.add(col-1);
-          }
+            toreturn.add(col);}
           else{
             toreturn.add(a); //adds index of row
             toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
