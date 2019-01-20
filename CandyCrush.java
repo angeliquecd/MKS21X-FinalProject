@@ -74,7 +74,9 @@ public class CandyCrush {
           if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
           if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
           if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-          t.putCharacter('O');}
+          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u25A0');
+          else {t.putCharacter('\u25CF');}
+        }
         x++;
       }
       x=x1;
@@ -92,7 +94,7 @@ public class CandyCrush {
       for(int a = 0; a < rows.get(2); a++) {
         t.moveCursor(x+rows.get(1), y+rows.get(0));
         t.applyBackgroundColor(Terminal.Color.CYAN);
-        t.putCharacter('O');
+        t.putCharacter('\u25CF');
         x++;
       }
     }
@@ -108,7 +110,7 @@ public class CandyCrush {
       for(int a = 0; a < cols.get(2); a++) {
         t.moveCursor(x+cols.get(1), y+cols.get(0));
         t.applyBackgroundColor(Terminal.Color.CYAN);
-        t.putCharacter('O');
+        t.putCharacter('\u25CF');
         y++;
       }
     }
@@ -207,6 +209,8 @@ public class CandyCrush {
               //terminal.moveCursor(10, 10);
             }
             terminal.moveCursor(10, 10);
+            x=10;
+            y=10;
           }
         }
 
