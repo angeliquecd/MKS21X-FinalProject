@@ -34,7 +34,7 @@ public class CandyGrid{
       randgen=new Random(10); //will change later to be a random seed
       row=z; col=z; //decides the size of the grid
       candyGrid=new Candy[row][col];
-      int colorbefore=100;
+      int colorbefore;
       int colorabove=100;
       int inarow=1;
       for (int a=0;a<row;a++){
@@ -45,8 +45,8 @@ public class CandyGrid{
           if (color==colorbefore||colorabove==color){//checks if above or below are the same
             inarow++;
           if (inarow>=2){//keeps it from reaching three in a row
-            color=(color+randgen.nextInt(4)+1)%6;// gives random color that isn't the previous one
-            inarow=0;}
+            color=(color+randgen.nextInt(5)+1)%6;// gives random color that isn't the previous one
+            inarow=1;}
         }
         else inarow=1;
         candyGrid[a][b]=new Candy(color,false);
