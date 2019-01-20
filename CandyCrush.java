@@ -17,7 +17,7 @@ import java.io.*;
 import java.util.*;
 
 
-public class CandyCrush{
+public class CandyCrush {
 
   public static void putString(int r, int c,Terminal t, String s){
       t.applyBackgroundColor(Terminal.Color.DEFAULT);
@@ -125,19 +125,17 @@ public class CandyCrush{
       highlightRow(test, t);
       Thread.sleep(500); //delays so that you can see what is happening in the grid
       runs=test.popRows(); //crushes rows
-      if (runs){
       printpuzzle(test, x1, y1, t, move);
       Thread.sleep(500); //delay
       test.fillEmptyGrid();
-      printpuzzle(test, x1, y1, t, move);}
+      printpuzzle(test, x1, y1, t, move);
       highlightCol(test, t);
       Thread.sleep(500); //delay
       run=test.popCols(); //crushes columns
-      if (run){
       printpuzzle(test, x1, y1, t, move);
-      //Thread.sleep(500); //delay
+      Thread.sleep(500); //delay
       test.fillEmptyGrid();
-      printpuzzle(test, x1, y1, t, move);}
+      printpuzzle(test, x1, y1, t, move);
     }
   }
 
@@ -174,17 +172,17 @@ public class CandyCrush{
 
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
-          running = false;}
+          running = false;
+        }
 
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
           if (key!=null){
-            objective=1000;
             if (key.getCharacter()=='1'){ //triggers setup for different levels
               terminal.clearScreen();
               tester= new CandyGrid(10);//creates new puzzle
               moves = 10;
-                //objective=1000;
+              objective=1000;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
@@ -194,7 +192,7 @@ public class CandyCrush{
               terminal.clearScreen();
               tester= new CandyGrid(12);//creates new puzzle
               moves = 8;
-                //objective=1000;
+              objective=1000;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
@@ -204,7 +202,7 @@ public class CandyCrush{
               terminal.clearScreen();
               tester=new CandyGrid(15);
               moves = 6;
-              //objective=1000;
+              objective=1000;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
@@ -267,7 +265,7 @@ public class CandyCrush{
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              //printpuzzle(tester, 10, 10, terminal, moves);
+              printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -279,7 +277,7 @@ public class CandyCrush{
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-            //  printpuzzle(tester, 10, 10, terminal, moves);
+              printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -291,7 +289,7 @@ public class CandyCrush{
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-            //  printpuzzle(tester, 10, 10, terminal, moves);
+              printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -303,7 +301,7 @@ public class CandyCrush{
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-          //    printpuzzle(tester, 10, 10, terminal, moves);
+              printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";

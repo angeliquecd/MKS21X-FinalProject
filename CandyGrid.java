@@ -113,7 +113,7 @@ public class CandyGrid{
         x=temp.get(0);
         y=temp.get(1);
         inarow=temp.get(2);
-        if (inarow>3) {
+        if (inarow>3&&inarow<6) {
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
           y++;}
@@ -145,11 +145,10 @@ public class CandyGrid{
           for (int a =row-1;a>=0;a--){
             candyGrid[a][y]=null;
           }
-          return true;
         }
-        if (inarow>3) { //doesn't fully work yet
-          int col = candyGrid[x][y].getColorInt();
-          candyGrid[x][y] = new Candy(col, false, true);
+        if (inarow>3&&inarow<6) { //doesn't fully work yet
+          int color = candyGrid[x][y].getColorInt();
+          candyGrid[x][y] = new Candy(color, false, true);
           if (x!=9)x--;
         }
         for (int a = x; a >= 0; a--) {
@@ -228,17 +227,18 @@ public ArrayList<Integer>checkRows(){
               toreturn.add(b);
               toreturn.add(row);
             }
-              else{
-            toreturn.add(a-inarow); //adds index of row
-            toreturn.add(b); //adds index of the last candy in the col of candies with the same color
-            toreturn.add(inarow); //number of how many of the same candies are in a row
-            return toreturn;}
+            else{
+              toreturn.add(a-inarow); //adds index of row
+              toreturn.add(b); //adds index of the last candy in the col of candies with the same color
+              toreturn.add(inarow); //number of how many of the same candies are in a row
+              return toreturn;}
           }
           inarow=1;
-        special=false;}
+          special=false;
+        }
         else{
           inarow++;
-          if (a==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+          if (a==row-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
             if (special){
               toreturn.add(0);
               toreturn.add(b);
