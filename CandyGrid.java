@@ -8,30 +8,30 @@ public class CandyGrid{
   private int points;
 
   public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
-    CandyGrid cg = new CandyGrid(5);
-    System.out.println(cg.toStringDebug());
-    System.out.println("ROWS: " + cg.checkRows());
-    System.out.println("COLS: " + cg.checkCols());
-    System.out.println(cg.getPoints());
-
-    cg.swipeCandies(1, 2, "VERTICAL", 1);
-    System.out.println(cg.toStringDebug());
-
-    cg.pop();
-    System.out.println(cg.getPoints());
-
-    System.out.println(cg.toStringDebug());
-    cg.swipeCandies(2, 8, "HORIZONTAL", 1);
-    System.out.println(cg.toStringDebug());
-    cg.pop();
-    System.out.println(cg.getPoints());
-
-    System.out.println(cg.toStringDebug());
+    // CandyGrid cg = new CandyGrid(5);
+    // System.out.println(cg.toStringDebug());
+    // System.out.println("ROWS: " + cg.checkRows());
+    // System.out.println("COLS: " + cg.checkCols());
+    // System.out.println(cg.getPoints());
+    //
+    // cg.swipeCandies(1, 2, "VERTICAL", 1);
+    // System.out.println(cg.toStringDebug());
+    //
+    // cg.pop();
+    // System.out.println(cg.getPoints());
+    //
+    // System.out.println(cg.toStringDebug());
+    // cg.swipeCandies(2, 8, "HORIZONTAL", 1);
+    // System.out.println(cg.toStringDebug());
+    // cg.pop();
+    // System.out.println(cg.getPoints());
+    //
+    // System.out.println(cg.toStringDebug());
   }
 
 //Constructor - creates a new 2D grid of randomly colored candies//
   public CandyGrid(int z){
-      randgen=new Random(10); //will change later to be a random seed
+      randgen=new Random();
       row=z; col=z; //decides the size of the grid
       candyGrid=new Candy[row][col];
       int colorbefore=100;
@@ -40,11 +40,11 @@ public class CandyGrid{
       for (int a=0;a<row;a++){
         colorbefore=100;
         for (int b=0;b<col;b++){
-          int color= randgen.nextInt(6); //the following code is to keep the puzzle from having three in a row to begin with
+          int color= randgen.nextInt(6); //the following code is to keep the puzzle from having too many matching candies to begin with
           if (a>0)colorabove=candyGrid[a-1][b].getColorInt();
-          if (color==colorbefore||colorabove==color){//checks if above or below are the same
+          if (color==colorbefore||colorabove==color){//checks if above or below are the same color
             inarow++;
-          if (inarow>=2){//keeps it from reaching three in a row
+          if (inarow>=2){//keeps it from reaching three in a row of the same color
             color=(color+randgen.nextInt(4)+1)%6;// gives random color that isn't the previous one
             inarow=0;}
         }
@@ -113,7 +113,7 @@ public class CandyGrid{
         x=temp.get(0);
         y=temp.get(1);
         inarow=temp.get(2);
-        if (inarow>3&&inarow<6) {
+        if (inarow>3&&inarow<6) { //if there is a special candy, it clears the whole row
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
           y++;}
