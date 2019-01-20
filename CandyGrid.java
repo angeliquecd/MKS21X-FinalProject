@@ -117,7 +117,7 @@ public class CandyGrid{
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
           y++;}
-        for (int b = y; b < (y+inarow-1); b++){
+        for (int b = y; b < (y+inarow); b++){
           for (int a = x; a >= 0; a--) {
             if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
             else {candyGrid[a][b] = candyGrid[a-1][b];}
@@ -183,7 +183,8 @@ public ArrayList<Integer>checkRows(){
             toreturn.add(a); //adds index of row
             toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
             toreturn.add(inarow); //number of how many of the same candies are in a row
-            return toreturn;}
+            }
+          return toreturn;
         }
         inarow=1;
         special=false;
@@ -228,7 +229,8 @@ public ArrayList<Integer>checkRows(){
               toreturn.add(a-inarow); //adds index of row
               toreturn.add(b); //adds index of the last candy in the col of candies with the same color
               toreturn.add(inarow); //number of how many of the same candies are in a row
-              return toreturn;}
+              }
+            return toreturn;
           }
           inarow=1;
           special=false;
