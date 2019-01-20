@@ -40,10 +40,24 @@ public class CandyCrush {
 //Initial setup for main menu screen
   public static void setupMenu(Terminal terminal){
     terminal.setCursorVisible(false);
-    putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
-    putString(0,1,terminal,"To quit, press escape.");
-    putString(0,2, terminal, "Choose a difficulty to start: 1,2 or 3");
+    putString(10,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+    putString(10,1,terminal,"To quit, press escape.");
+    putString(10,2,terminal,"To view instructions, press \"I\"");
+    putString(10,3, terminal, "Choose a difficulty to start: 1,2 or 3");
     terminal.moveCursor(10,10);
+  }
+
+//Setup for instructions screens
+  public static void setupInstructions(Terminal t){
+    t.setCursorVisible(false);
+    putString(0,0,t,"Press backspace to go back to the menu screen");
+    putString(0,2,t,"The goal of Candy Crush is to crush candies by connecting 3 or\nmore candies of "+
+    "the same color vertically or horizontally. By\ncrushing candies, you can gain points. Try to reach the "+
+    "\nobjective number of points before you run out of moves. You \ncan swipe candies around by first selecting them. "+
+    "Move using \nthe arrow keys to the candy you would like to select, then \npress enter to select it. "+
+    "Once you have selected a candy, use \nthe arrow keys again to indicate which direction you would " +
+    "\nlike to swipe it in. If you get more than 3 candies in a row, \nyou will create a super candy. These "+
+    "super candies can allow \nyou to clear a whole row or column of candies!");
   }
 
 //Setup after a level has been chosen
@@ -74,7 +88,7 @@ public class CandyCrush {
           if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
           if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
           if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u25A0');
+          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u235F');
           else {t.putCharacter('\u25CF');}
         }
         x++;
@@ -178,10 +192,14 @@ public class CandyCrush {
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
           if (key!=null){
+            if (key.getCharacter()=='i'){
+              terminal.clearScreen();
+              mode="INSTRUCTIONS";
+            }
             if (key.getCharacter()=='1'){ //triggers setup for different levels
               terminal.clearScreen();
               tester= new CandyGrid(10);//creates new puzzle
-              moves = 10;
+              moves = 15;
               objective=1000;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
@@ -191,8 +209,8 @@ public class CandyCrush {
             if (key.getCharacter()=='2'){
               terminal.clearScreen();
               tester= new CandyGrid(12);//creates new puzzle
-              moves = 8;
-              objective=1000;
+              moves = 10;
+              objective=1200;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
@@ -201,8 +219,8 @@ public class CandyCrush {
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
               tester=new CandyGrid(13);
-              moves = 6;
-              objective=1000;
+              moves = 8;
+              objective=1500;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
@@ -211,6 +229,18 @@ public class CandyCrush {
             terminal.moveCursor(10, 10);
             x=10;
             y=10;
+          }
+        }
+
+        if(mode.equals("INSTRUCTIONS")){
+          terminal.setCursorVisible(false);
+          setupInstructions(terminal);
+          if(key!=null){
+            if(key.getKind()==Key.Kind.Backspace) {
+              terminal.clearScreen();
+              mode="SETUP";
+              setupMenu(terminal);
+            }
           }
         }
 
