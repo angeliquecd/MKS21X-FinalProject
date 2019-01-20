@@ -2,14 +2,13 @@
 
 Instructions:
 To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it, and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed). Players must reach the designated number of points within the number of moves provided to win.
-To start, the user can hit the space bar.
-To end the game, the user can hit the escape key.
+
+To run the game, simply run the compile.sh and run.sh files. If the candies are too small to see, it might help to enlarge the terminal screen.
 
 Development Log:
 
 Day 1 - (1/4/19)
-  Experimenting with the TerminalDemo.java code to figure out how to use it in our project.
-  We worked on early methods and constructors (set/get methods) for both Candy and CandyGrid classes.
+Experimenting with the TerminalDemo.java code to figure out how to use it in our project. We worked on early methods and constructors (set/get methods) for both Candy and CandyGrid classes.
 
 Day 2 - (1/6/19)
 We worked on methods that will check for matches of three or more candies of the same color. Indices are stored in a 2D ArrayList that is returned by the checkCols or checkRows methods.
