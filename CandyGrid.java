@@ -128,9 +128,6 @@ public class CandyGrid{
       }
       return false; //returns false if there are no more candies to remove
     }
-//public void deleterow(){
-  //for ()
-//}
 
 //Removes matching vertical candies that have been found by checkCols and shifts down the candies above
   public boolean popCols() {
@@ -142,14 +139,14 @@ public class CandyGrid{
         x=temp.get(0) + inarow-1;
         y=temp.get(1);
         if (inarow==row){
-          for (int a =row-1;a>=0;a--){
+          for (int a=row-1;a>=0;a--){
             candyGrid[a][y]=null;
           }
         }
         if (inarow>3&&inarow<6) { //doesn't fully work yet
           int color = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(color, false, true);
-          if (x!=9)x--;
+          x--;
         }
         for (int a = x; a >= 0; a--) {
           if (a-inarow < 0) candyGrid[a][y] = null;
@@ -199,9 +196,9 @@ public ArrayList<Integer>checkRows(){
             toreturn.add(0);
             toreturn.add(row);}
           else{
-          toreturn.add(a);
-          toreturn.add(b-inarow+1);
-          toreturn.add(inarow);}}}}}
+            toreturn.add(a);
+            toreturn.add(b-inarow+1);
+            toreturn.add(inarow);}}}}}
   return toreturn;
 }
 
@@ -222,7 +219,7 @@ public ArrayList<Integer>checkRows(){
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
-            if (special){
+            if (special){ //if player makes 3 in a row and one is a special candy
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);
@@ -238,15 +235,16 @@ public ArrayList<Integer>checkRows(){
         }
         else{
           inarow++;
-          if (a==row-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+          if (a==row-1&&inarow>=3){ //a special case where there are three in a row but in the last column, so the loop terminates before indices are added
             if (special){
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);
             }
-            toreturn.add(a-inarow);
-            toreturn.add(b);
-            toreturn.add(inarow);}}}}
+            else {
+              toreturn.add(a-inarow+1);
+              toreturn.add(b);
+              toreturn.add(inarow);}}}}}
     return toreturn;
   }
 
