@@ -176,7 +176,7 @@ public ArrayList<Integer>checkRows(){
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
         if (inarow>=3){
-          if (special) {
+          if (special&&!candyGrid[a][b].getSpecial()) {
             toreturn.add(a);
             toreturn.add(0);
             toreturn.add(col);}
@@ -188,7 +188,6 @@ public ArrayList<Integer>checkRows(){
           return toreturn;
         }
         inarow=1;
-        special=false;
       }
       else{
         inarow++;
@@ -221,7 +220,7 @@ public ArrayList<Integer>checkRows(){
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
-            if (special){ //if player makes 3 in a row and one is a special candy
+            if (special&&!candyGrid[a][b].getSpecial()){ //if player makes 3 in a row and one is a special candy
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);
