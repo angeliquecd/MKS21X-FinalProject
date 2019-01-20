@@ -143,10 +143,11 @@ public class CandyGrid{
             candyGrid[a][y]=null;
           }
         }
-        if (inarow>3&&inarow<6) { //doesn't fully work yet
+        else if (inarow>3&&inarow<6) { //doesn't fully work yet
           int color = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(color, false, true);
           x--;
+          inarow--;
         }
         for (int a = x; a >= 0; a--) {
           if (a-inarow < 0) candyGrid[a][y] = null;
@@ -233,7 +234,6 @@ public ArrayList<Integer>checkRows(){
             return toreturn;
           }
           inarow=1;
-          special=false;
         }
         else{
           inarow++;
