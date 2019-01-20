@@ -200,8 +200,8 @@ public class CandyCrush {
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
-              tester=new CandyGrid(15);
-              moves = 15;
+              tester=new CandyGrid(13);
+              moves = 6;
               objective=1000;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
