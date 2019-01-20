@@ -46,8 +46,7 @@ public class CandyGrid{
             inarow++;
           if (inarow>=2){//keeps it from reaching three in a row
             color=(color+randgen.nextInt(4)+1)%6;// gives random color that isn't the previous one
-            inarow=0;
-          }
+            inarow=0;}
         }
         else inarow=1;
         candyGrid[a][b]=new Candy(color,false);
@@ -117,9 +116,8 @@ public class CandyGrid{
         if (inarow>3) {
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
-          y++;
-        }
-        for (int b = y; b < (y+inarow); b++){
+          y++;}
+        for (int b = y; b < (y+inarow-1); b++){
           for (int a = x; a >= 0; a--) {
             if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
             else {candyGrid[a][b] = candyGrid[a-1][b];}
@@ -130,7 +128,9 @@ public class CandyGrid{
       }
       return false; //returns false if there are no more candies to remove
     }
-
+//public void deleterow(){
+  //for ()
+//}
 
 //Removes matching vertical candies that have been found by checkCols and shifts down the candies above
   public boolean popCols() {
@@ -141,6 +141,12 @@ public class CandyGrid{
         inarow=temp.get(2);
         x=temp.get(0) + inarow-1;
         y=temp.get(1);
+        if (inarow==row){
+          for (int a =row-1;a>=0;a--){
+            candyGrid[a][y]=null;
+          }
+          return true;
+        }
         if (inarow>3) { //doesn't fully work yet
           int col = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(col, false, true);
@@ -159,26 +165,24 @@ public class CandyGrid{
 
   //checkRows() returns first case of matching (3 or more in a row) horizontal candies that it finds in the grid
 public ArrayList<Integer>checkRows(){
-  int currentcolor;
-  int candycolor;
-  int inarow;
+  int currentcolor, candycolor, inarow;
+  boolean special;
   ArrayList<Integer> toreturn = new ArrayList<Integer>();
   for (int a=0;a<row;a++){
     currentcolor=-1;
     candycolor=-1;
     inarow=1;
-    boolean special = false;
+    special = false;
     for (int b=0;b<col;b++){
       candycolor=candyGrid[a][b].getColorInt();
+      if (!special) special = candyGrid[a][b].getSpecial();
       if (candycolor!=currentcolor) {
         currentcolor=candycolor;
-        special = candyGrid[a][b].getSpecial();
         if (inarow>=3){
           if (special) {
+            toreturn.add(a);
             toreturn.add(0);
-            toreturn.add(b-inarow);
-            toreturn.add(col-1);
-          }
+            toreturn.add(col);}
           else{
             toreturn.add(a); //adds index of row
             toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
@@ -191,37 +195,55 @@ public ArrayList<Integer>checkRows(){
       else{
         inarow++;
         if (b==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+          if (special){
+            toreturn.add(a);
+            toreturn.add(0);
+            toreturn.add(row);}
+          else{
           toreturn.add(a);
           toreturn.add(b-inarow+1);
-          toreturn.add(inarow);}}}}
+          toreturn.add(inarow);}}}}}
   return toreturn;
 }
 
 
 //checkCols() returns first case of matching (3 or more in a row) vertical candies that it finds in the grid
   public ArrayList<Integer> checkCols(){
-    int currentcolor;
-    int candycolor;
-    int inarow;
+    int currentcolor, candycolor, inarow;
+    boolean special;
     ArrayList<Integer> toreturn = new ArrayList<Integer>();
     for (int b=0;b<col;b++){
       currentcolor=-1;
       candycolor=-1;
       inarow=1;
+      special=false;
       for (int a=0;a<row;a++){
         candycolor=candyGrid[a][b].getColorInt();
+        if (!special) special = candyGrid[a][b].getSpecial();
         if (candycolor!=currentcolor) {
           currentcolor=candycolor;
           if (inarow>=3){
+            if (special){
+              toreturn.add(0);
+              toreturn.add(b);
+              toreturn.add(row);
+            }
+              else{
             toreturn.add(a-inarow); //adds index of row
             toreturn.add(b); //adds index of the last candy in the col of candies with the same color
             toreturn.add(inarow); //number of how many of the same candies are in a row
-            return toreturn;
+            return toreturn;}
           }
-          inarow=1;}
+          inarow=1;
+        special=false;}
         else{
           inarow++;
           if (a==col-1&&inarow>=3){ //a special case where there is three in a row but in the last column, so the loop terminates before indices are added
+            if (special){
+              toreturn.add(0);
+              toreturn.add(b);
+              toreturn.add(row);
+            }
             toreturn.add(a-inarow);
             toreturn.add(b);
             toreturn.add(inarow);}}}}
