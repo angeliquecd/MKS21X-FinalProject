@@ -43,7 +43,7 @@ public class CandyCrush {
     putString(10,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(10,1,terminal,"To quit, press escape.");
     putString(10,2,terminal,"To view instructions, press \"I\"");
-    putString(10,3, terminal, "Choose a difficulty to start: 1,2 or 3");
+    putString(10,3, terminal, "Choose a difficulty to start: 1, 2, or 3");
     terminal.moveCursor(10,10);
   }
 
