@@ -8,15 +8,15 @@ public class CandyGrid{
   private int points;
 
   public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
-     CandyGrid cg = new CandyGrid(10);
-     System.out.println(cg.toStringDebug());
-     System.out.println("ROWS: " + cg.checkRows());
-    // System.out.println("COLS: " + cg.checkCols());
-    // System.out.println(cg.getPoints());
-    //
-     cg.swipeCandies(3, 5, "VERTICAL", 1);
-     System.out.println(cg.toStringDebug());
-     System.out.println("ROWS: " + cg.checkRows());
+    //  CandyGrid cg = new CandyGrid(10);
+    //  System.out.println(cg.toStringDebug());
+    //  System.out.println("ROWS: " + cg.checkRows());
+    // // System.out.println("COLS: " + cg.checkCols());
+    // // System.out.println(cg.getPoints());
+    // //
+    //  cg.swipeCandies(3, 5, "VERTICAL", 1);
+    //  System.out.println(cg.toStringDebug());
+    //  System.out.println("ROWS: " + cg.checkRows());
     //
     // cg.pop();
     // System.out.println(cg.getPoints());
@@ -146,20 +146,16 @@ public class CandyGrid{
         x=temp.get(0) + inarow-1;
         y=temp.get(1);
         if (inarow==row){ //if there is a special candy, it clears the whole column
-          for (int a=row-1;a>=0;a--){
-            candyGrid[a][y]=null;
-          }
+          for (int a=row-1;a>=0;a--) candyGrid[a][y]=null;
         }
         else if (inarow>3&&inarow<6) { //creates a special candy
           int color = candyGrid[x][y].getColorInt();
           candyGrid[x][y] = new Candy(color, false, true);
           x--;
-          inarow--;
-        }
+          inarow--;}
         for (int a = x; a >= 0; a--) { //crushes and moves down the candies
           if (a-inarow < 0) candyGrid[a][y] = null; //leaves empty spaces
-          else {candyGrid[a][y] = candyGrid[a-inarow][y];
-          }
+          else candyGrid[a][y] = candyGrid[a-inarow][y];
         }
       points+=inarow*20;
       return true;
@@ -231,13 +227,11 @@ public class CandyGrid{
             if (special&&!candyGrid[a][b].getSpecial()){ //if player makes 3 in a row and one is a special candy
               toreturn.add(0);
               toreturn.add(b);
-              toreturn.add(row);
-            }
+              toreturn.add(row);}
             else{
               toreturn.add(a-inarow); //adds index of row
               toreturn.add(b); //adds index of the last candy in the col of candies with the same color
-              toreturn.add(inarow); //number of how many of the same candies are in a row
-              }
+              toreturn.add(inarow);} //number of how many of the same candies are in a row
             return toreturn;}
           inarow=1;}
         else{
