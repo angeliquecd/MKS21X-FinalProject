@@ -2,14 +2,13 @@
 
 Instructions:
 To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it, and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed). Players must reach the designated number of points within the number of moves provided to win.
-To start, the user can hit the space bar.
-To end the game, the user can hit the escape key.
+
+To run the game, simply run the compile.sh and run.sh files. If the candies are too small to see, it might help to enlarge the terminal screen.
 
 Development Log:
 
 Day 1 - (1/4/19)
-  Experimenting with the TerminalDemo.java code to figure out how to use it in our project.
-  We worked on early methods and constructors (set/get methods) for both Candy and CandyGrid classes.
+Experimenting with the TerminalDemo.java code to figure out how to use it in our project. We worked on early methods and constructors (set/get methods) for both Candy and CandyGrid classes.
 
 Day 2 - (1/6/19)
 We worked on methods that will check for matches of three or more candies of the same color. Indices are stored in a 2D ArrayList that is returned by the checkCols or checkRows methods.
@@ -21,7 +20,6 @@ Day 4 - (1/8/19)
 We fixed the pop and check methods. We changed them so that they would only remove one set of candies at a time - so that when used in the game, the methods would be able to work continuously as the game was running. We also started working on the different pages in the game (menu, gameplay, etc).
 
 Day 5 (1/9/19)
-
 We finished the method that builds a puzzle by making it so that the puzzle can only be built such that there are no matches to start with. We started looking more at the terminal side and started writing a method to print the game as little baby circles.
 
 Day 6 (1/10/19)
@@ -44,3 +42,9 @@ We worked on creating multiple levels of difficulty based on the size of the Can
 
 Day 12 (1/17/19)
 We finished working on the methods that highlight candies. Also made minor changes to the different levels of difficulty.
+
+Day 13 (1/18/19)
+We started working on creating special candies that spawn when more than 3 matching candies are crushed. We worked on getting the special candies to spawn and having them clear a whole row/column when crushed.
+
+Day 14-15 (1/19/19 - 1/20/19)
+We continued working on getting the special candies to work, as well as fixing issues with the swiping of candies and recognizing when to clear a whole column/row only when a special candy was being crushed.
