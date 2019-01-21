@@ -35,7 +35,7 @@ public class CandyGrid{
       randgen=new Random();
       row=z; col=z; //decides the size of the grid
       candyGrid=new Candy[row][col];
-      int colorbefore=100;
+      int colorbefore;
       int colorabove=100;
       int inarow=1;
       for (int a=0;a<row;a++){
@@ -77,13 +77,12 @@ public class CandyGrid{
 
 //swipeCandies switches a selected candy with the candy next to it in a given direction
   public void swipeCandies(int a, int b, String direction, int dir) { //direction says if swiping is vertical or horizontal, dir says left/right or up/down
+    Candy temp = candyGrid[a][b];
     if (direction.equals("VERTICAL")) {
-      Candy temp = candyGrid[a][b];
       candyGrid[a][b] = candyGrid[a-dir][b]; //if dir = 1, temp will switch with candy above it, if dir = -1, temp will switch with candy below it
       candyGrid[a-dir][b] = temp;
     }
     if (direction.equals("HORIZONTAL")) {
-      Candy temp = candyGrid[a][b];
       candyGrid[a][b] = candyGrid[a][b-dir];//if dir = 1, temp will switch with candy to its left
       candyGrid[a][b-dir] = temp;
     }
@@ -193,7 +192,7 @@ public class CandyGrid{
         else{
           inarow++;
           if (b==col-1&&inarow>=3){ //a special case where there are matching candies in the last column, so the loop terminates before indices are added
-            if (special){
+            if (special||candyGrid[a][b-inarow+1].getSpecial()){
               toreturn.add(a);
               toreturn.add(0);
               toreturn.add(col);}
@@ -222,20 +221,21 @@ public class CandyGrid{
           if(inarow==1)special=false;
           currentcolor=candycolor;
           if (inarow>=3){
-            if (special&&!candyGrid[a][b].getSpecial()){ //if player makes 3 in a row and one is a special candy
-              toreturn.add(0);
-              toreturn.add(b);
-              toreturn.add(row);}
-            else{
+            for (int z = a-inarow; z<a; z++){
+              if (candyGrid[z][b].getSpecial()) {//if there is a special candy, prepares to clear the whole row
+                toreturn.add(0);
+                toreturn.add(b);
+                toreturn.add(row);
+                return toreturn;}}
               toreturn.add(a-inarow); //adds index of row
               toreturn.add(b); //adds index of the last candy in the col of candies with the same color
-              toreturn.add(inarow);} //number of how many of the same candies are in a row
+              toreturn.add(inarow); //number of how many of the same candies are in a row
             return toreturn;}
           inarow=1;}
         else{
           inarow++;
           if (a==row-1&&inarow>=3){ //a special case where there are matching candies in the last row, so the loop terminates before indices are added
-            if (special){
+            if (special||candyGrid[a-inarow+1][b].getSpecial()){
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);}

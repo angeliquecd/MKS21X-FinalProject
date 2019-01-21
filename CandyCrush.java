@@ -15,9 +15,14 @@ import com.googlecode.lanterna.input.KeyMappingProfile;
 import com.googlecode.lanterna.screen.Screen;
 import java.io.*;
 import java.util.*;
+/*remaining bugs:
+bottom row and first column still spaz
+has stopped catching certain column matches that go into bottom row
+doesn't always catch power-ups
+generally spazzy
+*/
 
-
-public class CandyCrush {
+public class CandyCrush{
 
   public static void putString(int r, int c,Terminal t, String s){
       t.applyBackgroundColor(Terminal.Color.DEFAULT);
@@ -40,10 +45,10 @@ public class CandyCrush {
 //Initial setup for main menu screen
   public static void setupMenu(Terminal terminal){
     terminal.setCursorVisible(false);
-    putString(10,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
-    putString(10,1,terminal,"To quit, press escape.");
-    putString(10,2,terminal,"To view instructions, press \"I\"");
-    putString(10,3, terminal, "Choose a difficulty to start: 1, 2, or 3");
+    putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
+    putString(0,1,terminal,"To quit, press escape.");
+    putString(0,2,terminal,"To view instructions, press \"I\"");
+    putString(0,3, terminal, "Choose a difficulty to start: 1, 2, or 3");
     terminal.moveCursor(10,10);
   }
 
@@ -139,17 +144,18 @@ public class CandyCrush {
       highlightRow(test, t);
       Thread.sleep(500); //delays so that you can see what is happening in the grid
       runs=test.popRows(); //crushes rows
-      printpuzzle(test, x1, y1, t, move);
-      Thread.sleep(500); //delay
-      test.fillEmptyGrid();
-      printpuzzle(test, x1, y1, t, move);
+      if (runs){
+        printpuzzle(test, x1, y1, t, move);
+        Thread.sleep(500); //delay
+        test.fillEmptyGrid();
+        printpuzzle(test, x1, y1, t, move);}
       highlightCol(test, t);
       Thread.sleep(500); //delay
       run=test.popCols(); //crushes columns
-      printpuzzle(test, x1, y1, t, move);
-      //Thread.sleep(100); //delay
-      test.fillEmptyGrid();
-      printpuzzle(test, x1, y1, t, move);
+      if (run){
+        printpuzzle(test, x1, y1, t, move);
+        test.fillEmptyGrid();
+        printpuzzle(test, x1, y1, t, move);}
     }
   }
 
@@ -165,7 +171,7 @@ public class CandyCrush {
     boolean running = true;
     String mode = "SETUP"; //determines the mode
     int moves = 10; //number of moves
-    int objective=1000; //points objective
+    int objective=800; //points objective
     int x = 10; int y = 10;//starting point for where to print the grid
 
     CandyGrid tester= new CandyGrid(10);//creates new puzzle
@@ -186,8 +192,7 @@ public class CandyCrush {
 
         if (key.getKind() == Key.Kind.Escape) {
           terminal.exitPrivateMode();
-          running = false;
-        }
+          running = false;}
 
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
@@ -196,35 +201,30 @@ public class CandyCrush {
               terminal.clearScreen();
               mode="INSTRUCTIONS";
             }
+            objective=800;
             if (key.getCharacter()=='1'){ //triggers setup for different levels
               terminal.clearScreen();
               tester= new CandyGrid(10);//creates new puzzle
-              moves = 15;
-              objective=1000;
+              moves = 10;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              //terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='2'){
               terminal.clearScreen();
               tester= new CandyGrid(12);//creates new puzzle
-              moves = 10;
-              objective=1200;
+              moves = 8;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              //terminal.moveCursor(10, 10);
             }
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
-              tester=new CandyGrid(13);
-              moves = 10;
-              objective=1500;
+              tester=new CandyGrid(15);
+              moves = 6;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
               mode="GAME";
-              //terminal.moveCursor(10, 10);
             }
             terminal.moveCursor(10, 10);
             x=10;
@@ -295,7 +295,6 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              //printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -307,7 +306,6 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -319,7 +317,6 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-          //    printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -331,7 +328,6 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -350,8 +346,7 @@ public class CandyCrush {
         if(mode.equals("LOSE")){ //lose screen
           terminal.setCursorVisible(false);
           terminal.clearScreen();
-          terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(0,10,terminal, "You lost. Press backspace to return to the menu screen or \nescape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
+          putString(0,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
@@ -370,7 +365,7 @@ public class CandyCrush {
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(0, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the \nmenu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          putString(0, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
