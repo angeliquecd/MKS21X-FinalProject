@@ -147,7 +147,7 @@ public class CandyCrush {
       Thread.sleep(500); //delay
       run=test.popCols(); //crushes columns
       printpuzzle(test, x1, y1, t, move);
-      Thread.sleep(500); //delay
+      //Thread.sleep(100); //delay
       test.fillEmptyGrid();
       printpuzzle(test, x1, y1, t, move);
     }
@@ -295,7 +295,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+              //printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -307,7 +307,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -319,7 +319,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+          //    printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
@@ -331,7 +331,7 @@ public class CandyCrush {
               terminal.setCursorVisible(false);
               popDelay(tester, 10, 10, terminal, moves);
               moves--;
-              printpuzzle(tester, 10, 10, terminal, moves);
+            //  printpuzzle(tester, 10, 10, terminal, moves);
               terminal.setCursorVisible(true);
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
