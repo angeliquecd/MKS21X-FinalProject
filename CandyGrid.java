@@ -38,8 +38,6 @@ public class CandyGrid{
       int colorbefore=100;
       int colorabove=100;
       int inarow=1;
-      int offlimits=100;
-      boolean happenedbefore=false;
       for (int a=0;a<row;a++){
         colorbefore=100;
         for (int b=0;b<col;b++){
