@@ -7,7 +7,7 @@ public class CandyGrid{
   private int col;
   private int points;
 
-  public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
+/*  public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
     //  CandyGrid cg = new CandyGrid(10);
     //  System.out.println(cg.toStringDebug());
     //  System.out.println("ROWS: " + cg.checkRows());
@@ -28,7 +28,7 @@ public class CandyGrid{
     // System.out.println(cg.getPoints());
     //
     // System.out.println(cg.toStringDebug());
-  }
+  }*/
 
 //Constructor - creates a new 2D grid of randomly colored candies//
   public CandyGrid(int z){
@@ -38,20 +38,35 @@ public class CandyGrid{
       int colorbefore=100;
       int colorabove=100;
       int inarow=1;
+      int offlimits=100;
+      boolean happenedbefore=false;
       for (int a=0;a<row;a++){
         colorbefore=100;
         for (int b=0;b<col;b++){
           int color= randgen.nextInt(6); //the following code is to keep the puzzle from having too many matching candies to begin with
           if (a>0)colorabove=candyGrid[a-1][b].getColorInt();
-          if (color==colorbefore||colorabove==color){//checks if above or below are the same color
+          if (color==colorbefore){//checks if above or below are the same color
             inarow++;
           if (inarow>=2){//keeps it from reaching three in a row of the same color
-            color=(color+randgen.nextInt(4)+1)%6;// gives random color that isn't the previous one
-            inarow=0;}
+             offlimits=color;
+            color=(color+randgen.nextInt(3)+1)%6;// gives random color that isn't the previous one
+            inarow=1;
+            happenedbefore=true;}
         }
-        else inarow=1;
+        if (color==colorabove){
+          inarow++;
+        if (inarow>=2){//keeps it from reaching three in a row of the same color
+          if (happenedbefore){
+          color=(color+randgen.nextInt(3)+1)%6;
+          if (color==offlimits) color++;// gives random color that isn't the previous one
+          inarow=1;}
+          else color=(color+randgen.nextInt(3)+1)%6;
+          happenedbefore=false;
+      }}
+        else {inarow=1;
+          colorbefore=color;
+        happenedbefore=false;}
         candyGrid[a][b]=new Candy(color,false);
-        colorbefore=color;
       }
     }
   }
