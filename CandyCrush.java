@@ -88,7 +88,7 @@ public class CandyCrush {
           if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
           if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
           if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u235F');
+          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u25CB');
           else {t.putCharacter('\u25CF');}
         }
         x++;
@@ -351,7 +351,7 @@ public class CandyCrush {
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(5,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
+          putString(0,10,terminal, "You lost. Press backspace to return to the menu screen or \nescape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
@@ -370,7 +370,7 @@ public class CandyCrush {
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(5, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          putString(0, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the \nmenu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
