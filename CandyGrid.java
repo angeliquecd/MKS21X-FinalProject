@@ -194,7 +194,7 @@ public class CandyGrid{
         else{
           inarow++;
           if (b==col-1&&inarow>=3){ //a special case where there are matching candies in the last column, so the loop terminates before indices are added
-            if (special){
+            if (special||candyGrid[a][b-inarow+1].getSpecial()){
               toreturn.add(a);
               toreturn.add(0);
               toreturn.add(col);}
@@ -237,7 +237,7 @@ public class CandyGrid{
         else{
           inarow++;
           if (a==row-1&&inarow>=3){ //a special case where there are matching candies in the last row, so the loop terminates before indices are added
-            if (special){
+            if (special||candyGrid[a-inarow+1][b].getSpecial()){
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);}
