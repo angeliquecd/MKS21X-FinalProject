@@ -78,13 +78,12 @@ public class CandyGrid{
 
 //swipeCandies switches a selected candy with the candy next to it in a given direction
   public void swipeCandies(int a, int b, String direction, int dir) { //direction says if swiping is vertical or horizontal, dir says left/right or up/down
+    Candy temp = candyGrid[a][b];
     if (direction.equals("VERTICAL")) {
-      Candy temp = candyGrid[a][b];
       candyGrid[a][b] = candyGrid[a-dir][b]; //if dir = 1, temp will switch with candy above it, if dir = -1, temp will switch with candy below it
       candyGrid[a-dir][b] = temp;
     }
     if (direction.equals("HORIZONTAL")) {
-      Candy temp = candyGrid[a][b];
       candyGrid[a][b] = candyGrid[a][b-dir];//if dir = 1, temp will switch with candy to its left
       candyGrid[a][b-dir] = temp;
     }
@@ -212,21 +211,21 @@ public ArrayList<Integer>checkRows(){
     int currentcolor, candycolor, inarow;
     boolean special;
     ArrayList<Integer> toreturn = new ArrayList<Integer>();
-    for (int b=0;b<col;b++){
+    for (int b=0;b<col;b++){//row number
       currentcolor=-1;
       candycolor=-1;
       inarow=1;
       special=false;
-      for (int a=0;a<row;a++){
+      for (int a=0;a<col;a++){//column number
         candycolor=candyGrid[a][b].getColorInt();
         if (!special) special = candyGrid[a][b].getSpecial();
         if (candycolor!=currentcolor) {
-          currentcolor=candycolor;
           if (inarow>=3){
             if (special){
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);
+              return toreturn;
             }
               else{
             toreturn.add(a-inarow); //adds index of row
@@ -234,7 +233,8 @@ public ArrayList<Integer>checkRows(){
             toreturn.add(inarow); //number of how many of the same candies are in a row
             return toreturn;}
           }
-          inarow=1;
+        currentcolor=candycolor;
+        inarow=1;
         special=false;}
         else{
           inarow++;
@@ -243,10 +243,14 @@ public ArrayList<Integer>checkRows(){
               toreturn.add(0);
               toreturn.add(b);
               toreturn.add(row);
-            }
+              return toreturn;}
+            else{
             toreturn.add(a-inarow);
             toreturn.add(b);
-            toreturn.add(inarow);}}}}
+            toreturn.add(inarow);
+          return toreturn;}
+          }
+        }}}
     return toreturn;
   }
 
