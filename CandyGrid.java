@@ -8,14 +8,15 @@ public class CandyGrid{
   private int points;
 
   public static void main(String[] args) { //MAIN IS JUST FOR TESTING PURPOSES
-    // CandyGrid cg = new CandyGrid(5);
-    // System.out.println(cg.toStringDebug());
-    // System.out.println("ROWS: " + cg.checkRows());
+     CandyGrid cg = new CandyGrid(10);
+     System.out.println(cg.toStringDebug());
+     System.out.println("ROWS: " + cg.checkRows());
     // System.out.println("COLS: " + cg.checkCols());
     // System.out.println(cg.getPoints());
     //
-    // cg.swipeCandies(1, 2, "VERTICAL", 1);
-    // System.out.println(cg.toStringDebug());
+     cg.swipeCandies(3, 5, "VERTICAL", 1);
+     System.out.println(cg.toStringDebug());
+     System.out.println("ROWS: " + cg.checkRows());
     //
     // cg.pop();
     // System.out.println(cg.getPoints());
@@ -119,8 +120,14 @@ public class CandyGrid{
           y++;}
         for (int b = y; b < (y+inarow); b++){ //crushes and moves down the candies
           for (int a = x; a >= 0; a--) {
-            if (a==0) candyGrid[a][b] = null; //leaves empty spaces after shifting down to fill later
-            else {candyGrid[a][b] = candyGrid[a-1][b];}
+            if (a==0) {
+              if(b==col)candyGrid[a][b-1] = null; //leaves empty spaces after shifting down to fill later
+              else candyGrid[a][b] = null;
+            }
+            else {
+              if (b==col) candyGrid[a][b-1] = candyGrid[a-1][b-1]; //to avoid index out of bounds exception
+              else candyGrid[a][b] = candyGrid[a-1][b];
+            }
           }
         }
         points+=inarow*20;
@@ -175,17 +182,18 @@ public class CandyGrid{
         candycolor=candyGrid[a][b].getColorInt();
         if (!special) special = candyGrid[a][b].getSpecial(); //checks if candy is special
         if (candycolor!=currentcolor) {
+          if(inarow==1)special=false;
           currentcolor=candycolor;
           if (inarow>=3){
-            if (special&&!candyGrid[a][b].getSpecial()) {//if there is a special candy, prepares to clear the whole row
-              toreturn.add(a);
-              toreturn.add(0);
-              toreturn.add(col);}
-            else{
-              toreturn.add(a); //adds index of row
-              toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
-              toreturn.add(inarow); //number of how many of the same candies are in a row
-              }
+            for (int z = b-inarow; z<b; z++){
+              if (candyGrid[a][z].getSpecial()) {//if there is a special candy, prepares to clear the whole row
+                toreturn.add(a);
+                toreturn.add(0);
+                toreturn.add(col);
+                return toreturn;}}
+            toreturn.add(a); //adds index of row
+            toreturn.add(b-inarow); //adds index of the last candy in the row of candies with the same color
+            toreturn.add(inarow); //number of how many of the same candies are in a row
             return toreturn;}
           inarow=1;}
         else{
@@ -194,7 +202,7 @@ public class CandyGrid{
             if (special){
               toreturn.add(a);
               toreturn.add(0);
-              toreturn.add(row);}
+              toreturn.add(col);}
             else{
               toreturn.add(a);
               toreturn.add(b-inarow+1);
@@ -217,6 +225,7 @@ public class CandyGrid{
         candycolor=candyGrid[a][b].getColorInt();
         if (!special) special = candyGrid[a][b].getSpecial();
         if (candycolor!=currentcolor) {
+          if(inarow==1)special=false;
           currentcolor=candycolor;
           if (inarow>=3){
             if (special&&!candyGrid[a][b].getSpecial()){ //if player makes 3 in a row and one is a special candy

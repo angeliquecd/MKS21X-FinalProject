@@ -219,7 +219,7 @@ public class CandyCrush {
             if (key.getCharacter()=='3'){
               terminal.clearScreen();
               tester=new CandyGrid(13);
-              moves = 8;
+              moves = 10;
               objective=1500;
               setupGame(terminal, tester, moves, objective);
               popDelay(tester, 10, 10, terminal, moves);
