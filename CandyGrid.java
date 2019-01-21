@@ -223,14 +223,15 @@ public class CandyGrid{
           if(inarow==1)special=false;
           currentcolor=candycolor;
           if (inarow>=3){
-            if (special&&!candyGrid[a][b].getSpecial()){ //if player makes 3 in a row and one is a special candy
-              toreturn.add(0);
-              toreturn.add(b);
-              toreturn.add(row);}
-            else{
+            for (int z = a-inarow; z<a; z++){
+              if (candyGrid[z][b].getSpecial()) {//if there is a special candy, prepares to clear the whole row
+                toreturn.add(0);
+                toreturn.add(b);
+                toreturn.add(row);
+                return toreturn;}}
               toreturn.add(a-inarow); //adds index of row
               toreturn.add(b); //adds index of the last candy in the col of candies with the same color
-              toreturn.add(inarow);} //number of how many of the same candies are in a row
+              toreturn.add(inarow); //number of how many of the same candies are in a row
             return toreturn;}
           inarow=1;}
         else{
