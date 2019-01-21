@@ -27,7 +27,7 @@ public class Candy{
     return colorInt;
   }
 
-  public boolean getSpecial(){
+  public boolean getSpecial() {
     return special;
   }
 

@@ -16,10 +16,9 @@ import com.googlecode.lanterna.screen.Screen;
 import java.io.*;
 import java.util.*;
 /*remaining bugs:
-swaps from the first row going down don't row
 bottom row and first column still spaz
-has stopped catching certain columns (that go into bottom row)
-doesn't always catch power-up
+has stopped catching certain column matches that go into bottom row
+doesn't always catch power-ups
 generally spazzy
 */
 
