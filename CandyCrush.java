@@ -288,7 +288,7 @@ public class CandyCrush {
           terminal.setCursorVisible(true);
           if (key!=null){
             int beforex, beforey;
-            if (key.getKind()==Key.Kind.ArrowLeft){ //candies are switched in the specified direction, then matching candies are crushed
+            if (key.getKind()==Key.Kind.ArrowLeft && x>10){ //candies are switched in the specified direction, then matching candies are crushed
               beforex=x;
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",1);
@@ -300,7 +300,7 @@ public class CandyCrush {
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
             }
-            if (key.getKind()==Key.Kind.ArrowRight){
+            if (key.getKind()==Key.Kind.ArrowRight && x<9+tester.getCol()){
               beforex=x;
               beforey=y;
               tester.swipeCandies(y-10,x-10,"HORIZONTAL",-1);
@@ -312,7 +312,7 @@ public class CandyCrush {
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
             }
-            if (key.getKind()==Key.Kind.ArrowUp){
+            if (key.getKind()==Key.Kind.ArrowUp && y>10){
               beforex=x;
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",1);
@@ -324,7 +324,7 @@ public class CandyCrush {
               terminal.moveCursor(beforex,beforey);
               mode="GAME";
             }
-            if (key.getKind()==Key.Kind.ArrowDown){
+            if (key.getKind()==Key.Kind.ArrowDown && y<9+tester.getRow()){
               beforex=x;
               beforey=y;
               tester.swipeCandies(y-10,x-10,"VERTICAL",-1);
