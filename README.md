@@ -1,9 +1,9 @@
 # MKS21X-FinalProject
 
 Instructions:
-To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it, and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed). Players must reach the designated number of points within the number of moves provided to win.
+To play our Crush game, the user can toggle around a grid of candies using the arrow keys. They are looking for candies they can swap to make a row of three. Once they find these, they can hover over one of the switches, hit enter to select it (backspace to unselect it), and then hit the arrow key in the direction of the swap. The candies will swap and rows of three or more will disappear (be crushed). Players must reach the designated number of points within the number of moves provided to win.
 
-To run the game, simply run the compile.sh and run.sh files. If the candies are too small to see, it might help to enlarge the terminal screen.
+To run the game, simply run the compile.sh and run.sh files.
 
 Development Log:
 
@@ -48,3 +48,6 @@ We started working on creating special candies that spawn when more than 3 match
 
 Day 14-15 (1/19/19 - 1/20/19)
 We continued working on getting the special candies to work, as well as fixing issues with the swiping of candies and recognizing when to clear a whole column/row only when a special candy was being crushed.
+
+Day 16 (1/21/19)
+Today we did a lot of major bug fixes, finalized grid construction, and added tiny features like the ability to unselect.

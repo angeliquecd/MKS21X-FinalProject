@@ -61,7 +61,7 @@ public class CandyCrush{
     "\nobjective number of points before you run out of moves. You \ncan swipe candies around by first selecting them. "+
     "Move using \nthe arrow keys to the candy you would like to select, then \npress enter to select it. "+
     "Once you have selected a candy, use \nthe arrow keys again to indicate which direction you would " +
-    "\nlike to swipe it in. If you get more than 3 candies in a row, \nyou will create a super candy. These "+
+    "\nlike to swipe it in. If you would like to unselect the candy you chose, hit backspace to continue moving. If you get more than 3 candies in a row, \nyou will create a super candy. These "+
     "super candies can allow \nyou to clear a whole row or column of candies!");
   }
 
