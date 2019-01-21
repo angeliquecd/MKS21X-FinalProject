@@ -47,8 +47,22 @@ public class CandyCrush{
     terminal.setCursorVisible(false);
     putString(0,0,terminal,"WELCOME TO CANDY CRUSH!",Terminal.Color.GREEN,Terminal.Color.WHITE);
     putString(0,1,terminal,"To quit, press escape.");
-    putString(0,2, terminal, "Choose a difficulty to start: 1,2 or 3");
+    putString(0,2,terminal,"To view instructions, press \"I\"");
+    putString(0,3, terminal, "Choose a difficulty to start: 1, 2, or 3");
     terminal.moveCursor(10,10);
+  }
+
+//Setup for instructions screens
+  public static void setupInstructions(Terminal t){
+    t.setCursorVisible(false);
+    putString(0,0,t,"Press backspace to go back to the menu screen");
+    putString(0,2,t,"The goal of Candy Crush is to crush candies by connecting 3 or\nmore candies of "+
+    "the same color vertically or horizontally. By\ncrushing candies, you can gain points. Try to reach the "+
+    "\nobjective number of points before you run out of moves. You \ncan swipe candies around by first selecting them. "+
+    "Move using \nthe arrow keys to the candy you would like to select, then \npress enter to select it. "+
+    "Once you have selected a candy, use \nthe arrow keys again to indicate which direction you would " +
+    "\nlike to swipe it in. If you get more than 3 candies in a row, \nyou will create a super candy. These "+
+    "super candies can allow \nyou to clear a whole row or column of candies!");
   }
 
 //Setup after a level has been chosen
@@ -79,7 +93,7 @@ public class CandyCrush{
           if (c==3) t.applyForegroundColor(Terminal.Color.GREEN);
           if (c==4) t.applyForegroundColor(Terminal.Color.WHITE);
           if (c==5) t.applyForegroundColor(Terminal.Color.MAGENTA);
-          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u25A0');
+          if (a.getGrid()[i][b].getSpecial()) t.putCharacter('\u25CB');
           else {t.putCharacter('\u25CF');}
         }
         x++;
@@ -183,6 +197,10 @@ public class CandyCrush{
         if (mode.equals("SETUP")){ //setup screen
           terminal.setCursorVisible(false);
           if (key!=null){
+            if (key.getCharacter()=='i'){
+              terminal.clearScreen();
+              mode="INSTRUCTIONS";
+            }
             objective=800;
             if (key.getCharacter()=='1'){ //triggers setup for different levels
               terminal.clearScreen();
@@ -209,6 +227,20 @@ public class CandyCrush{
               mode="GAME";
             }
             terminal.moveCursor(10, 10);
+            x=10;
+            y=10;
+          }
+        }
+
+        if(mode.equals("INSTRUCTIONS")){
+          terminal.setCursorVisible(false);
+          setupInstructions(terminal);
+          if(key!=null){
+            if(key.getKind()==Key.Kind.Backspace) {
+              terminal.clearScreen();
+              mode="SETUP";
+              setupMenu(terminal);
+            }
           }
         }
 
@@ -314,7 +346,7 @@ public class CandyCrush{
         if(mode.equals("LOSE")){ //lose screen
           terminal.setCursorVisible(false);
           terminal.clearScreen();
-          putString(5,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
+          putString(0,10,terminal, "You lost. Press backspace to return to the menu screen or escape to exit.",Terminal.Color.RED,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
@@ -333,7 +365,7 @@ public class CandyCrush{
           terminal.setCursorVisible(false);
           terminal.clearScreen();
           terminal.applySGR(Terminal.SGR.ENTER_BOLD,Terminal.SGR.ENTER_BLINK);
-          putString(5, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
+          putString(0, 10, terminal, "CONGRATULATIONS, YOU WON! Press backspace to return to the menu screen or escape to exit.",Terminal.Color.GREEN,Terminal.Color.WHITE);
           terminal.applySGR(Terminal.SGR.RESET_ALL);
           if (key!= null && key.getKind() == Key.Kind.Escape) { //to exit screen
             terminal.clearScreen();
